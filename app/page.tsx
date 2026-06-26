@@ -5,17 +5,17 @@ import type { Metadata } from "next";
 
 const pillars = [
   {
-    img: "/tablet-hero.jpg",
+    img: "/lumiqtab.jpg",
     title: "LumiqTablet",
     body: "An AI reading tablet for children to explore stories, choices, voices, and learning.",
   },
   {
-    img: "/img/lumiqbook-cover.png",
+    img: "/lumiqbookcover.png",
     title: "LumiqBook",
     body: "Personalized printed books that turn digital adventures into keepsakes.",
   },
   {
-    img: "/pal-hero-new.jpg",
+    img: "/lumiqpal.png",
     title: "LumiqPal",
     body: "A holographic AI companion for storytime, conversation, reminders, and family connection.",
   },
@@ -82,7 +82,7 @@ export default function Home() {
         </div>
         <div className="reveal d1">
           <img
-            src="/img/spotlight-touch.jpg"
+            src="/steps1.png"
             alt="Four steps: pick a storybook, add your child's picture, preview and order, and your story is printed with care and delivered with joy."
             loading="lazy"
             style={{ width: "100%", height: "auto", display: "block" }}
