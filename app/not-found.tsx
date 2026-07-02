@@ -2,15 +2,26 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen items-center justify-center px-4" style={{ background: "var(--cream)" }}>
-      <div style={{ maxWidth: 400, textAlign: "center" }}>
-        <h1 style={{ fontSize: "7rem", fontWeight: 700, color: "var(--ink)", lineHeight: 1 }}>404</h1>
-        <h2 style={{ marginTop: "1rem", fontSize: "1.25rem", fontWeight: 600, color: "var(--ink)" }}>Page not found</h2>
-        <p style={{ marginTop: "0.5rem", fontSize: "0.875rem", color: "var(--ink-3)" }}>
-          The page you&apos;re looking for doesn&apos;t exist or has been moved.
+    <div className="flex min-h-screen items-center justify-center px-4" style={{ background: "#fff" }}>
+      <div style={{ maxWidth: 460, textAlign: "center" }}>
+        <span style={{ fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)" }}>
+          Lost in the story
+        </span>
+        <h1 className="serif" style={{ fontSize: "clamp(5rem, 15vw, 8rem)", fontWeight: 600, color: "var(--ink)", lineHeight: 1, margin: "0.75rem 0 0" }}>
+          404<span style={{ color: "var(--gold)" }}>.</span>
+        </h1>
+        <h2 className="serif" style={{ marginTop: "1rem", fontSize: "1.35rem", color: "var(--ink)" }}>This page wandered off.</h2>
+        <p style={{ marginTop: "0.6rem", fontSize: "0.95rem", color: "var(--ink-3)", lineHeight: 1.7 }}>
+          The page you&apos;re looking for doesn&apos;t exist or has been moved — but the universe is still here.
         </p>
-        <div style={{ marginTop: "1.5rem" }}>
+        <div style={{ marginTop: "2rem", display: "flex", gap: "1.5rem", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
           <Link href="/" className="btn btn-navy">Go home</Link>
+          <Link
+            href="/products"
+            style={{ color: "var(--ink-2)", fontSize: "0.95rem", borderBottom: "1px solid var(--ink-4)", paddingBottom: 2 }}
+          >
+            Browse the products
+          </Link>
         </div>
       </div>
     </div>

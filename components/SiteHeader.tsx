@@ -44,15 +44,17 @@ export default function SiteHeader() {
     >
       <div className="container nav-inner">
         <Link href="/" className="nav-logo" onClick={closeMenu}>
-          <svg viewBox="0 0 24 24" fill="none" width="24" height="24">
+          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" aria-hidden>
             <path
               d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
-              fill="var(--purple)"
+              fill="var(--ink)"
             />
-            <circle cx="18" cy="6" r="2" fill="var(--rose)" />
-            <circle cx="6" cy="18" r="1.5" fill="var(--gold)" />
+            <circle cx="19" cy="5" r="2" fill="var(--gold)" />
           </svg>
-          <span className="serif"></span>
+          <span className="nav-wordmark">
+            <strong>LUMIQ</strong>
+            <small>STUDIO</small>
+          </span>
         </Link>
 
         <div className="site-desktop-nav hidden md:flex" aria-label="Primary navigation">
@@ -142,39 +144,42 @@ export default function SiteHeader() {
 
       <style>{`
         .navbar {
-          background: rgba(248,242,234,0.85);
+          background: rgba(255,255,255,0.85);
           backdrop-filter: blur(14px);
           border-bottom: 1px solid transparent;
           transition: background .3s, border-color .3s, box-shadow .3s;
         }
         .navbar.scrolled {
-          background: rgba(248,242,234,0.95);
+          background: rgba(255,255,255,0.95);
           border-bottom-color: var(--border, rgba(0,0,0,0.08));
-          box-shadow: 0 4px 24px rgba(31,20,41,0.06);
+          box-shadow: 0 4px 24px rgba(0,0,0,0.06);
         }
         .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; gap: 1.5rem; }
-        .nav-logo { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.05rem; color: var(--ink); }
+        .nav-logo { display: inline-flex; align-items: center; gap: 0.65rem; font-size: 1.05rem; color: var(--ink); }
+        .nav-wordmark { display: flex; flex-direction: column; line-height: 1; }
+        .nav-wordmark strong { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.32em; color: var(--ink); }
+        .nav-wordmark small { font-size: 0.5rem; font-weight: 500; letter-spacing: 0.62em; color: var(--ink-3); margin-top: 3px; }
         .nav-actions { display: flex; align-items: center; gap: 1rem; }
         .site-desktop-nav { align-items: center; gap: 2rem; }
-        .site-desktop-nav a { color: var(--ink-2); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; position: relative; }
-        .site-desktop-nav a:hover, .site-desktop-nav a.active { color: var(--purple); }
-        .site-desktop-nav a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--purple); border-radius: 2px; }
+        .site-desktop-nav a { color: var(--ink-3); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; position: relative; }
+        .site-desktop-nav a:hover, .site-desktop-nav a.active { color: var(--ink); }
+        .site-desktop-nav a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background: var(--gold); border-radius: 2px; }
         .lang-btn { background: transparent; cursor: pointer; color: var(--ink-2); font-size: 0.9rem; padding: 0.4rem 0.6rem; border-radius: 8px; }
-        .lang-btn:hover { background: rgba(124,91,208,0.08); }
+        .lang-btn:hover { background: rgba(20,20,20,0.05); }
         .lang-switch { position: relative; }
         .lang-menu { position: absolute; right: 0; top: calc(100% + 6px); background: white; border: 1px solid var(--border); border-radius: 10px; padding: 0.4rem; min-width: 160px; box-shadow: var(--shadow); }
         .lang-item { display: block; width: 100%; text-align: left; padding: 0.5rem 0.75rem; background: transparent; cursor: pointer; border-radius: 6px; font-size: 0.9rem; color: var(--ink-2); }
-        .lang-item:hover, .lang-item.active { background: var(--lilac); color: var(--purple-2); }
+        .lang-item:hover, .lang-item.active { background: var(--cream-3); color: var(--ink); }
         .login-btn { background: transparent; border: 1px solid var(--ink); color: var(--ink); }
         .login-btn:hover { background: var(--ink); color: white; }
         .site-mobile-trigger { width: 42px; height: 42px; background: rgba(255,255,255,0.6); border: 1px solid var(--border, rgba(0,0,0,0.1)); border-radius: 10px; padding: 0; cursor: pointer; align-items: center; justify-content: center; color: var(--ink, #1a1a1a); z-index: 3002; flex-shrink: 0; }
         .site-mobile-trigger svg { display: block; pointer-events: none; }
-        .site-mobile-menu { flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(248,242,234,0.98); backdrop-filter: blur(12px); border-top: 1px solid var(--border, rgba(0,0,0,0.1)); box-shadow: 0 8px 24px rgba(0,0,0,0.08); padding: 0.75rem 1rem 1.25rem; z-index: 3001; }
+        .site-mobile-menu { flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(255,255,255,0.98); backdrop-filter: blur(12px); border-top: 1px solid var(--border, rgba(0,0,0,0.1)); box-shadow: 0 8px 24px rgba(0,0,0,0.08); padding: 0.75rem 1rem 1.25rem; z-index: 3001; }
         .site-mobile-menu-head { display: flex; align-items: center; justify-content: space-between; padding: 0.25rem 0.25rem 0.75rem; color: var(--ink); font-weight: 600; }
         .site-mobile-close { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 10px; background: rgba(255,255,255,0.6); color: var(--ink); cursor: pointer; }
         .site-mobile-menu a { display: block; padding: 0.85rem 0.5rem; color: var(--ink); font-weight: 500; font-size: 1rem; border-bottom: 1px solid var(--border); }
         .site-mobile-menu a:last-child { border-bottom: none; }
-        .site-mobile-menu a.active { color: var(--purple); }
+        .site-mobile-menu a.active { color: var(--ink); font-weight: 600; }
         .site-login-btn { display: inline-flex !important; padding: 0.45rem 1rem; font-size: 0.8125rem; }
         @media (max-width: 767px) {
           .site-desktop-nav, .site-desktop-action { display: none !important; }

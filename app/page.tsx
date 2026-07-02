@@ -167,9 +167,6 @@ export default function Home() {
 
       {/* Subscribe */}
       <section className="ed-subscribe reveal">
-        <div className="ed-subscribe-bg">
-          <img src="/community-hero.jpg" alt="" loading="lazy" />
-        </div>
         <div className="container ed-subscribe-inner">
           <span className="kicker" style={{ color: "var(--gold)" }}>NEWSLETTER</span>
           <h2 className="serif">Stay in the Dream</h2>
@@ -202,17 +199,17 @@ export default function Home() {
         .ed-section-head { max-width: 720px; margin-bottom: 3rem; }
         .ed-section-head h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; margin-top: 0.5rem; }
         .ed-section-foot { margin-top: 2.5rem; }
-        .ed-arrow-link { color: var(--purple); font-weight: 500; letter-spacing: 0.02em; }
-        .ed-arrow-link:hover { color: var(--purple-2); }
+        .ed-arrow-link { color: var(--ink-2); font-weight: 500; letter-spacing: 0.02em; border-bottom: 1px solid var(--ink-4); padding-bottom: 2px; transition: color .25s, border-color .25s; }
+        .ed-arrow-link:hover { color: var(--gold); border-color: var(--gold); }
 
         .ed-hero { padding: 4rem 0 2rem; }
         .ed-hero-inner { display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; align-items: center; }
         .ed-hero-text h1 { font-size: clamp(2.5rem, 6vw, 5rem); line-height: 1.02; letter-spacing: -0.02em; margin: 0.75rem 0 1.5rem; }
-        .ed-hero-text h1 em { font-style: italic; color: var(--purple); }
+        .ed-hero-text h1 em { font-style: italic; color: var(--gold); }
         .ed-lead { font-size: 1.15rem; color: var(--ink-2); max-width: 480px; line-height: 1.65; }
         .ed-cta-row { display: flex; align-items: center; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
         .btn-ghost-link { color: var(--ink-2); border-bottom: 1px solid var(--ink-3); padding-bottom: 2px; font-size: 0.95rem; }
-        .btn-ghost-link:hover { color: var(--purple); border-color: var(--purple); }
+        .btn-ghost-link:hover { color: var(--ink); border-color: var(--ink); }
         .ed-hero-media { aspect-ratio: 16 / 10; overflow: hidden; border-radius: 8px; box-shadow: var(--shadow-lg); }
         .ed-hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; animation: ed-kenburns 14s ease-in-out infinite alternate; }
         @keyframes ed-kenburns { from { transform: scale(1) translate(0,0); } to { transform: scale(1.06) translate(-1%, -1%); } }
@@ -230,16 +227,14 @@ export default function Home() {
         .ed-voice blockquote { font-size: 1.15rem; line-height: 1.5; color: var(--ink); margin: 0 0 1.5rem; }
         .ed-voice figcaption { color: var(--ink-3); font-size: 0.9rem; }
 
-        .ed-subscribe { position: relative; padding: 7rem 0; overflow: hidden; margin-top: 4rem; }
-        .ed-subscribe-bg { position: absolute; inset: 0; z-index: 0; }
-        .ed-subscribe-bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
-        .ed-subscribe-bg::after { content:""; position:absolute; inset:0; background: linear-gradient(135deg, rgba(31,20,41,0.55), rgba(91,63,171,0.5)); }
-        .ed-subscribe-inner { position: relative; z-index: 1; text-align: center; color: white; }
-        .ed-subscribe-inner h2 { font-size: clamp(2rem, 4vw, 3rem); margin: 0.5rem 0 1rem; color: white; }
-        .ed-subscribe-inner p { color: rgba(255,255,255,0.85); max-width: 500px; margin: 0 auto; }
+        .ed-subscribe { position: relative; padding: 7rem 0; overflow: hidden; margin-top: 4rem; background: #fff; border-top: 1px solid var(--border); }
+        .ed-subscribe-inner { position: relative; z-index: 1; text-align: center; color: var(--ink); }
+        .ed-subscribe-inner h2 { font-size: clamp(2rem, 4vw, 3rem); margin: 0.5rem 0 1rem; color: var(--ink); }
+        .ed-subscribe-inner p { color: var(--ink-2); max-width: 500px; margin: 0 auto; }
         .ed-subscribe-form { display: flex; gap: 0.75rem; max-width: 460px; margin: 2rem auto 0.75rem; }
-        .ed-subscribe-form input { flex: 1; padding: 0.85rem 1rem; border-radius: 999px; background: rgba(255,255,255,0.95); color: var(--ink); font-size: 0.95rem; border: none; }
-        .ed-subscribe-note { font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+        .ed-subscribe-form input { flex: 1; padding: 0.85rem 1rem; border-radius: 999px; background: #fff; color: var(--ink); font-size: 0.95rem; border: 1px solid var(--border-h); }
+        .ed-subscribe-form input:focus { border-color: var(--ink); }
+        .ed-subscribe-note { font-size: 0.8rem; color: var(--ink-3); }
 
         @media (max-width: 900px) {
           .ed-hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }

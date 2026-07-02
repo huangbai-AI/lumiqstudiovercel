@@ -43,7 +43,7 @@ export default function PrelaunchPage() {
           <button type="submit" className="btn btn-navy" style={{ padding: ".75rem 1.5rem" }}>Notify me</button>
         </form>
         <div style={{ marginTop: "3rem" }}>
-          <Link href="/products" style={{ color: "var(--purple)", fontWeight: 500 }}>← Back to products</Link>
+          <Link href="/products" style={{ color: "var(--ink-2)", fontWeight: 500, borderBottom: "1px solid var(--ink-4)", paddingBottom: 2 }}>← Back to products</Link>
         </div>
       </section>
     </div>

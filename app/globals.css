@@ -9,33 +9,33 @@
 }
 
 .lumiq-root {
-  --cream: #F8F2EA;
-  --cream-2: #FBF6EF;
-  --cream-3: #FDF9F4;
-  --lilac: #EDE6F7;
-  --lilac-2: #DCD0F0;
-  --blush: #FBE6E0;
-  --peach: #FCEEDC;
-  --purple: #7C5BD0;
-  --purple-2: #5B3FAB;
-  --purple-soft: #A595D6;
-  --gold: #C99B3A;
-  --mint: #6FB89E;
-  --rose: #D85C7A;
-  --ink: #1F1429;
-  --ink-2: #3F3656;
-  --ink-3: #6B6383;
-  --ink-4: #9C95B0;
-  --wine: #6B1E37;
-  --wine-2: #4A1428;
-  --wine-deep: #2A0A1A;
-  --navy: #15131F;
-  --card: rgba(255,255,255,0.65);
-  --card-h: rgba(255,255,255,0.9);
-  --border: rgba(31,20,41,0.08);
-  --border-h: rgba(31,20,41,0.16);
-  --shadow: 0 14px 40px -12px rgba(91,63,171,0.18);
-  --shadow-lg: 0 28px 70px -20px rgba(91,63,171,0.25);
+  --cream: #FFFFFF;
+  --cream-2: #FAFAFA;
+  --cream-3: #F5F5F7;
+  --lilac: #F2F1F6;
+  --lilac-2: #E7E5EE;
+  --blush: #F7F6F4;
+  --peach: #F8F6F2;
+  --purple: #6C5BC4;
+  --purple-2: #52449E;
+  --purple-soft: #A79BD6;
+  --gold: #A9842E;
+  --mint: #5FA98F;
+  --rose: #C4536F;
+  --ink: #141414;
+  --ink-2: #3D3D42;
+  --ink-3: #6E6E76;
+  --ink-4: #9C9CA3;
+  --wine: #2B2B30;
+  --wine-2: #1D1D21;
+  --wine-deep: #141416;
+  --navy: #111111;
+  --card: #FFFFFF;
+  --card-h: #FFFFFF;
+  --border: rgba(20,20,20,0.09);
+  --border-h: rgba(20,20,20,0.2);
+  --shadow: 0 14px 40px -12px rgba(0,0,0,0.10);
+  --shadow-lg: 0 28px 70px -20px rgba(0,0,0,0.14);
   --font-serif: 'Playfair Display', 'Noto Serif TC', 'Noto Serif JP', serif;
   --font-sans: 'Inter', 'Noto Sans TC', 'Noto Sans JP', sans-serif;
 
@@ -57,8 +57,8 @@
 
 .lumiq-root .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 .lumiq-root .kicker {
-  text-transform: uppercase; letter-spacing: 0.1em; color: var(--purple);
-  font-size: 1.375rem; font-weight: 700; display: block; margin-bottom: 1rem;
+  text-transform: uppercase; letter-spacing: 0.2em; color: var(--gold);
+  font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 1rem;
 }
 .lumiq-root #spotlights,
 .lumiq-root #how,
@@ -94,12 +94,10 @@
 
 .lumiq-root .bg-layer {
   position: fixed; inset: 0; z-index: -1;
-  background: radial-gradient(circle at 10% 20%, var(--cream-3), transparent 60%),
-              radial-gradient(circle at 90% 80%, var(--blush), transparent 60%),
-              radial-gradient(circle at 50% 50%, var(--cream), var(--peach));
+  background: #FFFFFF;
 }
-.lumiq-root .stars { position: absolute; inset: 0; opacity: 0.5; background-image: radial-gradient(var(--purple-soft) 1px, transparent 1px); background-size: 40px 40px; }
-.lumiq-root .bokeh { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: lumiq-drift 14s infinite alternate ease-in-out; }
+.lumiq-root .stars { display: none; }
+.lumiq-root .bokeh { display: none; position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; animation: lumiq-drift 14s infinite alternate ease-in-out; }
 .lumiq-root .b1 { width: 40vw; height: 40vw; background: var(--lilac); top: -10%; left: -10%; }
 .lumiq-root .b2 { width: 30vw; height: 30vw; background: var(--peach); bottom: 10%; right: -5%; animation-delay: -3s; animation-duration: 16s; }
 .lumiq-root .b3 { width: 25vw; height: 25vw; background: var(--purple-soft); top: 40%; left: 20%; animation-delay: -7s; opacity: 0.3; }
@@ -108,7 +106,7 @@
 .lumiq-root .b6 { width: 30vw; height: 30vw; background: var(--rose); top: 60%; right: 40%; animation-delay: -9s; opacity: 0.15; }
 
 .lumiq-root .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.5rem 0; transition: all 0.3s ease; }
-.lumiq-root .navbar.scrolled { padding: 1rem 0; background: rgba(248,242,234,0.92); backdrop-filter: blur(12px); box-shadow: var(--shadow); }
+.lumiq-root .navbar.scrolled { padding: 1rem 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); box-shadow: var(--shadow); }
 .lumiq-root .nav-inner { display: flex; align-items: center; justify-content: space-between; }
 .lumiq-root .nav-logo { display: flex; align-items: center; gap: 0.5rem; font-size: 1.5rem; font-weight: 600; color: var(--ink); }
 .lumiq-root .nav-links { display: flex; gap: 2rem; }
@@ -144,17 +142,17 @@
 .lumiq-root .pillars-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
 .lumiq-root .pillar-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 1.25rem 1.25rem 2rem; text-align: left; backdrop-filter: blur(12px); transition: all 0.4s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
 .lumiq-root .pillar-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); background: var(--card-h); }
-.lumiq-root .pillar-art { aspect-ratio: 1 / 1; border-radius: 16px; margin-bottom: 1.5rem; overflow: hidden; background: linear-gradient(135deg, var(--lilac), var(--blush)); }
+.lumiq-root .pillar-art { aspect-ratio: 1 / 1; border-radius: 16px; margin-bottom: 1.5rem; overflow: hidden; background: var(--cream-3); }
 .lumiq-root .pillar-art img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .lumiq-root .pillar-card h3 { font-size: 1.625rem; margin: 0 0.5rem 0.75rem; color: var(--ink); }
 .lumiq-root .pillar-card p { color: var(--wine); margin: 0 0.5rem; }
 
 .lumiq-root .product-block { margin-top: 5rem; }
 .lumiq-root .product-header { display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; align-items: center; margin-bottom: 2.5rem; }
-.lumiq-root .product-num { width: 64px; height: 64px; border-radius: 20px; background: linear-gradient(135deg, var(--purple), var(--purple-soft)); color: white; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 1.75rem; font-weight: 600; box-shadow: var(--shadow); }
-.lumiq-root .product-block.pal .product-num { background: linear-gradient(135deg, var(--rose), var(--gold)); }
-.lumiq-root .product-eyebrow { font-size: 1.375rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--purple); margin-bottom: 0.5rem; }
-.lumiq-root .product-block.pal .product-eyebrow { color: var(--rose); }
+.lumiq-root .product-num { width: 64px; height: 64px; border-radius: 20px; background: var(--ink); color: white; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 1.75rem; font-weight: 600; box-shadow: var(--shadow); }
+.lumiq-root .product-block.pal .product-num { background: var(--ink); }
+.lumiq-root .product-eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+.lumiq-root .product-block.pal .product-eyebrow { color: var(--gold); }
 .lumiq-root .product-title { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; color: var(--ink); }
 .lumiq-root .product-title em { font-style: italic; color: var(--purple); }
 .lumiq-root .product-block.pal .product-title em { color: var(--rose); }
@@ -164,7 +162,7 @@
 .lumiq-root .feat-img-grid.three { grid-template-columns: repeat(3, 1fr); }
 .lumiq-root .feat-img-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; overflow: hidden; transition: all 0.4s; display: flex; flex-direction: column; }
 .lumiq-root .feat-img-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-.lumiq-root .feat-img-thumb { aspect-ratio: 4 / 3; background: linear-gradient(135deg, var(--lilac), var(--blush)); overflow: hidden; }
+.lumiq-root .feat-img-thumb { aspect-ratio: 4 / 3; background: var(--cream-3); overflow: hidden; }
 .lumiq-root .feat-img-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .lumiq-root .feat-img-body { padding: 1.5rem 1.75rem 1.75rem; }
 .lumiq-root .feat-img-body h4 { font-size: 1.375rem; margin-bottom: 0.5rem; color: var(--ink); }
@@ -174,8 +172,8 @@
 .lumiq-root .duo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
 .lumiq-root .duo-card { background: var(--card); border: 1px solid var(--border); border-radius: 32px; padding: 3rem; position: relative; overflow: hidden; cursor: pointer; transition: all 0.4s; }
 .lumiq-root .duo-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
-.lumiq-root .duo-card.book { background: linear-gradient(180deg, var(--card), rgba(237,230,247,0.5)); }
-.lumiq-root .duo-card.pal { background: linear-gradient(180deg, var(--card), rgba(251,230,224,0.5)); }
+.lumiq-root .duo-card.book { background: var(--card); }
+.lumiq-root .duo-card.pal { background: var(--card); }
 .lumiq-root .duo-pill { display: inline-block; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
 .lumiq-root .book .duo-pill { background: var(--purple); color: white; }
 .lumiq-root .pal .duo-pill { background: var(--rose); color: white; }
@@ -202,7 +200,7 @@
 .lumiq-root .tablet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 4rem; }
 .lumiq-root .tablet-visual { position: relative; height: 500px; display: flex; align-items: center; justify-content: center; }
 .lumiq-root .tab-device { width: 520px; height: 340px; max-width: 100%; background: white; border-radius: 24px; box-shadow: -15px 25px 50px rgba(31,20,41,0.1); border: 8px solid #f8f8fa; position: relative; animation: lumiq-bob 6s ease-in-out infinite; overflow: hidden; }
-.lumiq-root .tab-screen { width: 100%; height: 100%; border-radius: 16px; background: linear-gradient(180deg, #3B1B4D, var(--gold)); position: relative; overflow: hidden; }
+.lumiq-root .tab-screen { width: 100%; height: 100%; border-radius: 16px; background: var(--ink); position: relative; overflow: hidden; }
 .lumiq-root .tab-stars { position: absolute; inset: 0; background-image: radial-gradient(white 1px, transparent 1px); background-size: 20px 20px; opacity: 0.4; }
 .lumiq-root .tab-snippet { position: absolute; bottom: 20px; left: 20px; right: 20px; background: rgba(255,255,255,0.2); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); border-radius: 12px; padding: 1rem; color: white; }
 .lumiq-root .tab-snippet p { font-size: 0.875rem; font-weight: 600; margin-bottom: 0.25rem; }
@@ -238,25 +236,28 @@
 .lumiq-root .news-card h2 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--ink); }
 .lumiq-root .news-card p { color: var(--ink-2); }
 
-.lumiq-root .footer { background: linear-gradient(180deg, var(--wine-2), var(--wine-deep)); color: var(--peach); padding: 5rem 0 2rem; }
-.lumiq-root .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 4rem; }
-.lumiq-root .foot-logo { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-serif); font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: white; }
-.lumiq-root .foot-logo svg { width: 24px; height: 24px; fill: var(--peach); }
-.lumiq-root .foot-blurb { color: rgba(252,238,220,0.8); max-width: 280px; font-size: 0.9375rem; }
-.lumiq-root .foot-nav h4 { color: white; font-size: 1rem; margin-bottom: 1.5rem; }
+.lumiq-root .footer { background: #FFFFFF; border-top: 1px solid var(--border); color: var(--ink-2); padding: 5rem 0 2rem; }
+.lumiq-root .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 4rem; }
+.lumiq-root .foot-logo { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.25rem; color: var(--ink); }
+.lumiq-root .foot-wordmark { display: flex; flex-direction: column; line-height: 1; }
+.lumiq-root .foot-wordmark strong { font-family: var(--font-sans); font-size: 1.05rem; font-weight: 600; letter-spacing: 0.32em; color: var(--ink); }
+.lumiq-root .foot-wordmark small { font-size: 0.55rem; font-weight: 500; letter-spacing: 0.62em; color: var(--ink-3); margin-top: 3px; }
+.lumiq-root .foot-blurb { color: var(--ink-3); max-width: 280px; font-size: 0.9375rem; line-height: 1.65; }
+.lumiq-root .foot-nav h4 { color: var(--gold); font-family: var(--font-sans); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; }
+.lumiq-root .foot-tag { font-family: var(--font-serif); font-style: italic; color: var(--ink-3); }
 .lumiq-root .foot-nav ul li { margin-bottom: 0.75rem; }
-.lumiq-root .foot-nav a { color: rgba(252,238,220,0.8); transition: color 0.2s; font-size: 0.9375rem; }
-.lumiq-root .foot-nav a:hover { color: white; }
+.lumiq-root .foot-nav a { color: var(--ink-3); transition: color 0.2s; font-size: 0.9375rem; }
+.lumiq-root .foot-nav a:hover { color: var(--ink); }
 .lumiq-root .social-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.lumiq-root .spill { background: rgba(255,255,255,0.1); padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.8125rem; transition: background 0.2s; }
-.lumiq-root .spill:hover { background: rgba(255,255,255,0.2); color: white; }
-.lumiq-root .foot-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; display: flex; justify-content: space-between; font-size: 0.875rem; color: rgba(252,238,220,0.6); }
+.lumiq-root .spill { background: rgba(20,20,20,0.05); padding: 0.4rem 1rem; border-radius: 999px; font-size: 0.8125rem; transition: background 0.2s, color 0.2s; color: var(--ink-2); }
+.lumiq-root .spill:hover { background: rgba(20,20,20,0.1); color: var(--ink); }
+.lumiq-root .foot-bottom { border-top: 1px solid var(--border); padding-top: 2rem; display: flex; justify-content: space-between; font-size: 0.875rem; color: var(--ink-3); }
 
 .lumiq-root .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
 .lumiq-root .why-card { background: var(--card); border: 1px solid var(--border); border-radius: 28px; padding: 2.5rem; backdrop-filter: blur(12px); transition: all 0.4s; }
 .lumiq-root .why-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-.lumiq-root .why-card.passive { background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(220,208,240,0.25)); }
-.lumiq-root .why-card.active { background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(252,238,220,0.55)); border-color: rgba(124,91,208,0.25); }
+.lumiq-root .why-card.passive { background: #FFFFFF; }
+.lumiq-root .why-card.active { background: #FFFFFF; border-color: var(--border-h); }
 .lumiq-root .why-tag { display: inline-block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); padding: 0.4rem 0.85rem; border-radius: 999px; background: rgba(31,20,41,0.06); margin-bottom: 1.5rem; }
 .lumiq-root .why-tag.accent { background: var(--purple); color: white; }
 .lumiq-root .why-card h3 { font-size: 1.625rem; color: var(--ink); margin-bottom: 1rem; line-height: 1.25; }
@@ -266,7 +267,7 @@
 .lumiq-root .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; margin-top: 3rem; align-items: stretch; }
 .lumiq-root .plan-card { background: var(--card); border: 1px solid var(--border); border-radius: 28px; padding: 2.25rem 2rem; display: flex; flex-direction: column; backdrop-filter: blur(12px); transition: all 0.4s; }
 .lumiq-root .plan-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-.lumiq-root .plan-card.featured { background: linear-gradient(180deg, rgba(237,230,247,0.85), rgba(255,255,255,0.7)); border-color: rgba(124,91,208,0.35); box-shadow: var(--shadow); }
+.lumiq-root .plan-card.featured { background: #FFFFFF; border-color: var(--ink); box-shadow: var(--shadow); }
 .lumiq-root .plan-eyebrow { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--purple); padding: 0.35rem 0.8rem; border-radius: 999px; background: var(--lilac); margin-bottom: 1rem; align-self: flex-start; }
 .lumiq-root .plan-card.featured .plan-eyebrow { background: var(--purple); color: white; }
 .lumiq-root .plan-card h3 { font-size: 1.625rem; color: var(--ink); margin-bottom: 0.4rem; }
@@ -282,7 +283,7 @@
 .lumiq-root .plan-cta { width: 100%; }
 
 .lumiq-root .parent-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 2.5rem; margin-top: 3rem; align-items: start; }
-.lumiq-root .parent-dash { background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(237,230,247,0.4)); border: 1px solid var(--border); border-radius: 28px; padding: 2rem; box-shadow: var(--shadow); backdrop-filter: blur(12px); }
+.lumiq-root .parent-dash { background: #FFFFFF; border: 1px solid var(--border); border-radius: 28px; padding: 2rem; box-shadow: var(--shadow); backdrop-filter: blur(12px); }
 .lumiq-root .dash-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
 .lumiq-root .dash-pill { background: var(--purple); color: white; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.8rem; border-radius: 999px; }
 .lumiq-root .dash-time { color: var(--ink-3); font-size: 0.8125rem; font-weight: 500; }
@@ -345,7 +346,7 @@
 .lumiq-root .age-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; margin-top: 3rem; }
 .lumiq-root .age-card { background: var(--card); border: 1px solid var(--border); border-radius: 26px; padding: 2.25rem; backdrop-filter: blur(8px); transition: all 0.4s; }
 .lumiq-root .age-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); background: var(--card-h); }
-.lumiq-root .age-card.featured { background: linear-gradient(180deg, var(--card-h), rgba(237,230,247,0.55)); border-color: var(--purple-soft); }
+.lumiq-root .age-card.featured { background: #FFFFFF; border-color: var(--border-h); }
 .lumiq-root .age-badge { display: inline-block; padding: 0.4rem 0.9rem; border-radius: 999px; background: var(--purple); color: white; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 1rem; }
 .lumiq-root .age-card.featured .age-badge { background: var(--rose); }
 .lumiq-root .age-card h3 { font-size: 1.625rem; color: var(--ink); margin-bottom: 0.6rem; }
@@ -365,14 +366,14 @@
 .lumiq-root .concept-frame { position: relative; max-width: 1100px; margin: 0 auto; border-radius: 32px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border); animation: lumiq-bob 8s ease-in-out infinite; }
 .lumiq-root .concept-frame img { display: block; width: 100%; height: auto; }
 
-.lumiq-root .age-art { aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden; margin-bottom: 1.25rem; background: linear-gradient(135deg, var(--lilac), var(--peach)); box-shadow: 0 8px 22px -10px rgba(91,63,171,0.18); }
+.lumiq-root .age-art { aspect-ratio: 4 / 3; border-radius: 18px; overflow: hidden; margin-bottom: 1.25rem; background: var(--cream-3); box-shadow: 0 8px 22px -10px rgba(0,0,0,0.12); }
 .lumiq-root .age-art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
 .lumiq-root .age-card:hover .age-art img { transform: scale(1.04); }
 
 .lumiq-root .eco-stage { position: relative; height: 480px; max-width: 760px; margin: 1rem auto 3rem; }
 .lumiq-root .eco-orbit { position: absolute; top: 50%; left: 50%; width: 320px; height: 320px; margin: -160px 0 0 -160px; border: 1.5px dashed rgba(124,91,208,0.35); border-radius: 50%; animation: lumiq-spin 30s linear infinite; }
 .lumiq-root .eco-orbit-2 { width: 460px; height: 460px; margin: -230px 0 0 -230px; border-color: rgba(216,92,122,0.25); animation-duration: 50s; animation-direction: reverse; }
-.lumiq-root .eco-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 160px; height: 160px; border-radius: 50%; background: linear-gradient(135deg, var(--purple), var(--rose)); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1rem; box-shadow: 0 18px 40px -10px rgba(124,91,208,0.45); z-index: 5; }
+.lumiq-root .eco-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 160px; height: 160px; border-radius: 50%; background: var(--ink); color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1rem; box-shadow: 0 18px 40px -10px rgba(0,0,0,0.35); z-index: 5; }
 .lumiq-root .eco-center-ico { font-size: 1.8rem; margin-bottom: 0.25rem; }
 .lumiq-root .eco-center strong { font-family: var(--font-serif); font-size: 1.05rem; }
 .lumiq-root .eco-center small { font-size: 0.7rem; opacity: 0.85; }
@@ -390,8 +391,8 @@
 
 /* Product detail helpers */
 .lumiq-root .sec-num { display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 16px; font-family: var(--font-serif); font-size: 1.5rem; color: white; flex-shrink: 0; box-shadow: var(--shadow); }
-.lumiq-root .sec-num.purple { background: linear-gradient(135deg, var(--purple), var(--purple-2, #5b3fab)); }
-.lumiq-root .sec-num.rose { background: linear-gradient(135deg, #d97a5b, var(--rose)); }
+.lumiq-root .sec-num.purple { background: var(--ink); }
+.lumiq-root .sec-num.rose { background: var(--ink); }
 .lumiq-root .sec-head { display: flex; gap: 1.5rem; align-items: flex-start; margin-bottom: 3rem; }
 .lumiq-root .sec-head .sec-head-body { flex: 1; min-width: 0; }
 .lumiq-root .sec-head .kicker { margin-bottom: 0.75rem; }
@@ -413,7 +414,7 @@
 .lumiq-root .ways-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
 .lumiq-root .way-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: transform .35s, box-shadow .35s; }
 .lumiq-root .way-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.lumiq-root .way-card .way-img { aspect-ratio: 4/3; overflow: hidden; background: linear-gradient(135deg, var(--lilac), var(--blush)); }
+.lumiq-root .way-card .way-img { aspect-ratio: 4/3; overflow: hidden; background: var(--cream-3); }
 .lumiq-root .way-card .way-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .lumiq-root .way-card .way-body { padding: 1.25rem 1.5rem 1.75rem; }
 .lumiq-root .way-card h4 { font-family: var(--font-serif); font-size: 1.4rem; margin: 0.75rem 0 0.5rem; color: var(--ink); }
@@ -434,7 +435,7 @@
 .lumiq-root .dash-dots button.active { background: var(--purple); width: 22px; }
 .lumiq-root .dash-bars { display: flex; align-items: flex-end; gap: 0.45rem; height: 110px; padding: 0.5rem 0; }
 .lumiq-root .dash-bar { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; height: 100%; }
-.lumiq-root .dash-bar span { width: 100%; background: linear-gradient(180deg, var(--purple), var(--rose)); border-radius: 6px 6px 2px 2px; min-height: 6px; display: block; }
+.lumiq-root .dash-bar span { width: 100%; background: var(--ink); border-radius: 6px 6px 2px 2px; min-height: 6px; display: block; }
 .lumiq-root .dash-bar em { font-style: normal; font-size: 0.7rem; color: var(--ink-3); }
 .lumiq-root .dash-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .lumiq-root .dash-badge { background: white; border: 1px solid var(--border); border-radius: 999px; padding: 0.45rem 0.85rem; font-size: 0.8125rem; color: var(--ink-2); }
@@ -451,7 +452,7 @@
 .lumiq-root .ctrl-card + .ctrl-card { margin-top: 0.6rem; }
 .lumiq-root .ctrl-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
 .lumiq-root .ctrl-row strong { font-size: 0.9rem; }
-.lumiq-root .ctrl-val { background: linear-gradient(135deg, var(--purple), var(--rose)); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 999px; }
+.lumiq-root .ctrl-val { background: var(--ink); color: #fff; font-size: 0.75rem; font-weight: 700; padding: 0.3rem 0.65rem; border-radius: 999px; }
 .lumiq-root .ctrl-range { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--purple) 0%, var(--purple) 22%, var(--lilac) 22%, var(--lilac) 100%); outline: none; }
 .lumiq-root .ctrl-scale { display: flex; justify-content: space-between; font-size: 0.65rem; color: var(--ink-3); margin-top: 0.35rem; }
 .lumiq-root .ctrl-used { font-size: 0.75rem; color: var(--ink-3); margin-top: 0.4rem; }
@@ -459,14 +460,14 @@
 .lumiq-root .ctrl-toggles { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 .lumiq-root .ctrl-tog { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.45rem 0.75rem; border-radius: 999px; border: 1px solid var(--border); background: #fff; font-size: 0.78rem; font-weight: 600; color: var(--ink-3); cursor: pointer; font-family: inherit; }
 .lumiq-root .ctrl-tog .ctrl-dot { width: 8px; height: 8px; border-radius: 50%; background: #d8d3e0; }
-.lumiq-root .ctrl-tog.on { background: linear-gradient(135deg, rgba(124,91,208,0.12), rgba(231,99,162,0.12)); border-color: var(--purple); color: var(--purple); }
+.lumiq-root .ctrl-tog.on { background: rgba(20,20,20,0.05); border-color: var(--ink); color: var(--ink); }
 .lumiq-root .ctrl-tog.on .ctrl-dot { background: var(--purple); }
 .lumiq-root .book-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: -0.2rem; }
 .lumiq-root .book-card { display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
 .lumiq-root .book-cover { width: 100%; aspect-ratio: 3 / 4; border-radius: 8px 12px 12px 8px; box-shadow: -2px 2px 0 rgba(0,0,0,0.06), 0 6px 14px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; position: relative; overflow: hidden; }
 .lumiq-root .book-cover::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: rgba(0,0,0,0.12); }
 .lumiq-root .book-card small { font-size: 0.7rem; color: var(--ink-2); text-align: center; line-height: 1.2; }
-.lumiq-root .pts-hero { background: linear-gradient(135deg, #fff1c2, #ffd66b); border-radius: 16px; padding: 1rem; text-align: center; }
+.lumiq-root .pts-hero { background: var(--cream-3); border: 1px solid var(--border); border-radius: 16px; padding: 1rem; text-align: center; }
 .lumiq-root .pts-num { font-family: var(--font-serif); font-size: 2rem; font-weight: 700; color: var(--wine); line-height: 1; }
 .lumiq-root .pts-sub { font-size: 0.75rem; color: var(--ink-2); margin-top: 0.25rem; }
 .lumiq-root .medals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
@@ -495,15 +496,15 @@
 .lq-h2 { font-family: var(--font-serif, 'Playfair Display', serif); font-size: clamp(1.6rem, 3.5vw, 2.6rem); line-height: 1.15; text-wrap: balance; }
 .lq-body { font-size: clamp(1rem, 0.4vw + 0.9rem, 1.125rem); line-height: 1.75; }
 .lq-section { padding-top: var(--lq-section); padding-bottom: var(--lq-section); }
-.editorial-page .kicker { display: inline-flex; align-items: center; font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: var(--purple); font-weight: 600; }
+.editorial-page .kicker { display: inline-flex; align-items: center; font-size: .75rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
 .editorial-page h1, .editorial-page h2, .editorial-page h3 { text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
 
 /* SubPage */
 .subpage { padding: 7rem 0 4rem; color: var(--ink); }
-.subpage-hero { padding: 1rem 0 1.5rem; }
-.subpage-title { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin: 0.5rem 0 1rem; color: var(--ink); }
-.eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem; color: var(--purple); font-weight: 600; }
-.subpage-intro { font-size: 1.15rem; color: var(--ink-2); max-width: 720px; }
+.subpage-hero { padding: 2rem 0 2.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2.5rem; }
+.subpage-title { font-size: clamp(2.25rem, 5.5vw, 4rem); line-height: 1.06; letter-spacing: -0.015em; margin: 0.75rem 0 1.25rem; color: var(--ink); }
+.eyebrow { text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; color: var(--gold); font-weight: 600; }
+.subpage-intro { font-size: 1.15rem; color: var(--ink-2); max-width: 720px; line-height: 1.7; }
 .subpage-body { padding: 1rem 0 4rem; }
 .prose { max-width: 760px; line-height: 1.75; color: var(--ink-2); }
 .prose h2 { font-family: var(--font-serif); font-size: 1.7rem; margin: 2.5rem 0 0.75rem; color: var(--ink); }
@@ -511,12 +512,15 @@
 .prose p { margin: 0 0 1rem; }
 .prose ul { padding-left: 1.25rem; margin: 0 0 1rem; }
 .prose li { margin: 0.35rem 0; }
-.prose a { color: var(--purple); text-decoration: underline; }
-.prose blockquote { border-left: 3px solid var(--purple-soft); padding-left: 1rem; color: var(--ink-2); margin: 1.5rem 0; font-style: italic; }
-.press-card { border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; margin: 1rem 0; background: var(--card); backdrop-filter: blur(8px); }
+.prose a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s; }
+.prose a:hover { color: var(--gold); }
+.prose blockquote { border-left: 2px solid var(--gold); padding-left: 1.25rem; color: var(--ink); margin: 2rem 0; font-style: italic; font-family: var(--font-serif); font-size: 1.2rem; line-height: 1.55; }
+.press-card { border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; margin: 1rem 0; background: var(--card); transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s; }
+.press-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--border-h); }
 .press-card .meta { font-size: 0.85rem; color: var(--ink-3); margin-bottom: 0.35rem; }
 .press-card h3 { margin: 0 0 0.5rem; }
-.contact-card { border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin: 1rem 0; background: var(--card); backdrop-filter: blur(8px); }
+.contact-card { border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin: 1rem 0; background: var(--card); transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s; }
+.contact-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--border-h); }
 
 /* Responsive */
 @media (max-width: 960px) {

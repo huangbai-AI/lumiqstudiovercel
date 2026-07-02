@@ -28,15 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div className="lumiq-root flex min-h-screen flex-col">
-          <div className="bg-layer">
-            <div className="stars"></div>
-            <div className="bokeh b1"></div>
-            <div className="bokeh b2"></div>
-            <div className="bokeh b3"></div>
-            <div className="bokeh b4"></div>
-            <div className="bokeh b5"></div>
-            <div className="bokeh b6"></div>
-          </div>
+          <div className="bg-layer" />
           <SiteHeader />
           <main className="flex-1">{children}</main>
           <SiteFooter />

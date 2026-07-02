@@ -134,14 +134,14 @@ export default function TabletPage() {
             <p>With classical stories, putting yourself into the stories, and choosing your own path, the possibilties are endless</p>
           </div>
           <div className="pillar-card reveal d2">
-            <div className="pillar-art" style={{ background: "linear-gradient(135deg, var(--peach), var(--blush))" }}>
+            <div className="pillar-art">
               <img src="/img/spotlight-touch.jpg" alt="Child's hand touching a magical tablet screen with sparkles" loading="lazy" />
             </div>
             <h3 className="serif">Touch &amp; Discover</h3>
             <p>Interactive stories and the ability to combine with Lumiqpal to enhance the interaction between characters and bringing your interaction to life</p>
           </div>
           <div className="pillar-card reveal d3">
-            <div className="pillar-art" style={{ background: "linear-gradient(135deg, var(--mint), var(--lilac))" }}>
+            <div className="pillar-art">
               <img src="/img/spotlight-safe.jpg" alt="Protective shield around a tablet with parental controls" loading="lazy" />
             </div>
             <h3 className="serif">Safe &amp; Sound</h3>
