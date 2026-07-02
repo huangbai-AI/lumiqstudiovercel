@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "LumiqBook — Your Child, The Hero",
+  title: "LumiqPrint — Your Child, The Hero",
   description: "A premium hardcover keepsake — print any ImagiMe story with your child as the main character.",
 };
 
@@ -21,12 +21,12 @@ export default function BookPage() {
         <div className="sec-head" style={{ marginTop: "1.5rem" }}>
           <div className="sec-num purple">03</div>
           <div className="sec-head-body">
-            <span className="kicker">LumiqBook</span>
+            <span className="kicker">LumiqPrint</span>
             <h1>Your Child, <em>The Hero</em></h1>
-            <p className="sec-lede">A premium hardcover keepsake powered by the LumiqTablet&apos;s ImagiMe feature. Print any generated story as a real book — with your child&apos;s face as the main character.</p>
+            <p className="sec-lede">A premium hardcover keepsake powered by the LumiqKobi&apos;s ImagiMe feature. Print any generated story as a real book — with your child&apos;s face as the main character.</p>
             <div className="price-line">
               <div className="price"><small>USD</small>69</div>
-              <Link href="/prelaunch" className="btn btn-navy">Order LumiqBook →</Link>
+              <Link href="/prelaunch" className="btn btn-navy">Order LumiqPrint →</Link>
             </div>
           </div>
         </div>
@@ -37,16 +37,16 @@ export default function BookPage() {
           <div>
             <span className="kicker">From Screen to Shelf</span>
             <h2>Become the star of your favorite tale</h2>
-            <p>Pick a story your child loves on the LumiqTablet, swap in their face with ImagiMe, and we&apos;ll print it as a beautifully bound hardcover. Be Little Red Riding Hood herself, become Snow White, or step in as the Prince — every page stars your child.</p>
+            <p>Pick a story your child loves on the LumiqKobi, swap in their face with ImagiMe, and we&apos;ll print it as a beautifully bound hardcover. Be Little Red Riding Hood herself, become Snow White, or step in as the Prince — every page stars your child.</p>
             <ul className="spec-list" style={{ listStyle: "none", padding: 0 }}>
-              <li>Powered by the LumiqTablet ImagiMe feature</li>
+              <li>Powered by the LumiqKobi ImagiMe feature</li>
               <li>Premium matte hardcover, archival-quality printing</li>
               <li>Personalized illustrations on every page</li>
               <li>Choose from the full Lumiq story library</li>
             </ul>
           </div>
           <div className="ds-img">
-            <img src="/book-hero.jpg" alt="LumiqBook hardcover" loading="lazy" />
+            <img src="/book-hero.jpg" alt="LumiqPrint hardcover" loading="lazy" />
           </div>
         </div>
       </section>

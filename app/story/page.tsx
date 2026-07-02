@@ -18,7 +18,7 @@ const milestones = [
   { year: "2011", t: "Arpha is founded", d: "Fifteen years of smart-home craft — safety, convenience and connection for families worldwide." },
   { year: "2024", t: "The question", d: "What if technology could help families grow closer, not further apart? Lumiq Studio begins as a sketch." },
   { year: "2025", t: "The studio forms", d: "Designers, engineers and parents gather around one table — and one intention." },
-  { year: "2026", t: "The first collection", d: "LumiqTablet, LumiqBook and LumiqPal — three objects, one quiet universe." },
+  { year: "2026", t: "The first collection", d: "LumiqKobi, LumiqPrint and LumiqPal — three objects, one quiet universe." },
 ];
 
 export default function StoryPage() {

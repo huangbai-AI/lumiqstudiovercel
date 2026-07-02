@@ -8,9 +8,9 @@ type Billing = "yearly" | "monthly";
 type Row = { label: string; values: (string | boolean)[] };
 
 const hardware = [
-  { name: "LumiqTablet", price: "399", img: "/lumiqtab.jpg", blurb: "A calm reading & creation canvas.", href: "/products/tablet" },
+  { name: "LumiqKobi", price: "399", img: "/lumiqtab.jpg", blurb: "A calm reading & creation canvas.", href: "/products/tablet" },
   { name: "LumiqPal", price: "599", img: "/lumiqpal.png", blurb: "A companion for kids and elders.", href: "/products/pal" },
-  { name: "LumiqBook", price: "69", img: "/lumiqbookcover.png", blurb: "Hardcover, personalised, archival.", href: "/products/book" },
+  { name: "LumiqPrint", price: "69", img: "/lumiqbookcover.png", blurb: "Hardcover, personalised, archival.", href: "/products/book" },
 ];
 
 const tabletCols = ["Free", "Lite", "Pro"];
@@ -24,7 +24,7 @@ const tabletRows: Row[] = [
   { label: "ReImagined Times", values: ["—", "—", "5"] },
   { label: "StoryQuest Times", values: ["—", "3", "10"] },
   { label: "LumiqOriginal Story Times", values: ["—", "3", "10"] },
-  { label: "LumiqBook Add-on", values: ["$69", "$59", "$49"] },
+  { label: "LumiqPrint Add-on", values: ["$69", "$59", "$49"] },
 ];
 
 const palCols = ["Free", "Lite", "Pro", "Ultra"];
@@ -35,7 +35,7 @@ const palRows: Row[] = [
   { label: "Customized Voice", values: [false, true, true, true] },
   { label: "Customized Personality", values: [false, true, true, true] },
   { label: "Reminder", values: [false, true, true, true] },
-  { label: "Connect to LumiqTablet", values: [true, true, true, true] },
+  { label: "Connect to LumiqKobi", values: [true, true, true, true] },
   { label: "Day Limit (HR)", values: ["2", "8", "12", "24"] },
 ];
 
@@ -190,7 +190,7 @@ export default function PlansContent() {
 
       <section className="container lq-section reveal" style={{ padding: "1rem 2rem 5rem" }}>
         <div style={{ textAlign: "center", maxWidth: 720, margin: "0 auto 2.5rem" }}>
-          <span className="kicker" style={{ justifyContent: "center" }}>LumiqTablet — Story Pass</span>
+          <span className="kicker" style={{ justifyContent: "center" }}>LumiqKobi — Story Pass</span>
           <h2 className="lq-h2 serif">Continue your story.</h2>
         </div>
         <PlanTable cols={tabletCols} rows={tabletRows} billing={billing} />

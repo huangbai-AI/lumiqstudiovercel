@@ -41,12 +41,12 @@ export default function TabletPage() {
         <div className="sec-head" style={{ marginTop: "1.5rem" }}>
           <div className="sec-num purple">01</div>
           <div className="sec-head-body">
-            <span className="kicker">LumiqTablet</span>
+            <span className="kicker">LumiqKobi</span>
             <h1>A Tablet Built for <em>Wonder</em></h1>
             <p className="sec-lede">Engineered from the ground up for a safe, magical reading experience — without app stores, ads, or distractions.</p>
             <div className="price-line">
               <div className="price"><small>USD</small>399</div>
-              <Link href="/prelaunch" className="btn btn-navy">Buy LumiqTablet →</Link>
+              <Link href="/prelaunch" className="btn btn-navy">Buy LumiqKobi →</Link>
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@ export default function TabletPage() {
       <section className="container" style={{ padding: "0 2rem", maxWidth: 1200 }}>
         <div className="detail-split">
           <div className="ds-img">
-            <img src="/tablet-hero.jpg" alt="LumiqTablet device" loading="lazy" />
+            <img src="/tablet-hero.jpg" alt="LumiqKobi device" loading="lazy" />
           </div>
           <div>
             <span className="kicker">Automatic Updates</span>
@@ -215,7 +215,7 @@ export default function TabletPage() {
             <p className="age-sub">Stories step out of the screen. Talk to fairy-tale friends through LumiqPal, ask &ldquo;why are you scared?&rdquo;, and watch the interaction become more immersive and understanding character even more.</p>
             <ul className="age-list">
               <li>Talk &amp; play with characters via LumiqPal</li>
-              <li>Print their masterpiece as a LumiqBook hardcover</li>
+              <li>Print their masterpiece as a LumiqPrint hardcover</li>
               <li>Holographic story projections in the room</li>
               <li>Reward charts that celebrate active reading</li>
             </ul>

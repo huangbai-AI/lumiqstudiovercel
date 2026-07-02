@@ -44,17 +44,7 @@ export default function SiteHeader() {
     >
       <div className="container nav-inner">
         <Link href="/" className="nav-logo" onClick={closeMenu}>
-          <svg viewBox="0 0 24 24" fill="none" width="22" height="22" aria-hidden>
-            <path
-              d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
-              fill="var(--ink)"
-            />
-            <circle cx="19" cy="5" r="2" fill="var(--gold)" />
-          </svg>
-          <span className="nav-wordmark">
-            <strong>LUMIQ</strong>
-            <small>STUDIO</small>
-          </span>
+          <img src="/lumiq-logo.png" alt="Lumiq Studios" className="nav-logo-img" />
         </Link>
 
         <div className="site-desktop-nav hidden md:flex" aria-label="Primary navigation">
@@ -155,10 +145,8 @@ export default function SiteHeader() {
           box-shadow: 0 4px 24px rgba(0,0,0,0.06);
         }
         .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; gap: 1.5rem; }
-        .nav-logo { display: inline-flex; align-items: center; gap: 0.65rem; font-size: 1.05rem; color: var(--ink); }
-        .nav-wordmark { display: flex; flex-direction: column; line-height: 1; }
-        .nav-wordmark strong { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.32em; color: var(--ink); }
-        .nav-wordmark small { font-size: 0.5rem; font-weight: 500; letter-spacing: 0.62em; color: var(--ink-3); margin-top: 3px; }
+        .nav-logo { display: inline-flex; align-items: center; }
+        .nav-logo-img { height: 34px; width: auto; display: block; }
         .nav-actions { display: flex; align-items: center; gap: 1rem; }
         .site-desktop-nav { align-items: center; gap: 2rem; }
         .site-desktop-nav a { color: var(--ink-3); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; position: relative; }

@@ -40,7 +40,7 @@ export default function PalPage() {
             <h2>Magic on the bedside table.</h2>
             <p>LumiqPal reacts to whichever story is being read — allowing the child to talk and interact with the characters and ask questions. Take character understanding to a whole new level.</p>
             <div className="callout">
-              <h5>Synced with LumiqTablet</h5>
+              <h5>Synced with LumiqKobi</h5>
               <p>Syncs progress, character learning and adaptation across devices.</p>
             </div>
           </div>
@@ -63,7 +63,7 @@ export default function PalPage() {
             <div className="pal-track-img"><img src="/pal-kid.jpg" alt="LumiqPal for kids" loading="lazy" /></div>
             <span className="kicker" style={{ color: "var(--rose)" }}>For Kids</span>
             <h3 className="serif" style={{ fontSize: "clamp(1.4rem, 2.4vw, 1.85rem)", margin: ".5rem 0 1rem" }}>Story Extension</h3>
-            <p style={{ color: "var(--ink-2)", marginBottom: "1.25rem" }}>Pairs with LumiqTablet. Stories leave the screen and live in the room.</p>
+            <p style={{ color: "var(--ink-2)", marginBottom: "1.25rem" }}>Pairs with LumiqKobi. Stories leave the screen and live in the room.</p>
             <ul className="pal-list" style={{ listStyle: "none", padding: 0 }}>
               <li>Projects characters into the air</li>
               <li>Voice &amp; light react to the story</li>

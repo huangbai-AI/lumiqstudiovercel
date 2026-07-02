@@ -7,14 +7,7 @@ export default function SiteFooter() {
         <div className="foot-grid">
           <div>
             <div className="foot-logo">
-              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden>
-                <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="var(--ink)" />
-                <circle cx="19" cy="5" r="2" fill="var(--gold)" />
-              </svg>
-              <span className="foot-wordmark">
-                <strong>LUMIQ</strong>
-                <small>STUDIO</small>
-              </span>
+              <img src="/lumiq-logo.png" alt="Lumiq Studios" className="foot-logo-img" />
             </div>
             <p className="foot-blurb">
               Future-ready AI devices that inspire, educate, and bring families closer — taking imagination to new heights.
@@ -23,8 +16,8 @@ export default function SiteFooter() {
           <div className="foot-nav">
             <h4>Products</h4>
             <ul>
-              <li><Link href="/products/tablet">LumiqTablet</Link></li>
-              <li><Link href="/products/book">LumiqBook</Link></li>
+              <li><Link href="/products/tablet">LumiqKobi</Link></li>
+              <li><Link href="/products/book">LumiqPrint</Link></li>
               <li><Link href="/products/pal">LumiqPal</Link></li>
               <li><Link href="/plans">Plans & Pricing</Link></li>
             </ul>

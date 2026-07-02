@@ -238,10 +238,8 @@
 
 .lumiq-root .footer { background: #FFFFFF; border-top: 1px solid var(--border); color: var(--ink-2); padding: 5rem 0 2rem; }
 .lumiq-root .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 4rem; }
-.lumiq-root .foot-logo { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.25rem; color: var(--ink); }
-.lumiq-root .foot-wordmark { display: flex; flex-direction: column; line-height: 1; }
-.lumiq-root .foot-wordmark strong { font-family: var(--font-sans); font-size: 1.05rem; font-weight: 600; letter-spacing: 0.32em; color: var(--ink); }
-.lumiq-root .foot-wordmark small { font-size: 0.55rem; font-weight: 500; letter-spacing: 0.62em; color: var(--ink-3); margin-top: 3px; }
+.lumiq-root .foot-logo { display: flex; align-items: center; margin-bottom: 1.25rem; }
+.lumiq-root .foot-logo-img { height: 36px; width: auto; display: block; }
 .lumiq-root .foot-blurb { color: var(--ink-3); max-width: 280px; font-size: 0.9375rem; line-height: 1.65; }
 .lumiq-root .foot-nav h4 { color: var(--gold); font-family: var(--font-sans); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; }
 .lumiq-root .foot-tag { font-family: var(--font-serif); font-style: italic; color: var(--ink-3); }

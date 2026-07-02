@@ -6,12 +6,12 @@ import type { Metadata } from "next";
 const pillars = [
   {
     img: "/lumiqtab.jpg",
-    title: "LumiqTablet",
+    title: "LumiqKobi",
     body: "An AI reading tablet for children to explore stories, choices, voices, and learning.",
   },
   {
     img: "/lumiqbookcover.png",
-    title: "LumiqBook",
+    title: "LumiqPrint",
     body: "Personalized printed books that turn digital adventures into keepsakes.",
   },
   {
@@ -131,9 +131,9 @@ export default function Home() {
             <div className="eco-node n1"><span>🧒</span><strong>Lily · 7</strong><small>Profile</small></div>
             <div className="eco-node n2"><span>🧒</span><strong>Max · 11</strong><small>Profile</small></div>
             <div className="eco-node n3"><span>👶</span><strong>Rio · 2</strong><small>Profile</small></div>
-            <div className="eco-node n4"><span>📱</span><strong>LumiqTablet</strong><small>Device #A2-19</small></div>
+            <div className="eco-node n4"><span>📱</span><strong>LumiqKobi</strong><small>Device #A2-19</small></div>
             <div className="eco-node n5"><span>🧚</span><strong>LumiqPal</strong><small>Bedside</small></div>
-            <div className="eco-node n6"><span>📚</span><strong>LumiqBook</strong><small>Printed library</small></div>
+            <div className="eco-node n6"><span>📚</span><strong>LumiqPrint</strong><small>Printed library</small></div>
           </div>
         </section>
 
@@ -141,7 +141,7 @@ export default function Home() {
           <div className="member-grid">
             <div className="member-card reveal d1"><span className="member-ico">👨‍👩‍👧‍👦</span><h4 className="serif">One family account</h4><p>Manage the whole household via the parent dashboard.</p></div>
             <div className="member-card reveal d2"><span className="member-ico">🧒</span><h4 className="serif">Up to 4 child profiles</h4><p>Each child can pick up where they left off and manage their own favorite books.</p></div>
-            <div className="member-card reveal d3"><span className="member-ico">📱</span><h4 className="serif">Multi-device, one tap</h4><p>Add additional LumiqTablets and LumiqPals with scan of the QR code.</p></div>
+            <div className="member-card reveal d3"><span className="member-ico">📱</span><h4 className="serif">Multi-device, one tap</h4><p>Add additional LumiqKobis and LumiqPals with scan of the QR code.</p></div>
             <div className="member-card reveal d1"><span className="member-ico">✨</span><h4 className="serif">Instant Story Pass unlock</h4><p>Unlock even more features and experiences with subscriptions.</p></div>
             <div className="member-card reveal d2"><span className="member-ico">☁️</span><h4 className="serif">Cloud-synced creations</h4><p>Keep all the Stories, ImagiMe characters free. Forever!</p></div>
             <div className="member-card reveal d3"><span className="member-ico">📚</span><h4 className="serif">Be the Hero then Print</h4><p>Bring your character life and received the personalized hardcover book shipped directly to your door.</p></div>
