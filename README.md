@@ -51,7 +51,7 @@ npm run optimize-images
 
 配置方法：
 
-1. 在 Supabase 项目中运行 `supabase/migrations/202608260001_create_waitlist_signups.sql`。
+1. 在 Supabase 项目中运行 `supabase/migrations/20260826165924_create_waitlist_signups.sql`。
 2. 复制 `.env.example` 为本地私密环境文件。
 3. 配置 `SUPABASE_URL` 和 `SUPABASE_SERVICE_ROLE_KEY`。
 4. 在 Vercel 的 Preview 环境配置相同变量。
