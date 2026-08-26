@@ -1,132 +1,93 @@
 # Lumiq Studio 网站
 
-这是 Lumiq Studio 官网的本地开发版本。
+这是 Lumiq Studio 官网的 Vercel 预览版项目。当前分支为 `codex/homepage-integration`，不得直接发布生产环境或合并 `main`。
 
-项目以甲方提供的完整网站源码为主体，保留原有导航、产品页、品牌故事、套餐、媒体、FAQ、联系与法律页面，并将首页替换为新的互动滚动版本。
-
-## 项目来源
-
-- 甲方完整网站源码：`arphasmarthome/lumiqstudiovercel`
-- 新互动首页来源：`CCCIRCCCLE715/lumiq-parallax-experience`
-- 当前本地开发分支：`codex/homepage-integration`
-- 当前代码没有向甲方仓库提交，也没有创建合并请求
-
-## 技术结构
-
-- Node.js 运行环境
-- Next.js 15
-- React 19
-- TypeScript
-- Tailwind CSS 4
-- npm 包管理
-
-这不是 Vite 项目。更准确的描述是：基于 Node.js 运行的 Next.js 网站。
-
-## 本地启动
-
-请先进入本项目目录：
+## 本地开发与检查
 
 ```bash
 cd /Users/a1/Documents/lumiqstudiovercel
-```
-
-首次运行时安装依赖：
-
-```bash
 npm install
-```
-
-启动本地开发版本：
-
-```bash
 npm run dev -- --port 4182
 ```
 
-浏览器访问：
-
-```text
-http://127.0.0.1:4182/
-```
-
-生成正式构建：
+完整验收命令：
 
 ```bash
+npm run lint
+npm run typecheck
+npm run test
+npm run test:e2e
 npm run build
-npm run start
 ```
 
-## 页面范围
+重新生成网页发布图片：
 
-| 地址 | 内容 |
-| --- | --- |
-| `/` | 新互动首页 |
-| `/story` | 品牌故事 |
-| `/products` | 产品总览 |
-| `/products/pal` | LumiqPal 产品页 |
-| `/products/tablet` | LumiqKobi 产品页 |
-| `/products/book` | LumiqPrint 产品页 |
-| `/plans` | 套餐与价格 |
-| `/media` | 媒体与评价 |
-| `/faq` | 常见问题 |
-| `/about` | 关于我们 |
-| `/contact` | 联系页面 |
-| `/prelaunch` | 预发布登记页面 |
-| `/legal/*` | 隐私、条款、Cookie 与儿童安全页面 |
+```bash
+npm run optimize-images
+```
 
-## 已完成
+原始设计素材不得覆盖；网页使用 `public/assets/web/` 中由 Sharp 自动生成的压缩版本。
 
-- 将互动首页合并进甲方完整网站
-- 保留甲方原有导航结构、内页和页脚
-- 首页产品入口已连接甲方现有产品详情页
-- 保留桌面滚动叙事和产品轮播交互
-- 修复手机首屏产品遮挡问题
-- 使用互动首页仓库中的原始高清素材，不使用网页截图作为正式素材
-- 处理翻译扩展向页面注入属性导致的水合警告
-- 已检查主要页面、内部跳转、桌面布局和手机布局
+## 产品与地址
 
-## 尚未完成
+| 地址               | 产品          | 价格关系                  |
+| ------------------ | ------------- | ------------------------- |
+| `/products/ola`    | Lumiq Ola     | USD 599                   |
+| `/products/ola-go` | Lumiq Ola Go  | 随 Ola 提供，暂不单独标价 |
+| `/products/tablet` | Lumiq Tablet  | USD 399                   |
+| `/products/print`  | Lumiq Print   | USD 69                    |
+| `/products/nest`   | Lumiq Nest 15 | 价格待确认                |
 
-### 多语言系统
+旧地址采用永久跳转：
 
-当前导航中的语言按钮只是界面占位：
+- `/products/pal` → `/products/ola`
+- `/products/book` → `/products/print`
 
-- 只能改变按钮显示的语言名称
-- 不会翻译页面内容
-- 刷新后不会保存语言选择
-- 还没有英文、繁体中文和日文的独立地址
-- 页面标题和搜索信息尚未按语言区分
+英文、繁体中文和日文分别使用 `/en`、`/zh-hant`、`/ja` 前缀。产品正式名称、地址、价格和简介统一维护在 `lib/products.ts`。
 
-后续建议建立 `/en`、`/zh-hant`、`/ja` 三套语言路由，并统一管理导航、首页、产品页、品牌故事、FAQ、页脚和页面标题的翻译。
+## Supabase 候补名单
 
-### 内容确认
+候补名单外部接口为 `POST /api/waitlist`。它会规范化邮箱、阻止重复记录、忽略隐藏防机器人字段，并把数据库错误转换为通用服务错误。
 
-- 首页采用新产品名称，甲方旧内页仍保留原有产品名称；正式上线前需要统一确认
-- `LUMIQ`、`Lumiq`、`LUMiQ` 的最终写法需要品牌方确认
-- 最终品牌口号需要品牌方确认
-- 社交媒体地址和部分媒体链接仍需要甲方提供真实链接
-- 后续正式视觉素材应通过图生图工作流生成并单独保存，不覆盖原始素材
+配置方法：
+
+1. 在 Supabase 项目中运行 `supabase/migrations/202608260001_create_waitlist_signups.sql`。
+2. 复制 `.env.example` 为本地私密环境文件。
+3. 配置 `SUPABASE_URL` 和 `SUPABASE_SERVICE_ROLE_KEY`。
+4. 在 Vercel 的 Preview 环境配置相同变量。
+
+私密密钥不得使用 `NEXT_PUBLIC_` 前缀，不得写进代码、说明文件或提交记录。数据表只保存邮箱、来源、同意版本和登记时间；浏览器不能直接读取或写入数据表。
+
+## 内容状态
+
+当前预览保留了未确认样稿，但相关页面会明确显示待确认提示。正式上线前必须确认：
+
+- 社交媒体地址、媒体报道、评价姓名和公司注册地址。
+- 配送地区、退货、保修、儿童安全、定位、SOS、照护和陪伴能力。
+- 隐私、条款、Cookie 和儿童安全页面的最终法务文本。
+- 是否发送登记确认邮件、是否向内部团队发送通知、正式退订机制和邮件服务。
+
+媒体及法律草稿页面在确认前设置为不收录。多语言由独立任务维护，后续合并不得删除语言路由或翻译资料。
 
 ## 主要目录
 
 ```text
-app/                 页面与全站样式
-components/          导航、页脚和共享组件
-public/              图片、字体和公开素材
-app/page.tsx         新互动首页
-app/homepage.css     仅作用于互动首页的样式
-app/layout.tsx       全站根布局
+app/                  页面、接口和全站样式
+components/           导航、页脚和共享组件
+lib/products.ts       统一产品资料源
+lib/waitlist.ts       候补名单校验与业务规则
+public/               原始素材和网页发布图片
+scripts/              可重复运行的图片处理脚本
+supabase/migrations/  数据库结构迁移
+tests/                单元测试和页面流程测试
+messages/             多语言文案
 ```
 
-## 开发注意事项
+## Vercel 预览部署
 
-- 不要直接覆盖或压缩 `public/` 中的原始素材
-- 新生成的网页图片应另存为发布版本
-- 修改首页时不要破坏甲方原有内页和导航结构
-- 涉及儿童数据、位置、SOS、健康照护或 AI 情感陪伴时，不要夸大产品能力
-- 推送 GitHub 或创建合并请求前，需要再次确认目标仓库和分支
+```bash
+git push -u origin codex/homepage-integration
+npx vercel
+```
 
-## 本地版本记录
-
-- `6c2a432`：将互动首页合并进甲方完整网站
-- `867cb63`：处理浏览器翻译扩展引起的水合警告
-
+只选择 Preview 环境。部署前先应用数据库迁移并配置 Supabase 私密变量；验收预览地址后仍不得运行生产部署，也不得合并 `main`。

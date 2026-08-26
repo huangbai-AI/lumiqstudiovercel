@@ -2,35 +2,31 @@
 import { useMemo, useState } from "react";
 import Script from "next/script";
 import { Search } from "lucide-react";
-
-const faqs = [
-  { q: "What is Lumiq Studio?", a: "We're a small studio designing objects and experiences at the meeting point of artificial intelligence, storytelling and craft." },
-  { q: "Who is Lumiq for?", a: "Anyone who wants tools that lift their imagination instead of crowding it — families, creators, readers and quiet thinkers." },
-  { q: "Where do you ship?", a: "We currently ship to most countries in North America, Europe and East Asia. More regions are coming soon." },
-  { q: "How does the AI work?", a: "AI is used as a collaborator, not a replacement. It helps narrate, illustrate and personalise — always with the person, not instead of them." },
-  { q: "Is my data private?", a: "Yes. We store as little as we can, never sell data, and offer offline modes for every product where it's possible." },
-  { q: "Can I cancel a plan?", a: "Any time. There are no contracts and no penalties." },
-];
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
-  })),
-};
+import {useTranslations} from "next-intl";
 
 export default function FaqPage() {
+  const t = useTranslations("Faq");
   const [open, setOpen] = useState<number | null>(0);
   const [query, setQuery] = useState("");
+  const faqs = useMemo(() => [1, 2, 3, 4, 5, 6].map((i) => ({
+    q: t(`q${i}`),
+    a: t(`a${i}`),
+  })), [t]);
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return faqs;
     return faqs.filter((f) => f.q.toLowerCase().includes(q) || f.a.toLowerCase().includes(q));
-  }, [query]);
+  }, [faqs, query]);
 
   return (
     <div className="editorial-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
@@ -41,12 +37,12 @@ export default function FaqPage() {
       />
 
       <section className="container" style={{ padding: "2rem 2rem 3rem" }}>
-        <span className="kicker">FAQ</span>
+        <span className="kicker">{t("eyebrow")}</span>
         <h1 className="serif" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", lineHeight: 1.05, margin: "1rem 0 1.5rem", maxWidth: 700 }}>
-          Questions, gently answered.
+          {t("title")}
         </h1>
         <p style={{ fontSize: "1.15rem", color: "var(--ink-2)", lineHeight: 1.7, maxWidth: 640 }}>
-          Still curious? Email <a href="mailto:hello@lumiqstudio.com" className="faq-mail">hello@lumiqstudio.com</a> and our team will reply as soon as possible.
+          {t("introBefore")} <a href="mailto:hello@lumiqstudio.com" className="faq-mail">hello@lumiqstudio.com</a> {t("introAfter")}
         </p>
       </section>
 
@@ -55,17 +51,17 @@ export default function FaqPage() {
           <Search size={16} strokeWidth={1.8} aria-hidden />
           <input
             type="search"
-            placeholder="Search the answers…"
+            placeholder={t("search")}
             value={query}
             onChange={(e) => { setQuery(e.target.value); setOpen(null); }}
-            aria-label="Search frequently asked questions"
+            aria-label={t("searchLabel")}
           />
           <span className="faq-count">{visible.length} / {faqs.length}</span>
         </div>
 
         {visible.length === 0 && (
           <p style={{ padding: "2.5rem 0", color: "var(--ink-3)", textAlign: "center" }}>
-            Nothing matches yet — try a different word, or write to us directly.
+            {t("empty")}
           </p>
         )}
 

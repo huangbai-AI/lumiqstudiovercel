@@ -6,9 +6,15 @@
 
 # testing
 /coverage
+/test-results
+/playwright-report
+/artifacts
 
 # next.js
 /.next/
+/.next-i18n/
+/.next-e2e/
+/.next-verify/
 /out/
 
 # production

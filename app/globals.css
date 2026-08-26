@@ -520,6 +520,25 @@
 .contact-card { border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; margin: 1rem 0; background: var(--card); transition: transform 0.35s, box-shadow 0.35s, border-color 0.35s; }
 .contact-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--border-h); }
 
+/* Unconfirmed preview content */
+.draft-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: .7rem;
+  margin: 1.25rem 0;
+  padding: .85rem 1rem;
+  border: 1px solid rgba(153, 103, 21, .32);
+  border-radius: 12px;
+  background: rgba(255, 245, 218, .72);
+  color: #795317;
+  font-size: .875rem;
+  line-height: 1.5;
+}
+.draft-notice > span:first-child { flex: 0 0 auto; }
+.draft-notice-compact { display: inline-flex; margin: .6rem 0; padding: .5rem .7rem; font-size: .75rem; }
+.pending-link-list { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
+.pending-link-list span { color: var(--ink-3); font-size: .875rem; }
+
 /* Responsive */
 @media (max-width: 960px) {
   .lumiq-root .container { padding: 0 1.25rem; }
@@ -559,4 +578,48 @@
   .lumiq-root .sec-num { width: 52px; height: 52px; font-size: 1.2rem; border-radius: 12px; }
   .lumiq-root .detail-split { grid-template-columns: 1fr; gap: 2rem; margin: 2.5rem 0; }
   .lumiq-root .ways-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+
+/* Traditional Chinese and Japanese typography */
+.locale-zh-hant,
+.locale-ja {
+  font-family: Arial, "PingFang TC", "Noto Sans TC", "Hiragino Sans", "Yu Gothic", sans-serif;
+  line-break: strict;
+  overflow-wrap: anywhere;
+  font-kerning: normal;
+}
+
+.locale-zh-hant .serif,
+.locale-zh-hant .editorial-page h1,
+.locale-zh-hant .editorial-page h2,
+.locale-zh-hant .editorial-page h3,
+.locale-ja .serif,
+.locale-ja .editorial-page h1,
+.locale-ja .editorial-page h2,
+.locale-ja .editorial-page h3 {
+  font-family: "PingFang TC", "Noto Serif TC", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  letter-spacing: .01em;
+  line-height: 1.22;
+  word-break: normal;
+}
+
+.locale-zh-hant .kicker,
+.locale-zh-hant .eyebrow,
+.locale-zh-hant .prod-kicker,
+.locale-zh-hant .prod-pill,
+.locale-zh-hant .prod-tab-sub,
+.locale-zh-hant .shop-section-l,
+.locale-ja .kicker,
+.locale-ja .eyebrow,
+.locale-ja .prod-kicker,
+.locale-ja .prod-pill,
+.locale-ja .prod-tab-sub,
+.locale-ja .shop-section-l {
+  text-transform: none;
+  letter-spacing: .08em;
+}
+
+.locale-zh-hant .plans-table,
+.locale-ja .plans-table {
+  min-width: 720px;
 }

@@ -1,19 +1,19 @@
-import type { Metadata } from "next";
 import SubPage from "@/components/SubPage";
-
-export const metadata: Metadata = { title: "Cookie Policy — LumiqStudio" };
+import DraftNotice from "@/components/DraftNotice";
+import {useTranslations} from "next-intl";
 
 export default function CookiesPage() {
+  const t = useTranslations("Legal");
   return (
-    <SubPage eyebrow="Legal" title="Cookie Policy" intro="How and why we use cookies on lumiqstudio.com.">
-      <p><em>Demo content — full policy to be updated.</em></p>
-      <p>We use cookies to keep you signed in, remember your preferences, and understand how visitors use our site.</p>
-      <h2>Essential cookies</h2>
-      <p>Required for the site to function. They cannot be disabled.</p>
-      <h2>Analytics cookies</h2>
-      <p>Help us understand page performance and visitor behaviour. You can opt out at any time.</p>
-      <h2>Managing cookies</h2>
-      <p>You can control cookies through your browser settings or contact us at privacy@lumiqstudio.com.</p>
+    <SubPage eyebrow={t("eyebrow")} title={t("cookies.title")} intro={t("cookies.intro")}>
+      <DraftNotice>{t("draft")}</DraftNotice>
+      <p>{t("cookies.p1")}</p>
+      <h2>{t("cookies.h1")}</h2>
+      <p>{t("cookies.p2")}</p>
+      <h2>{t("cookies.h2")}</h2>
+      <p>{t("cookies.p3")}</p>
+      <h2>{t("cookies.h3")}</h2>
+      <p>{t("cookies.p4")}</p>
     </SubPage>
   );
 }

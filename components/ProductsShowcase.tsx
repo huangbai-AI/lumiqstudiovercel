@@ -1,7 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
@@ -14,61 +16,69 @@ import {
   ShieldCheck,
   Truck,
 } from "lucide-react";
-
-const PRODUCTS = [
-  {
-    id: "tablet",
-    href: "/products/tablet",
-    img: "/lumiqtab.jpg",
-    tag: "01",
-    pill: "Tablet for kids",
-    name: "LumiqKobi",
-    sub: "A Tablet Built for Wonder",
-    desc: "A distraction-free reading device engineered purely for stories, interaction, and imagination — no feeds, no noise, no ads.",
-    specs: ["Original Story library", "ImagiMe face-swap", "Story Quest campaigns", "Distraction-free by design"],
-  },
-  {
-    id: "book",
-    href: "/products/book",
-    img: "/lumiqbookcover.png",
-    tag: "02",
-    pill: "Personalized hardcover",
-    name: "LumiqPrint",
-    sub: "Your Child, The Hero",
-    desc: "Turn any ImagiMe story from the LumiqKobi into a real printed hardcover — with your child as the main character.",
-    specs: ["Powered by ImagiMe face-swap", "Premium hardcover printing", "Delivered to your door", "A keepsake that lasts"],
-  },
-  {
-    id: "pal",
-    href: "/products/pal",
-    img: "/lumiqpal.png",
-    tag: "03",
-    pill: "Holographic companion",
-    name: "LumiqPal",
-    sub: "Holographic Companion",
-    desc: "A magical bedside companion that syncs with the tablet to bring stories into the room — and keeps the whole family close.",
-    specs: ["3D holographic display", "Ambient Story Sync", "Conversation & reminders", "Family connection"],
-  },
-] as const;
-
-const FEATURES = [
-  { Icon: Cpu, title: "AI-Powered", sub: "Smart interaction" },
-  { Icon: Box, title: "Holographic Display", sub: "3D immersive experience" },
-  { Icon: GraduationCap, title: "Learning Companion", sub: "For kids & families" },
-  { Icon: ShieldCheck, title: "Safe & Private", sub: "Built with trust" },
-] as const;
-
-const PROMISES = [
-  { Icon: Truck, title: "Global Shipping", sub: "Fast, reliable delivery worldwide" },
-  { Icon: RotateCcw, title: "30-Day Returns", sub: "Hassle-free returns and exchanges" },
-  { Icon: BadgeCheck, title: "2-Year Warranty", sub: "Premium quality, guaranteed" },
-  { Icon: Lock, title: "Secure Checkout", sub: "Encrypted, safe payment" },
-] as const;
+import { PRODUCT_BY_ID } from "@/lib/products";
+import DraftNotice from "@/components/DraftNotice";
 
 export default function ProductsShowcase() {
+  const t = useTranslations("Products");
   const rootRef = useRef<HTMLDivElement>(null);
   const heroMediaRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const products = [
+    {
+      id: "tablet",
+      href: PRODUCT_BY_ID.tablet.href,
+      img: PRODUCT_BY_ID.tablet.image,
+      tag: "01",
+      name: "Lumiq Tablet",
+    },
+    {
+      id: "book",
+      href: PRODUCT_BY_ID.print.href,
+      img: PRODUCT_BY_ID.print.image,
+      tag: "02",
+      name: "Lumiq Print",
+    },
+    {
+      id: "pal",
+      href: PRODUCT_BY_ID.ola.href,
+      img: PRODUCT_BY_ID.ola.image,
+      tag: "03",
+      name: "Lumiq Ola",
+    },
+    {
+      id: "ola-go",
+      href: PRODUCT_BY_ID["ola-go"].href,
+      img: PRODUCT_BY_ID["ola-go"].image,
+      tag: "04",
+      name: "Lumiq Ola Go",
+    },
+    {
+      id: "nest",
+      href: PRODUCT_BY_ID.nest.href,
+      img: PRODUCT_BY_ID.nest.image,
+      tag: "05",
+      name: "Lumiq Nest 15",
+    },
+  ].map((product, index) => ({
+    ...product,
+    pill: t(`p${index + 1}Pill`),
+    sub: t(`p${index + 1}Sub`),
+    desc: t(`p${index + 1}Desc`),
+    specs: [1, 2, 3, 4].map((n) => t(`p${index + 1}S${n}`)),
+  }));
+  const features = [Cpu, Box, GraduationCap, ShieldCheck].map(
+    (Icon, index) => ({
+      Icon,
+      title: t(`f${index + 1}Title`),
+      sub: t(`f${index + 1}Sub`),
+    }),
+  );
+  const promises = [Truck, RotateCcw, BadgeCheck, Lock].map((Icon, index) => ({
+    Icon,
+    title: t(`pr${index + 1}Title`),
+    sub: t(`pr${index + 1}Sub`),
+  }));
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -80,7 +90,9 @@ export default function ProductsShowcase() {
       },
       { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
     );
-    rootRef.current.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    rootRef.current
+      .querySelectorAll(".reveal")
+      .forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   }, []);
 
@@ -101,35 +113,41 @@ export default function ProductsShowcase() {
     el.style.setProperty("--py", "0px");
   };
 
-  const current = PRODUCTS[active];
+  const current = products[active];
 
   return (
     <div ref={rootRef} className="prod-page editorial-page">
       {/* Announcement bar */}
       <div className="prod-topbar" role="note">
         <div className="prod-topbar-inner">
-          <span>Free Worldwide Shipping</span>
+          <span>{t("shipping")}</span>
           <span className="prod-topbar-dot" aria-hidden />
-          <span>30-Day Easy Returns</span>
+          <span>{t("returns")}</span>
           <span className="prod-topbar-dot" aria-hidden />
-          <span>2-Year Warranty</span>
+          <span>{t("warranty")}</span>
+        </div>
+        <div className="container" style={{ paddingBottom: ".75rem" }}>
+          <DraftNotice compact>{t("promiseNotice")}</DraftNotice>
         </div>
       </div>
 
       {/* Hero */}
       <section className="container prod-hero">
         <div className="prod-hero-text reveal">
-          <span className="prod-kicker">Lumiq Studio Collection</span>
+          <span className="prod-kicker">{t("kicker")}</span>
           <h1 className="serif">
-            AI. Interaction.<br />
-            <em>Reimagined.</em>
+            {t("title1")}
+            <br />
+            <em>{t("title2")}</em>
           </h1>
-          <p className="prod-lead">
-            Future-ready AI devices that interact, learn, and grow with your family — designed to end in stories, not scrolling.
-          </p>
+          <p className="prod-lead">{t("lead")}</p>
           <div className="prod-cta-row">
-            <a href="#lineup" className="btn btn-navy">Explore the lineup</a>
-            <Link href="/plans" className="prod-ghost-link">Compare plans</Link>
+            <a href="#lineup" className="btn btn-navy">
+              {t("explore")}
+            </a>
+            <Link href="/plans" className="prod-ghost-link">
+              {t("compare")}
+            </Link>
           </div>
         </div>
         <div
@@ -138,16 +156,25 @@ export default function ProductsShowcase() {
           onMouseMove={onHeroMove}
           onMouseLeave={onHeroLeave}
         >
-          <img src="/lumiqpal.png" alt="LumiqPal holographic AI companion device" width={1024} height={1024} />
+          <Image
+            src={PRODUCT_BY_ID.ola.image}
+            alt={t("heroAlt")}
+            width={1024}
+            height={1024}
+            sizes="(max-width: 820px) 100vw, 50vw"
+            priority
+          />
         </div>
       </section>
 
       {/* Feature strip */}
       <section className="prod-feats reveal">
         <div className="container prod-feats-grid">
-          {FEATURES.map(({ Icon, title, sub }) => (
+          {features.map(({ Icon, title, sub }) => (
             <div key={title} className="prod-feat">
-              <span className="prod-feat-ico"><Icon size={20} strokeWidth={1.6} /></span>
+              <span className="prod-feat-ico">
+                <Icon size={20} strokeWidth={1.6} />
+              </span>
               <span>
                 <strong>{title}</strong>
                 <small>{sub}</small>
@@ -160,12 +187,16 @@ export default function ProductsShowcase() {
       {/* Interactive lineup */}
       <section id="lineup" className="container prod-lineup">
         <div className="prod-lineup-head reveal">
-          <span className="prod-kicker">The Lineup</span>
-          <h2 className="serif">Three objects. One quiet universe.</h2>
+          <span className="prod-kicker">{t("lineup")}</span>
+          <h2 className="serif">{t("lineupTitle")}</h2>
         </div>
 
-        <div className="prod-tabs reveal" role="tablist" aria-label="Lumiq products">
-          {PRODUCTS.map((p, i) => (
+        <div
+          className="prod-tabs reveal"
+          role="tablist"
+          aria-label={t("productsAria")}
+        >
+          {products.map((p, i) => (
             <button
               key={p.id}
               type="button"
@@ -183,12 +214,15 @@ export default function ProductsShowcase() {
 
         <div className="prod-stage reveal">
           <div className="prod-stage-media">
-            {PRODUCTS.map((p, i) => (
-              <img
+            {products.map((p, i) => (
+              <Image
                 key={p.id}
                 src={p.img}
                 alt={p.name}
-                className={i === active ? "on" : ""}
+                width={1000}
+                height={1000}
+                sizes="(max-width: 820px) 100vw, 55vw"
+                className={`${i === active ? "on" : ""}${p.id === "nest" ? " nest" : ""}`}
                 loading={i === 0 ? undefined : "lazy"}
               />
             ))}
@@ -196,34 +230,41 @@ export default function ProductsShowcase() {
 
           <div className="prod-stage-panel">
             <div className="prod-panel-body" key={current.id}>
-              <span className="prod-index serif" aria-hidden>{current.tag}</span>
+              <span className="prod-index serif" aria-hidden>
+                {current.tag}
+              </span>
               <span className="prod-pill">{current.pill}</span>
               <h3 className="serif">{current.name}</h3>
               <div className="prod-sub">{current.sub}</div>
               <p>{current.desc}</p>
               <ul className="prod-specs">
                 {current.specs.map((s) => (
-                  <li key={s}><span className="prod-tick" aria-hidden />{s}</li>
+                  <li key={s}>
+                    <span className="prod-tick" aria-hidden />
+                    {s}
+                  </li>
                 ))}
               </ul>
               <Link href={current.href} className="btn btn-navy">
-                Discover {current.name} →
+                {t("discover", { name: current.name })}
               </Link>
             </div>
 
             <div className="prod-stage-nav">
               <button
                 type="button"
-                aria-label="Previous product"
-                onClick={() => setActive((active + PRODUCTS.length - 1) % PRODUCTS.length)}
+                aria-label={t("previous")}
+                onClick={() =>
+                  setActive((active + products.length - 1) % products.length)
+                }
               >
                 <ArrowLeft size={18} strokeWidth={1.8} />
               </button>
-              <span className="prod-counter">{current.tag} / 03</span>
+              <span className="prod-counter">{current.tag} / 05</span>
               <button
                 type="button"
-                aria-label="Next product"
-                onClick={() => setActive((active + 1) % PRODUCTS.length)}
+                aria-label={t("next")}
+                onClick={() => setActive((active + 1) % products.length)}
               >
                 <ArrowRight size={18} strokeWidth={1.8} />
               </button>
@@ -235,24 +276,26 @@ export default function ProductsShowcase() {
       {/* Lifestyle */}
       <section className="container prod-life reveal">
         <div className="prod-life-media">
-          <img src="/pal-kid.jpg" alt="A child watching a holographic story at bedtime" loading="lazy" />
+          <img src="/pal-kid.jpg" alt={t("lifeAlt")} loading="lazy" />
         </div>
         <div className="prod-life-text">
-          <span className="prod-kicker">Why Lumiq</span>
-          <h2 className="serif">Technology that connects imagination with intelligence.</h2>
-          <p>
-            Every Lumiq object is written before it is manufactured — a small, quiet universe where screens slow families down instead of speeding them up.
-          </p>
-          <Link href="/story" className="prod-ghost-link">Read our story</Link>
+          <span className="prod-kicker">{t("why")}</span>
+          <h2 className="serif">{t("whyTitle")}</h2>
+          <p>{t("whyBody")}</p>
+          <Link href="/story" className="prod-ghost-link">
+            {t("story")}
+          </Link>
         </div>
       </section>
 
       {/* Trust strip */}
       <section className="prod-promise reveal">
         <div className="container prod-promise-grid">
-          {PROMISES.map(({ Icon, title, sub }) => (
+          {promises.map(({ Icon, title, sub }) => (
             <div key={title} className="prod-promise-item">
-              <span className="prod-promise-ico"><Icon size={22} strokeWidth={1.6} /></span>
+              <span className="prod-promise-ico">
+                <Icon size={22} strokeWidth={1.6} />
+              </span>
               <strong>{title}</strong>
               <small>{sub}</small>
             </div>
@@ -292,7 +335,7 @@ export default function ProductsShowcase() {
         .prod-lineup { padding-top: 6rem; padding-bottom: 5rem; scroll-margin-top: 5rem; }
         .prod-lineup-head h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.12; margin: 0; max-width: 680px; }
 
-        .prod-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 3rem 0 3.5rem; }
+        .prod-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; margin: 3rem 0 3.5rem; }
         .prod-tab { text-align: left; background: none; border: 0; border-top: 1px solid var(--border); padding: 1.25rem 0 0; cursor: pointer; position: relative; color: var(--ink-4); font-family: inherit; transition: color .3s; }
         .prod-tab::before { content: ""; position: absolute; top: -1px; left: 0; width: 0; height: 2px; background: var(--gold); transition: width .5s cubic-bezier(0.22, 1, 0.36, 1); }
         .prod-tab:hover { color: var(--ink-2); }
@@ -305,6 +348,7 @@ export default function ProductsShowcase() {
         .prod-stage { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: stretch; }
         .prod-stage-media { position: relative; aspect-ratio: 1 / 1; background: var(--cream-3); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
         .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.05); transition: opacity 0.6s ease, transform 0.9s ease; }
+        .prod-stage-media img.nest { object-fit: contain; padding: 1.5rem; }
         .prod-stage-media img.on { opacity: 1; transform: scale(1); }
 
         .prod-stage-panel { display: flex; flex-direction: column; justify-content: center; }

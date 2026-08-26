@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import {getLocale} from "next-intl/server";
 import "./globals.css";
-import SiteHeader from "@/components/SiteHeader";
-import SiteFooter from "@/components/SiteFooter";
+import {htmlLang, type Locale} from "@/i18n/routing";
 
 export const metadata: Metadata = {
   title: {
@@ -19,20 +19,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = (await getLocale()) as Locale;
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={htmlLang[locale] ?? "en"} suppressHydrationWarning>
       <body>
-        <div className="lumiq-root flex min-h-screen flex-col">
-          <div className="bg-layer" />
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-        </div>
+        {children}
       </body>
     </html>
   );

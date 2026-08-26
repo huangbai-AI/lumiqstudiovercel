@@ -1,86 +1,156 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
+import Image from "next/image";
 import RevealObserver from "@/components/RevealObserver";
+import { PRODUCT_BY_ID } from "@/lib/products";
+import DraftNotice from "@/components/DraftNotice";
 
 type Billing = "yearly" | "monthly";
 type Row = { label: string; values: (string | boolean)[] };
 
 const hardware = [
-  { name: "LumiqKobi", price: "399", img: "/lumiqtab.jpg", blurb: "A calm reading & creation canvas.", href: "/products/tablet" },
-  { name: "LumiqPal", price: "599", img: "/lumiqpal.png", blurb: "A companion for kids and elders.", href: "/products/pal" },
-  { name: "LumiqPrint", price: "69", img: "/lumiqbookcover.png", blurb: "Hardcover, personalised, archival.", href: "/products/book" },
+  {
+    name: PRODUCT_BY_ID.tablet.name,
+    price: "399",
+    img: PRODUCT_BY_ID.tablet.image,
+    blurbKey: "tabletBlurb",
+    href: PRODUCT_BY_ID.tablet.href,
+  },
+  {
+    name: PRODUCT_BY_ID.ola.name,
+    price: "599",
+    img: PRODUCT_BY_ID.ola.image,
+    blurbKey: "palBlurb",
+    href: PRODUCT_BY_ID.ola.href,
+  },
+  {
+    name: PRODUCT_BY_ID.print.name,
+    price: "69",
+    img: PRODUCT_BY_ID.print.image,
+    blurbKey: "printBlurb",
+    href: PRODUCT_BY_ID.print.href,
+  },
 ];
 
 const tabletCols = ["Free", "Lite", "Pro"];
 const tabletRows: Row[] = [
-  { label: "Monthly Fee", values: ["—", "$6.99 yr / $7.99 mo", "$12.99 yr / $14.99 mo"] },
-  { label: "Free Trial", values: ["—", "7 days", "7 days"] },
-  { label: "Kid Profile", values: ["1", "1", "3"] },
-  { label: "Classical Story", values: ["50", "Unlimited", "Unlimited"] },
-  { label: "ImagiMe – Characters", values: ["—", "1", "3"] },
-  { label: "ImagiMe – Generation Times", values: ["—", "2", "5"] },
-  { label: "ReImagined Times", values: ["—", "—", "5"] },
-  { label: "StoryQuest Times", values: ["—", "3", "10"] },
-  { label: "LumiqOriginal Story Times", values: ["—", "3", "10"] },
-  { label: "LumiqPrint Add-on", values: ["$69", "$59", "$49"] },
+  {
+    label: "monthlyFee",
+    values: ["—", "$6.99 yr / $7.99 mo", "$12.99 yr / $14.99 mo"],
+  },
+  { label: "freeTrial", values: ["—", "7 days", "7 days"] },
+  { label: "kidProfile", values: ["1", "1", "3"] },
+  { label: "classicalStory", values: ["50", "Unlimited", "Unlimited"] },
+  { label: "characters", values: ["—", "1", "3"] },
+  { label: "generation", values: ["—", "2", "5"] },
+  { label: "reimagined", values: ["—", "—", "5"] },
+  { label: "storyQuest", values: ["—", "3", "10"] },
+  { label: "original", values: ["—", "3", "10"] },
+  { label: "printAddon", values: ["$69", "$59", "$49"] },
 ];
 
 const palCols = ["Free", "Lite", "Pro", "Ultra"];
 const palRows: Row[] = [
-  { label: "Monthly Fee", values: ["—", "$16.99 yr / $19.99 mo", "$26.99 yr / $29.99 mo", "$35.99 yr / $39.99 mo"] },
-  { label: "Free Trial", values: ["—", "7 days", "7 days", "7 days"] },
-  { label: "Character", values: ["1", "2", "3", "4"] },
-  { label: "Customized Voice", values: [false, true, true, true] },
-  { label: "Customized Personality", values: [false, true, true, true] },
-  { label: "Reminder", values: [false, true, true, true] },
-  { label: "Connect to LumiqKobi", values: [true, true, true, true] },
-  { label: "Day Limit (HR)", values: ["2", "8", "12", "24"] },
+  {
+    label: "monthlyFee",
+    values: [
+      "—",
+      "$16.99 yr / $19.99 mo",
+      "$26.99 yr / $29.99 mo",
+      "$35.99 yr / $39.99 mo",
+    ],
+  },
+  { label: "freeTrial", values: ["—", "7 days", "7 days", "7 days"] },
+  { label: "character", values: ["1", "2", "3", "4"] },
+  { label: "voice", values: [false, true, true, true] },
+  { label: "personality", values: [false, true, true, true] },
+  { label: "reminder", values: [false, true, true, true] },
+  { label: "connect", values: [true, true, true, true] },
+  { label: "dayLimit", values: ["2", "8", "12", "24"] },
 ];
 
 const FEE_RE = /^\$([\d.]+) yr \/ \$([\d.]+) mo$/;
 
-function cell(v: string | boolean, billing: Billing) {
-  if (v === true) return <span style={{ color: "var(--gold)", fontWeight: 600 }}>✓</span>;
+type Labels = Record<string, string>;
+
+function cell(v: string | boolean, billing: Billing, labels: Labels) {
+  if (v === true)
+    return <span style={{ color: "var(--gold)", fontWeight: 600 }}>✓</span>;
   if (v === false) return <span style={{ color: "var(--ink-4)" }}>—</span>;
   const m = typeof v === "string" ? v.match(FEE_RE) : null;
   if (m) {
     const price = billing === "yearly" ? m[1] : m[2];
     return (
       <span className="fee-cell">
-        <strong className="serif">${price}</strong> / mo
-        <em>{billing === "yearly" ? "billed yearly" : "billed monthly"}</em>
+        <strong className="serif">${price}</strong> {labels.perMonth}
+        <em>
+          {billing === "yearly" ? labels.billedYearly : labels.billedMonthly}
+        </em>
       </span>
     );
   }
-  return <span>{v}</span>;
+  if (v === "Unlimited") return <span>{labels.unlimited}</span>;
+  const days = typeof v === "string" ? v.match(/^(\d+) days$/) : null;
+  return <span>{days ? labels.days.replace("__COUNT__", days[1]) : v}</span>;
 }
 
-function BillingToggle({ billing, setBilling }: { billing: Billing; setBilling: (b: Billing) => void }) {
+function BillingToggle({
+  billing,
+  setBilling,
+  labels,
+}: {
+  billing: Billing;
+  setBilling: (b: Billing) => void;
+  labels: Labels;
+}) {
   return (
-    <div className="billing-toggle" role="group" aria-label="Billing period">
-      <button type="button" className={billing === "yearly" ? "on" : ""} onClick={() => setBilling("yearly")}>
-        Yearly <span className="billing-save">Save up to 12%</span>
+    <div className="billing-toggle" role="group" aria-label={labels.billing}>
+      <button
+        type="button"
+        className={billing === "yearly" ? "on" : ""}
+        onClick={() => setBilling("yearly")}
+      >
+        {labels.yearly} <span className="billing-save">{labels.save}</span>
       </button>
-      <button type="button" className={billing === "monthly" ? "on" : ""} onClick={() => setBilling("monthly")}>
-        Monthly
+      <button
+        type="button"
+        className={billing === "monthly" ? "on" : ""}
+        onClick={() => setBilling("monthly")}
+      >
+        {labels.monthly}
       </button>
     </div>
   );
 }
 
-function PlanTable({ cols, rows, billing, featured = "Pro" }: { cols: string[]; rows: Row[]; billing: Billing; featured?: string }) {
+function PlanTable({
+  cols,
+  rows,
+  billing,
+  labels,
+  featured = "Pro",
+}: {
+  cols: string[];
+  rows: Row[];
+  billing: Billing;
+  labels: Labels;
+  featured?: string;
+}) {
   return (
     <>
       <div className="pal-table-wrap">
         <table className="pal-table">
           <thead>
             <tr>
-              <th>Subscription Plan</th>
+              <th>{labels.subscription}</th>
               {cols.map((c) => (
                 <th key={c} className={c === featured ? "is-featured" : ""}>
-                  {c === featured && <span className="pop-tag">Most popular</span>}
+                  {c === featured && (
+                    <span className="pop-tag">{labels.popular}</span>
+                  )}
                   {c}
                 </th>
               ))}
@@ -91,7 +161,12 @@ function PlanTable({ cols, rows, billing, featured = "Pro" }: { cols: string[]; 
               <tr key={row.label}>
                 <th scope="row">{row.label}</th>
                 {row.values.map((v, i) => (
-                  <td key={i} className={cols[i] === featured ? "is-featured" : ""}>{cell(v, billing)}</td>
+                  <td
+                    key={i}
+                    className={cols[i] === featured ? "is-featured" : ""}
+                  >
+                    {cell(v, billing, labels)}
+                  </td>
                 ))}
               </tr>
             ))}
@@ -100,8 +175,11 @@ function PlanTable({ cols, rows, billing, featured = "Pro" }: { cols: string[]; 
               {cols.map((c) => (
                 <td key={c} className={c === featured ? "is-featured" : ""}>
                   {c === "Free" ? null : (
-                    <Link href="/prelaunch" className={`btn plan-choose${c === featured ? " is-dark" : ""}`}>
-                      Choose {c}
+                    <Link
+                      href="/prelaunch"
+                      className={`btn plan-choose${c === featured ? " is-dark" : ""}`}
+                    >
+                      {labels.choose.replace("__NAME__", c)}
                     </Link>
                   )}
                 </td>
@@ -113,29 +191,58 @@ function PlanTable({ cols, rows, billing, featured = "Pro" }: { cols: string[]; 
 
       <div className="pal-cards">
         {cols.map((col, ci) => (
-          <article key={col} className={`tier-card${col === featured ? " featured" : ""}`}>
-            <span className="kicker" style={{ color: "var(--gold)" }}>{col}</span>
-            <div className="serif" style={{ fontSize: "1.5rem", margin: ".25rem 0 1rem" }}>{cell(rows[0].values[ci], billing)}</div>
+          <article
+            key={col}
+            className={`tier-card${col === featured ? " featured" : ""}`}
+          >
+            <span className="kicker" style={{ color: "var(--gold)" }}>
+              {col}
+            </span>
+            <div
+              className="serif"
+              style={{ fontSize: "1.5rem", margin: ".25rem 0 1rem" }}
+            >
+              {cell(rows[0].values[ci], billing, labels)}
+            </div>
             <ul style={{ flex: 1, marginBottom: "1.5rem" }}>
               {rows.slice(1).map((row) => (
-                <li key={row.label} style={{
-                  display: "flex", justifyContent: "space-between", gap: "1rem",
-                  padding: ".5rem 0",
-                  borderBottom: `1px solid ${col === featured ? "rgba(255,255,255,0.12)" : "var(--border)"}`,
-                  fontSize: ".9rem",
-                }}>
-                  <span style={{ color: col === featured ? "rgba(255,255,255,0.7)" : "var(--ink-3)" }}>{row.label}</span>
-                  <span>{cell(row.values[ci], billing)}</span>
+                <li
+                  key={row.label}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    gap: "1rem",
+                    padding: ".5rem 0",
+                    borderBottom: `1px solid ${col === featured ? "rgba(255,255,255,0.12)" : "var(--border)"}`,
+                    fontSize: ".9rem",
+                  }}
+                >
+                  <span
+                    style={{
+                      color:
+                        col === featured
+                          ? "rgba(255,255,255,0.7)"
+                          : "var(--ink-3)",
+                    }}
+                  >
+                    {row.label}
+                  </span>
+                  <span>{cell(row.values[ci], billing, labels)}</span>
                 </li>
               ))}
             </ul>
             {col !== "Free" && (
-              <Link href="/prelaunch" className="btn"
+              <Link
+                href="/prelaunch"
+                className="btn"
                 style={{
                   background: col === featured ? "white" : "var(--ink)",
                   color: col === featured ? "var(--ink)" : "white",
                   textAlign: "center",
-                }}>Choose {col}</Link>
+                }}
+              >
+                {labels.choose.replace("__NAME__", col)}
+              </Link>
             )}
           </article>
         ))}
@@ -145,38 +252,127 @@ function PlanTable({ cols, rows, billing, featured = "Pro" }: { cols: string[]; 
 }
 
 export default function PlansContent() {
+  const t = useTranslations("Plans");
   const [billing, setBilling] = useState<Billing>("yearly");
+  const labels: Labels = {
+    ...Object.fromEntries(
+      [
+        "billing",
+        "yearly",
+        "monthly",
+        "save",
+        "perMonth",
+        "billedYearly",
+        "billedMonthly",
+        "subscription",
+        "popular",
+        "unlimited",
+      ].map((key) => [key, t(key)]),
+    ),
+    choose: t("choose", { name: "__NAME__" }),
+    days: t("days", { count: "__COUNT__" }),
+  };
+  const tabletRowsLocalized = tabletRows.map((row) => ({
+    ...row,
+    label: t(row.label),
+  }));
+  const palRowsLocalized = palRows.map((row) => ({
+    ...row,
+    label: t(row.label),
+  }));
 
   return (
-    <div className="editorial-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
+    <div
+      className="editorial-page"
+      style={{ paddingTop: "6rem", color: "var(--ink)" }}
+    >
       <RevealObserver />
 
-      <section className="container reveal" style={{ padding: "2rem 2rem 3rem", maxWidth: 1100 }}>
-        <span className="kicker">Plans</span>
-        <h1 className="lq-h1 serif" style={{ margin: "1rem 0 1.25rem", maxWidth: 760 }}>
-          Pick the way you want to live with us.
+      <section
+        className="container reveal"
+        style={{ padding: "2rem 2rem 3rem", maxWidth: 1100 }}
+      >
+        <span className="kicker">{t("eyebrow")}</span>
+        <h1
+          className="lq-h1 serif"
+          style={{ margin: "1rem 0 1.25rem", maxWidth: 760 }}
+        >
+          {t("title")}
         </h1>
         <p className="lq-body" style={{ color: "var(--ink-2)", maxWidth: 560 }}>
-          One-time hardware. Monthly subscriptions where it makes sense. No tricks.
+          {t("intro")}
         </p>
+        <DraftNotice>{t("pricingNotice")}</DraftNotice>
       </section>
 
       <section className="container reveal" style={{ padding: "0 2rem 5rem" }}>
         <div className="hw-grid">
           {hardware.map((h) => (
             <article key={h.name} className="hw-card">
-              <div className="hw-img"><img src={h.img} alt={h.name} loading="lazy" /></div>
-              <h3 className="serif" style={{ fontSize: "clamp(1.4rem, 2.2vw, 1.75rem)", margin: ".25rem 0 .35rem" }}>{h.name}</h3>
-              <p style={{ color: "var(--ink-3)", fontSize: ".95rem", marginBottom: "1.25rem" }}>{h.blurb}</p>
-              <div className="serif" style={{ fontSize: "clamp(1.5rem, 2.4vw, 1.85rem)", color: "var(--ink)", marginBottom: "1.25rem" }}>
-                <span style={{ fontSize: ".6em", color: "var(--gold)", marginRight: ".4rem", letterSpacing: ".08em" }}>USD</span>{h.price}
+              <div className="hw-img">
+                <Image
+                  src={h.img}
+                  alt={h.name}
+                  width={900}
+                  height={900}
+                  sizes="(max-width: 820px) 100vw, 33vw"
+                />
               </div>
-              <div style={{ display: "flex", gap: ".75rem", flexWrap: "wrap", marginTop: "auto" }}>
-                <Link href="/prelaunch" className="btn btn-navy" style={{ padding: ".6rem 1.1rem", fontSize: ".9rem" }}>
-                  Reserve →
+              <h3
+                className="serif"
+                style={{
+                  fontSize: "clamp(1.4rem, 2.2vw, 1.75rem)",
+                  margin: ".25rem 0 .35rem",
+                }}
+              >
+                {h.name}
+              </h3>
+              <p
+                style={{
+                  color: "var(--ink-3)",
+                  fontSize: ".95rem",
+                  marginBottom: "1.25rem",
+                }}
+              >
+                {t(h.blurbKey)}
+              </p>
+              <div
+                className="serif"
+                style={{
+                  fontSize: "clamp(1.5rem, 2.4vw, 1.85rem)",
+                  color: "var(--ink)",
+                  marginBottom: "1.25rem",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: ".6em",
+                    color: "var(--gold)",
+                    marginRight: ".4rem",
+                    letterSpacing: ".08em",
+                  }}
+                >
+                  USD
+                </span>
+                {h.price}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  gap: ".75rem",
+                  flexWrap: "wrap",
+                  marginTop: "auto",
+                }}
+              >
+                <Link
+                  href="/prelaunch"
+                  className="btn btn-navy"
+                  style={{ padding: ".6rem 1.1rem", fontSize: ".9rem" }}
+                >
+                  {t("reserve")}
                 </Link>
                 <Link href={h.href} className="hw-more">
-                  Learn more
+                  {t("learn")}
                 </Link>
               </div>
             </article>
@@ -184,24 +380,63 @@ export default function PlansContent() {
         </div>
       </section>
 
-      <section className="container reveal" style={{ padding: "0 2rem 2rem", textAlign: "center" }}>
-        <BillingToggle billing={billing} setBilling={setBilling} />
+      <section
+        className="container reveal"
+        style={{ padding: "0 2rem 2rem", textAlign: "center" }}
+      >
+        <BillingToggle
+          billing={billing}
+          setBilling={setBilling}
+          labels={labels}
+        />
       </section>
 
-      <section className="container lq-section reveal" style={{ padding: "1rem 2rem 5rem" }}>
-        <div style={{ textAlign: "center", maxWidth: 720, margin: "0 auto 2.5rem" }}>
-          <span className="kicker" style={{ justifyContent: "center" }}>LumiqKobi — Story Pass</span>
-          <h2 className="lq-h2 serif">Continue your story.</h2>
+      <section
+        className="container lq-section reveal"
+        style={{ padding: "1rem 2rem 5rem" }}
+      >
+        <div
+          style={{
+            textAlign: "center",
+            maxWidth: 720,
+            margin: "0 auto 2.5rem",
+          }}
+        >
+          <span className="kicker" style={{ justifyContent: "center" }}>
+            {t("tabletKicker")}
+          </span>
+          <h2 className="lq-h2 serif">{t("tabletTitle")}</h2>
         </div>
-        <PlanTable cols={tabletCols} rows={tabletRows} billing={billing} />
+        <PlanTable
+          cols={tabletCols}
+          rows={tabletRowsLocalized}
+          billing={billing}
+          labels={labels}
+        />
       </section>
 
-      <section className="container lq-section reveal" style={{ padding: "0 2rem 6rem" }}>
-        <div style={{ textAlign: "center", maxWidth: 720, margin: "0 auto 2.5rem" }}>
-          <span className="kicker" style={{ justifyContent: "center" }}>LumiqPal — Subscription</span>
-          <h2 className="lq-h2 serif">Choose the companion plan.</h2>
+      <section
+        className="container lq-section reveal"
+        style={{ padding: "0 2rem 6rem" }}
+      >
+        <div
+          style={{
+            textAlign: "center",
+            maxWidth: 720,
+            margin: "0 auto 2.5rem",
+          }}
+        >
+          <span className="kicker" style={{ justifyContent: "center" }}>
+            {t("palKicker")}
+          </span>
+          <h2 className="lq-h2 serif">{t("palTitle")}</h2>
         </div>
-        <PlanTable cols={palCols} rows={palRows} billing={billing} />
+        <PlanTable
+          cols={palCols}
+          rows={palRowsLocalized}
+          billing={billing}
+          labels={labels}
+        />
       </section>
 
       <style>{`

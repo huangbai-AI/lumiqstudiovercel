@@ -1039,7 +1039,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 .parallax-home .product-showcase-copy {
   position: absolute;
   z-index: 5;
-  top: clamp(86px, 10.5svh, 122px);
+  top: clamp(150px, 19svh, 190px);
   left: 50%;
   width: min(1180px, 82vw);
   text-align: center;
@@ -1112,6 +1112,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 .parallax-home .carousel-product.product-0 img { transform: translateY(-20svh) scale(.576); }
 .parallax-home .carousel-product.product-2 img { transform: translateY(-5svh) scale(.88); }
 .parallax-home .carousel-product.product-3 img { transform: translateY(calc(-5svh - 2cm)) scale(.648); }
+.parallax-home .carousel-product.product-4 img { transform: translateY(-5svh) scale(.72); }
 .parallax-home .carousel-product.slot-0 {
   left: 50%;
   top: auto;
@@ -1136,7 +1137,8 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 }
 .parallax-home .carousel-product.slot--1 { left: 11%; transform: translateX(-50%) rotate(-11deg) scale(.9); }
 .parallax-home .carousel-product.slot-1 { left: 89%; transform: translateX(-50%) rotate(11deg) scale(.9); }
-.parallax-home .carousel-product.slot--2 {
+.parallax-home .carousel-product.slot--2,
+.parallax-home .carousel-product.slot-2 {
   left: 50%;
   top: 88%;
   z-index: 1;
@@ -1541,7 +1543,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
   .parallax-home .hero-copy { z-index: 8; bottom: 12%; width: 58vw; }
   .parallax-home .hero-copy h1 { font-size: clamp(32px, 9vw, 48px); }
   .parallax-home .hero-copy p { font-size: 17px; }
-  .parallax-home .product-showcase-copy { top: 78px; width: calc(100% - 38px); }
+  .parallax-home .product-showcase-copy { top: 138px; width: calc(100% - 38px); }
   .parallax-home .product-showcase-copy h2 { font-size: clamp(48px, 14vw, 72px); }
   .parallax-home .product-showcase-copy > p:last-child { font-size: 14px; line-height: 1.2; }
   .parallax-home .product-dial { top: 61%; width: 184vw; height: 120vw; }
@@ -1947,4 +1949,52 @@ body.parallax-page { font-size: var(--site-min-font-size); }
   }
 
   .parallax-home .discover-label { font-size: 15px; }
+}
+
+.locale-zh-hant .parallax-home,
+.locale-ja .parallax-home,
+.locale-zh-hant .parallax-home h1,
+.locale-zh-hant .parallax-home h2,
+.locale-zh-hant .parallax-home h3,
+.locale-zh-hant .parallax-home h4,
+.locale-ja .parallax-home h1,
+.locale-ja .parallax-home h2,
+.locale-ja .parallax-home h3,
+.locale-ja .parallax-home h4 {
+  font-family: Arial, "PingFang TC", "Noto Sans TC", "Hiragino Sans", "Yu Gothic", sans-serif;
+  text-transform: none;
+  letter-spacing: .035em;
+  line-height: 1.15;
+  word-break: normal;
+  line-break: strict;
+}
+
+.locale-zh-hant .parallax-home .eyebrow,
+.locale-zh-hant .parallax-home .discover-label,
+.locale-ja .parallax-home .eyebrow,
+.locale-ja .parallax-home .discover-label {
+  text-transform: none;
+  letter-spacing: .08em;
+}
+
+.locale-zh-hant .parallax-home .hero-copy h1,
+.locale-ja .parallax-home .hero-copy h1 {
+  font-size: clamp(44px, 5.6vw, 88px);
+  line-height: 1.08;
+  letter-spacing: .04em;
+}
+
+@media (max-width: 820px) {
+  .locale-zh-hant .parallax-home .hero-copy h1,
+  .locale-ja .parallax-home .hero-copy h1 {
+    width: 62%;
+    font-size: clamp(29px, 8vw, 40px);
+    line-height: 1.14;
+    letter-spacing: .035em;
+  }
+
+  .locale-zh-hant .parallax-home .hero-copy p,
+  .locale-ja .parallax-home .hero-copy p {
+    width: 62%;
+  }
 }

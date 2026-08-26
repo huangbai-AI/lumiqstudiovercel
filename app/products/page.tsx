@@ -3,7 +3,7 @@ import ProductsShowcase from "@/components/ProductsShowcase";
 
 export const metadata: Metadata = {
   title: "Products — Lumiq Studio",
-  description: "Three objects, one quiet universe — LumiqKobi, LumiqPrint and LumiqPal.",
+  description: "Five objects, one quiet universe — Lumiq Ola, Lumiq Ola Go, Lumiq Tablet, Lumiq Print and Lumiq Nest 15.",
 };
 
 export default function ProductsPage() {

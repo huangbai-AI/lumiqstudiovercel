@@ -1,25 +1,39 @@
 "use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-
-const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/story", label: "Brand Story" },
-  { href: "/products", label: "Products" },
-  { href: "/plans", label: "Plans" },
-  { href: "/media", label: "Media & Review" },
-  { href: "/faq", label: "FAQ" },
-] as const;
+import type { Locale } from "@/i18n/routing";
+import Image from "next/image";
 
 export default function SiteHeader() {
+  const t = useTranslations("Common");
+  const locale = useLocale() as Locale;
   const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const isHomepage = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState("EN");
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const nav = [
+    { href: "/", label: t("home") },
+    { href: "/story", label: t("brandStory") },
+    { href: "/products", label: t("products") },
+    { href: "/plans", label: t("plans") },
+    { href: "/media", label: t("mediaReviews") },
+    { href: "/faq", label: t("faq") },
+  ] as const;
+
+  const languages: { locale: Locale; code: string; label: string }[] = [
+    { locale: "en", code: "EN", label: t("english") },
+    { locale: "zh-hant", code: "繁中", label: t("traditionalChinese") },
+    { locale: "ja", code: "日本語", label: t("japanese") },
+  ];
+  const activeLanguage =
+    languages.find((item) => item.locale === locale) ?? languages[0];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -30,13 +44,29 @@ export default function SiteHeader() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
 
-  const closeMenu = () => { setMenuOpen(false); setLangOpen(false); };
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setLangOpen(false);
+  };
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+  const switchLanguage = (nextLocale: Locale) => {
+    const query = searchParams.toString();
+    const hash = typeof window === "undefined" ? "" : window.location.hash;
+    router.replace(`${pathname}${query ? `?${query}` : ""}${hash}`, {
+      locale: nextLocale,
+      scroll: false,
+    });
+    setLangOpen(false);
+    setMenuOpen(false);
+  };
 
   return (
     <nav
@@ -45,11 +75,21 @@ export default function SiteHeader() {
     >
       <div className="container nav-inner">
         <Link href="/" className="nav-logo" onClick={closeMenu}>
-          <img src="/lumiq-logo.png" alt="Lumiq Studios" className="nav-logo-img" />
+          <Image
+            src="/lumiq-logo.png"
+            alt="Lumiq Studios"
+            className="nav-logo-img"
+            width={360}
+            height={96}
+            priority
+          />
         </Link>
 
-        <div className="site-desktop-nav hidden md:flex" aria-label="Primary navigation">
-          {NAV.map((l) => (
+        <div
+          className="site-desktop-nav hidden md:flex"
+          aria-label={t("primaryNavigation")}
+        >
+          {nav.map((l) => (
             <Link
               key={l.href}
               href={l.href}
@@ -69,20 +109,19 @@ export default function SiteHeader() {
               aria-haspopup="listbox"
               aria-expanded={langOpen}
             >
-              <span aria-hidden="true">🌐</span> {lang} <span className="lang-caret">▾</span>
+              <span aria-hidden="true">🌐</span> {activeLanguage.code}{" "}
+              <span className="lang-caret">▾</span>
             </button>
             {langOpen && (
               <ul className="lang-menu" role="listbox">
-                {[
-                  { code: "EN", label: "English" },
-                  { code: "繁中", label: "繁體中文" },
-                  { code: "日本語", label: "日本語" },
-                ].map((o) => (
-                  <li key={o.code}>
+                {languages.map((o) => (
+                  <li key={o.locale}>
                     <button
                       type="button"
-                      className={`lang-item${lang === o.code ? " active" : ""}`}
-                      onClick={() => { setLang(o.code); setLangOpen(false); }}
+                      role="option"
+                      aria-selected={locale === o.locale}
+                      className={`lang-item${locale === o.locale ? " active" : ""}`}
+                      onClick={() => switchLanguage(o.locale)}
                     >
                       {o.label}
                     </button>
@@ -91,19 +130,26 @@ export default function SiteHeader() {
               </ul>
             )}
           </div>
-          <Link href="/prelaunch" className="btn btn-ghost-navy login-btn site-login-btn">
-            Log in
+          <Link
+            href="/prelaunch"
+            className="btn btn-ghost-navy login-btn site-login-btn"
+          >
+            {t("login")}
           </Link>
 
           <button
             type="button"
             className="site-mobile-trigger flex md:hidden"
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={menuOpen ? t("closeMenu") : t("openMenu")}
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
             onClick={() => setMenuOpen((v) => !v)}
           >
-            {menuOpen ? <X size={22} strokeWidth={2.2} /> : <Menu size={22} strokeWidth={2.2} />}
+            {menuOpen ? (
+              <X size={22} strokeWidth={2.2} />
+            ) : (
+              <Menu size={22} strokeWidth={2.2} />
+            )}
           </button>
         </div>
       </div>
@@ -115,12 +161,17 @@ export default function SiteHeader() {
         aria-hidden={!menuOpen}
       >
         <div className="site-mobile-menu-head">
-          <span>Menu</span>
-          <button type="button" className="site-mobile-close" aria-label="Close navigation menu" onClick={closeMenu}>
+          <span>{t("menu")}</span>
+          <button
+            type="button"
+            className="site-mobile-close"
+            aria-label={t("closeMenu")}
+            onClick={closeMenu}
+          >
             <X size={20} />
           </button>
         </div>
-        {NAV.map((l) => (
+        {nav.map((l) => (
           <Link
             key={l.href}
             href={l.href}
@@ -131,6 +182,18 @@ export default function SiteHeader() {
             {l.label}
           </Link>
         ))}
+        <div className="site-mobile-languages" aria-label={t("language")}>
+          {languages.map((item) => (
+            <button
+              key={item.locale}
+              type="button"
+              className={locale === item.locale ? "active" : ""}
+              onClick={() => switchLanguage(item.locale)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       <style>{`
@@ -182,6 +245,9 @@ export default function SiteHeader() {
         .site-mobile-menu a { display: block; padding: 0.85rem 0.5rem; color: var(--ink); font-weight: 500; font-size: 1rem; border-bottom: 1px solid var(--border); }
         .site-mobile-menu a:last-child { border-bottom: none; }
         .site-mobile-menu a.active { color: var(--ink); font-weight: 600; }
+        .site-mobile-languages { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; padding-top: 1rem; }
+        .site-mobile-languages button { padding: .65rem .5rem; border: 1px solid var(--border); border-radius: 9px; background: white; color: var(--ink-3); cursor: pointer; }
+        .site-mobile-languages button.active { background: var(--ink); color: white; border-color: var(--ink); }
         .site-login-btn { display: inline-flex !important; padding: 0.45rem 1rem; font-size: 0.8125rem; }
         @media (max-width: 767px) {
           .site-desktop-nav, .site-desktop-action { display: none !important; }

@@ -1,24 +1,21 @@
-import type { Metadata } from "next";
 import SubPage from "@/components/SubPage";
-
-export const metadata: Metadata = {
-  title: "Contact — LumiqStudio",
-  description: "Get in touch with the LumiqStudio team — support, press, partnerships, and general inquiries.",
-};
-
-const channels = [
-  { label: "General inquiries", email: "hello@lumiqstudio.com" },
-  { label: "Customer support", email: "support@lumiqstudio.com" },
-  { label: "Press & media", email: "press@lumiqstudio.com" },
-  { label: "Partnerships", email: "partners@lumiqstudio.com" },
-];
+import DraftNotice from "@/components/DraftNotice";
+import {useTranslations} from "next-intl";
 
 export default function ContactPage() {
+  const t = useTranslations("Contact");
+  const channels = [
+    { label: t("general"), email: "hello@lumiqstudio.com" },
+    { label: t("support"), email: "support@lumiqstudio.com" },
+    { label: t("press"), email: "press@lumiqstudio.com" },
+    { label: t("partnerships"), email: "partners@lumiqstudio.com" },
+  ];
+
   return (
     <SubPage
-      eyebrow="Contact"
-      title="Say hello"
-      intro="We read every message. Pick the inbox that fits and we'll get back to you within a few business days."
+      eyebrow={t("eyebrow")}
+      title={t("title")}
+      intro={t("intro")}
     >
       {channels.map((c) => (
         <div key={c.email} className="contact-card">
@@ -31,10 +28,11 @@ export default function ContactPage() {
         </div>
       ))}
 
-      <h2>Mailing address</h2>
+      <h2>{t("mailing")}</h2>
+      <DraftNotice compact>{t("addressPending")}</DraftNotice>
       <p>
         LumiqStudio (Arpha Inc.)<br />
-        Address coming soon.
+        {t("address")}
       </p>
     </SubPage>
   );

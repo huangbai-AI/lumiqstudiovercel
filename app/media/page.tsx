@@ -1,57 +1,55 @@
-import type { Metadata } from "next";
 import RevealObserver from "@/components/RevealObserver";
-
-export const metadata: Metadata = {
-  title: "Media & Review — Lumiq Studio",
-  description: "Press features, reviews and reader letters about Lumiq Studio.",
-};
-
-const press = [
-  { source: "The Atelier Review", date: "March 2026", quote: "A studio that actually cares about the small, quiet moments at home.", link: "Read feature" },
-  { source: "Slow Design Quarterly", date: "Jan 2026", quote: "Tech that wants to slow you down instead of speeding you up — a rare thing.", link: "Read review" },
-  { source: "Kinfolk", date: "Nov 2025", quote: "Considered objects for considered families.", link: "Read profile" },
-];
-
-const reviews = [
-  { name: "Sora Tanaka", role: "Designer, Tokyo", text: "Every product feels written, not manufactured. It's an entire little universe." },
-  { name: "Liam Chen", role: "Father of two, Vancouver", text: "We use it together. That's what makes it different — it doesn't take my kids away from me." },
-  { name: "Amélie R.", role: "Bookseller, Lyon", text: "The first piece of consumer tech I've ever wanted to keep on the shelf next to my books." },
-  { name: "Marcus J.", role: "Educator, London", text: "Calm by design. My students slow down when they use it." },
-];
+import DraftNotice from "@/components/DraftNotice";
+import {useTranslations} from "next-intl";
 
 export default function MediaPage() {
+  const t = useTranslations("Media");
+  const press = [
+    { source: "The Atelier Review", date: t("press1Date"), quote: t("press1Quote"), link: t("press1Link") },
+    { source: "Slow Design Quarterly", date: t("press2Date"), quote: t("press2Quote"), link: t("press2Link") },
+    { source: "Kinfolk", date: t("press3Date"), quote: t("press3Quote"), link: t("press3Link") },
+  ];
+  const reviews = [
+    { name: "Sora Tanaka", role: t("review1Role"), text: t("review1Text") },
+    { name: "Liam Chen", role: t("review2Role"), text: t("review2Text") },
+    { name: "Amélie R.", role: t("review3Role"), text: t("review3Text") },
+    { name: "Marcus J.", role: t("review4Role"), text: t("review4Text") },
+  ];
+
   return (
     <div className="editorial-page media-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
       <RevealObserver />
 
       <section className="container reveal" style={{ padding: "2rem 2rem 4rem" }}>
-        <span className="kicker">Media & Review</span>
+        <span className="kicker">{t("eyebrow")}</span>
         <h1 className="serif" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", lineHeight: 1.05, margin: "1rem 0 1rem", maxWidth: 800 }}>
-          What people are saying.
+          {t("title")}
         </h1>
         <p style={{ color: "var(--ink-2)", fontSize: "1.1rem", maxWidth: 560, lineHeight: 1.7 }}>
-          A small selection of press features and reader letters that have meant a lot to us.
+          {t("intro")}
         </p>
       </section>
 
       <section className="container reveal" style={{ padding: "0 2rem 4rem" }}>
-        <h2 className="media-label">In the press</h2>
+        <h2 className="media-label">{t("pressTitle")}</h2>
+        <DraftNotice>{t("draftPress")}</DraftNotice>
         <div className="media-press-list">
           {press.map((p) => (
-            <a key={p.source} href="#" className="media-press-row">
+            <article key={p.source} className="media-press-row">
               <div className="media-press-meta">
                 <span className="media-press-source">{p.source}</span>
                 <span className="media-press-date">{p.date}</span>
               </div>
               <blockquote className="serif">&ldquo;{p.quote}&rdquo;</blockquote>
-              <span className="media-press-link">{p.link} <span className="media-arrow" aria-hidden>→</span></span>
-            </a>
+              <span className="media-press-link">{t("linkPending")}</span>
+            </article>
           ))}
         </div>
       </section>
 
       <section className="container reveal" style={{ padding: "2rem 2rem 6rem" }}>
-        <h2 className="media-label">Reader letters</h2>
+        <h2 className="media-label">{t("lettersTitle")}</h2>
+        <DraftNotice>{t("draftReviews")}</DraftNotice>
         <div className="media-letter-grid">
           {reviews.map((r) => (
             <figure key={r.name} className="media-letter">

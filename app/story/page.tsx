@@ -1,66 +1,47 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+import {Link} from "@/i18n/navigation";
+import {useTranslations} from "next-intl";
 import RevealObserver from "@/components/RevealObserver";
 
-export const metadata: Metadata = {
-  title: "Brand Story",
-  description: "From a small idea to a studio shaping the way families experience AI — the story, the values and the future of Lumiq.",
-};
-
-const principles = [
-  { n: "01", t: "Quiet by design", d: "No feeds, no streaks, no noise. Every Lumiq object is designed to end in a story, not a scroll." },
-  { n: "02", t: "Families first", d: "We build for the room, not the individual screen — moments that parents, children and grandparents share." },
-  { n: "03", t: "AI as collaborator", d: "AI helps narrate, illustrate and personalise — always with the person, never instead of them." },
-  { n: "04", t: "Craft over churn", d: "Objects that earn a place in the home: warm, considered, and made to be kept rather than replaced." },
-];
-
-const milestones = [
-  { year: "2011", t: "Arpha is founded", d: "Fifteen years of smart-home craft — safety, convenience and connection for families worldwide." },
-  { year: "2024", t: "The question", d: "What if technology could help families grow closer, not further apart? Lumiq Studio begins as a sketch." },
-  { year: "2025", t: "The studio forms", d: "Designers, engineers and parents gather around one table — and one intention." },
-  { year: "2026", t: "The first collection", d: "LumiqKobi, LumiqPrint and LumiqPal — three objects, one quiet universe." },
-];
-
 export default function StoryPage() {
+  const t = useTranslations("Story");
+  const principles = [1, 2, 3, 4].map((i) => ({n: `0${i}`, t: t(`p${i}Title`), d: t(`p${i}Body`)}));
+  const years = ["2011", "2024", "2025", "2026"];
+  const milestones = years.map((year, i) => ({year, t: t(`m${i + 1}Title`), d: t(`m${i + 1}Body`)}));
+
   return (
     <div className="editorial-page story-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
       <RevealObserver />
 
       <section className="container reveal" style={{ padding: "2rem 2rem 5rem" }}>
-        <span className="kicker">Brand Story</span>
+        <span className="kicker">{t("eyebrow")}</span>
         <h1 className="serif" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1.05, letterSpacing: "-0.02em", margin: "1rem 0 2rem", maxWidth: 900 }}>
-          A studio shaped by the question: <em style={{ color: "var(--gold)" }}>how do we enhance the things we use?</em>
+          {t("titleBefore")} <em style={{ color: "var(--gold)" }}>{t("titleEm")}</em>
         </h1>
       </section>
 
       <section className="reveal" style={{ padding: "0 0 5rem" }}>
         <div className="story-hero-frame">
-          <img src="/story-hero.jpg" alt="Hands writing in a notebook beside soft flowers and a glass prism" />
+          <img src="/story-hero.jpg" alt={t("heroAlt")} />
         </div>
       </section>
 
       <section className="container reveal" style={{ maxWidth: 760, padding: "0 2rem 5rem", color: "var(--ink-2)", fontSize: "1.1rem", lineHeight: 1.8 }}>
         <p style={{ marginBottom: "1.5rem" }}>
-          Lumiq Studio began with a small group of designers, engineers and parents who kept asking the
-          same question — what is technology actually for, when the noise dies down?
+          {t("origin1")}
         </p>
         <p style={{ marginBottom: "1.5rem" }}>
-          We were tired of products that demanded attention and gave very little back. We wanted to make
-          objects that earned a place in the home: quiet, warm, considered. The kind of things that get
-          shared rather than replaced.
+          {t("origin2")}
         </p>
         <p>
-          We design experiences at the intersection of artificial intelligence, storytelling and craft.
-          Our work spans hardware, software and printed objects — connected by a single intention:
-          to give families and creators tools that lift their imagination instead of crowding it.
+          {t("origin3")}
         </p>
       </section>
 
       {/* Principles — interactive numbered list */}
       <section className="story-principles reveal">
         <div className="container">
-          <span className="kicker">What we believe</span>
-          <h2 className="serif story-h2">Four principles, held quietly.</h2>
+          <span className="kicker">{t("principlesEyebrow")}</span>
+          <h2 className="serif story-h2">{t("principlesTitle")}</h2>
           <div className="story-principle-list">
             {principles.map((p) => (
               <div key={p.n} className="story-principle">
@@ -79,17 +60,17 @@ export default function StoryPage() {
       {/* Pull quote */}
       <section className="container reveal" style={{ padding: "6rem 2rem", textAlign: "center" }}>
         <blockquote className="serif story-quote">
-          &ldquo;The future of technology should not only connect devices — it should connect families.&rdquo;
+          &ldquo;{t("quote")}&rdquo;
         </blockquote>
         <div className="story-quote-rule" aria-hidden />
-        <span className="story-quote-src">The Lumiq Studio founding note</span>
+        <span className="story-quote-src">{t("quoteSource")}</span>
       </section>
 
       {/* Timeline */}
       <section className="story-timeline reveal">
         <div className="container">
-          <span className="kicker">The road here</span>
-          <h2 className="serif story-h2">A short history of a long idea.</h2>
+          <span className="kicker">{t("timelineEyebrow")}</span>
+          <h2 className="serif story-h2">{t("timelineTitle")}</h2>
           <div className="story-timeline-grid">
             {milestones.map((m) => (
               <div key={m.year} className="story-milestone">
@@ -109,19 +90,17 @@ export default function StoryPage() {
             <img src="/why-b.jpg" alt="" loading="lazy" />
           </div>
           <div>
-            <span className="kicker">The Future of Lumiq</span>
+            <span className="kicker">{t("futureEyebrow")}</span>
             <h2 className="serif" style={{ fontSize: "2.25rem", lineHeight: 1.2, margin: "0.75rem 0 1.5rem", color: "var(--ink)" }}>
-              An ecosystem, not a product line.
+              {t("futureTitle")}
             </h2>
             <p style={{ color: "var(--ink-2)", lineHeight: 1.75, marginBottom: "1rem" }}>
-              We&apos;re building toward a world where AI feels less like a tool and more like a thoughtful
-              companion — one that helps people read, write, dream and design together.
+              {t("future1")}
             </p>
             <p style={{ color: "var(--ink-2)", lineHeight: 1.75, marginBottom: "1.75rem" }}>
-              Every device, every page, every interface we ship is a step toward that quieter, more
-              imaginative tomorrow.
+              {t("future2")}
             </p>
-            <Link href="/products" className="btn btn-navy">Meet the collection</Link>
+            <Link href="/products" className="btn btn-navy">{t("cta")}</Link>
           </div>
         </div>
       </section>
