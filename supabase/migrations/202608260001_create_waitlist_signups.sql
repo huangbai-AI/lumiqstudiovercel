@@ -12,7 +12,9 @@ create table if not exists public.waitlist_signups (
 
 alter table public.waitlist_signups enable row level security;
 
+revoke all on table public.waitlist_signups from public;
 revoke all on table public.waitlist_signups from anon, authenticated;
+grant insert on table public.waitlist_signups to service_role;
 
 comment on table public.waitlist_signups is
   'Prelaunch email registrations submitted through the server-only waitlist endpoint.';
