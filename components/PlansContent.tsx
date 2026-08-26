@@ -33,6 +33,13 @@ const hardware = [
     blurbKey: "printBlurb",
     href: PRODUCT_BY_ID.print.href,
   },
+  {
+    name: PRODUCT_BY_ID.nest.name,
+    price: null,
+    img: PRODUCT_BY_ID.nest.image,
+    blurbKey: "nestBlurb",
+    href: PRODUCT_BY_ID.nest.href,
+  },
 ];
 
 const tabletCols = ["Free", "Lite", "Pro"];
@@ -344,17 +351,23 @@ export default function PlansContent() {
                   marginBottom: "1.25rem",
                 }}
               >
-                <span
-                  style={{
-                    fontSize: ".6em",
-                    color: "var(--gold)",
-                    marginRight: ".4rem",
-                    letterSpacing: ".08em",
-                  }}
-                >
-                  USD
-                </span>
-                {h.price}
+                {h.price === null ? (
+                  t("pricePending")
+                ) : (
+                  <>
+                    <span
+                      style={{
+                        fontSize: ".6em",
+                        color: "var(--gold)",
+                        marginRight: ".4rem",
+                        letterSpacing: ".08em",
+                      }}
+                    >
+                      USD
+                    </span>
+                    {h.price}
+                  </>
+                )}
               </div>
               <div
                 style={{
@@ -440,7 +453,7 @@ export default function PlansContent() {
       </section>
 
       <style>{`
-        .hw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .hw-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
         .hw-card { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 1.25rem 1.25rem 1.75rem; display: flex; flex-direction: column; transition: transform .4s, box-shadow .4s, border-color .4s; }
         .hw-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--border-h); }
         .hw-img { aspect-ratio: 4/3; border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem; background: var(--cream-3); }

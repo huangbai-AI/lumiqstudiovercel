@@ -30,6 +30,14 @@ const hardwarePlansBase = [
     href: PRODUCT_BY_ID.print.href,
     className: "plan-card-print",
   },
+  {
+    index: "04",
+    name: PRODUCT_BY_ID.nest.name,
+    price: null,
+    image: PRODUCT_BY_ID.nest.image,
+    href: PRODUCT_BY_ID.nest.href,
+    className: "plan-card-nest",
+  },
 ];
 
 export default function PlanCards() {
@@ -62,9 +70,15 @@ export default function PlanCards() {
             <h3>{plan.name}</h3>
             <p>{plan.description}</p>
             <div className="hardware-plan-purchase">
-              <p>
-                <span>USD</span>
-                <strong>{plan.price}</strong>
+              <p className={plan.price === null ? "is-pending" : undefined}>
+                {plan.price === null ? (
+                  <strong>{t("pricePending")}</strong>
+                ) : (
+                  <>
+                    <span>USD</span>
+                    <strong>{plan.price}</strong>
+                  </>
+                )}
               </p>
               <Link href={plan.href}>
                 {t("explore", { name: plan.name.replace("Lumiq ", "") })}{" "}

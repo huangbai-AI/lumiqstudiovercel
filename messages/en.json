@@ -479,6 +479,9 @@
     "p2Desc": "A personal holographic companion for stories, conversation, reminders and gentle everyday support across every generation of the family.",
     "p3Type": "PERSONALISED STORYBOOK",
     "p3Desc": "A premium personalised hardcover that turns a child into the hero of an original story — printed, delivered and made to be kept.",
+    "p4Type": "SMART FAMILY CALENDAR",
+    "p4Desc": "A calm 15.6-inch shared display that keeps family calendars, routines, weather, reminders and everyday moments visible in one place.",
+    "pricePending": "Price to be announced",
     "frontAlt": "{name} front view",
     "explore": "Explore {name}"
   },
@@ -535,6 +538,8 @@
     "tabletBlurb": "A calm reading & creation canvas.",
     "palBlurb": "A companion for kids and elders.",
     "printBlurb": "Hardcover, personalised, archival.",
+    "nestBlurb": "A shared family calendar for everyday routines.",
+    "pricePending": "Price to be announced",
     "reserve": "Join the waitlist →",
     "learn": "Learn more",
     "billing": "Billing period",

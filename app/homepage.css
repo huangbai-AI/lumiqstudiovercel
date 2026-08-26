@@ -1305,7 +1305,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 .parallax-home .plans-scene .compact-heading h2 { margin-block: 8px 12px; font-size: clamp(45px, 4.7vw, 78px); }
 .parallax-home .hardware-plan-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(14px, 1.4vw, 24px);
   width: min(1500px, 100%);
   margin-inline: auto;
@@ -1374,6 +1374,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 .parallax-home .plan-card-tablet .hardware-plan-visual img { width: 90%; height: 83%; }
 .parallax-home .plan-card-ola .hardware-plan-visual img { width: 64%; height: 94%; }
 .parallax-home .plan-card-print .hardware-plan-visual img { width: 76%; height: 86%; }
+.parallax-home .plan-card-nest .hardware-plan-visual img { width: 98%; height: 88%; }
 .parallax-home .hardware-plan-copy { display: flex; min-width: 0; flex-direction: column; padding: clamp(18px, 1.7vw, 28px); border-top: 1px solid rgba(126, 162, 225, .13); }
 .parallax-home .hardware-plan-copy h3 {
   margin: 7px 0 8px;
@@ -1386,6 +1387,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 .parallax-home .hardware-plan-purchase > p { display: flex; align-items: baseline; gap: 8px; margin: 0; }
 .parallax-home .hardware-plan-purchase > p span { color: #71819d; font: 400 12px var(--font-geist-mono); letter-spacing: .08em; }
 .parallax-home .hardware-plan-purchase strong { color: #f5f8ff; font: 390 clamp(43px, 3.7vw, 66px)/.78 "LUMIQ Teko", sans-serif; letter-spacing: -.01em; }
+.parallax-home .hardware-plan-purchase > p.is-pending strong { max-width: 120px; font-size: clamp(26px, 2.2vw, 38px); line-height: .9; }
 .parallax-home .hardware-plan-purchase > a { display: inline-flex; align-items: center; gap: 13px; padding: 12px 19px; border: 1px solid rgba(157, 190, 247, .34); border-radius: 999px; background: rgba(228, 238, 255, .96); color: #071020; font: 390 clamp(15px, 1vw, 18px) "LUMIQ Teko", sans-serif; letter-spacing: .04em; white-space: nowrap; transition: transform .3s cubic-bezier(.16, 1, .3, 1), box-shadow .3s ease; }
 .parallax-home .hardware-plan-purchase > a:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(69, 129, 255, .28); }
 .parallax-home .hardware-plan-purchase > a span { font-size: 22px; }
@@ -1408,6 +1410,11 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 .parallax-home .plans-page .hardware-plan-card { min-height: clamp(590px, 65vw, 760px); }
 .parallax-home .plans-page-footer { min-height: 56svh; }
 .parallax-home .print-checkout-product img { width: min(82%, 760px); height: 78%; object-fit: contain; }
+
+@media (max-width: 1180px) and (min-width: 821px) {
+  .parallax-home .hardware-plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .parallax-home .plans-scene .legacy-stage { overflow-y: auto; }
+}
 
 /* Lumiq Print — personalised storybook */
 .parallax-home .print-page { background: #02050c; }
