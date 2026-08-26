@@ -15,6 +15,7 @@ const NAV = [
 
 export default function SiteHeader() {
   const pathname = usePathname();
+  const isHomepage = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
   const [lang, setLang] = useState("EN");
   const [langOpen, setLangOpen] = useState(false);
@@ -39,7 +40,7 @@ export default function SiteHeader() {
 
   return (
     <nav
-      className={`navbar${scrolled || menuOpen ? " scrolled" : ""}${menuOpen ? " menu-open" : ""}`}
+      className={`navbar${isHomepage ? " homepage-nav" : ""}${scrolled || menuOpen ? " scrolled" : ""}${menuOpen ? " menu-open" : ""}`}
       style={{ zIndex: 3000, position: "fixed", top: 0, left: 0, right: 0 }}
     >
       <div className="container nav-inner">
@@ -90,9 +91,9 @@ export default function SiteHeader() {
               </ul>
             )}
           </div>
-          <a href="#" className="btn btn-ghost-navy login-btn site-login-btn">
+          <Link href="/prelaunch" className="btn btn-ghost-navy login-btn site-login-btn">
             Log in
-          </a>
+          </Link>
 
           <button
             type="button"
@@ -144,6 +145,19 @@ export default function SiteHeader() {
           border-bottom-color: var(--border, rgba(0,0,0,0.08));
           box-shadow: 0 4px 24px rgba(0,0,0,0.06);
         }
+        .navbar.homepage-nav:not(.scrolled) {
+          background: linear-gradient(180deg, rgba(2,5,12,0.9), rgba(2,5,12,0));
+          border-bottom-color: transparent;
+          box-shadow: none;
+        }
+        .navbar.homepage-nav:not(.scrolled) .nav-logo-img { filter: brightness(0) invert(1); }
+        .navbar.homepage-nav:not(.scrolled) .site-desktop-nav a,
+        .navbar.homepage-nav:not(.scrolled) .lang-btn { color: rgba(238,244,255,0.8); }
+        .navbar.homepage-nav:not(.scrolled) .site-desktop-nav a:hover,
+        .navbar.homepage-nav:not(.scrolled) .site-desktop-nav a.active { color: #fff; }
+        .navbar.homepage-nav:not(.scrolled) .login-btn { border-color: rgba(238,244,255,0.72); color: #fff; }
+        .navbar.homepage-nav:not(.scrolled) .login-btn:hover { background: #fff; color: #071020; }
+        .navbar.homepage-nav:not(.scrolled) .site-mobile-trigger { background: rgba(7,13,28,0.58); border-color: rgba(238,244,255,0.28); color: #fff; }
         .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; gap: 1.5rem; }
         .nav-logo { display: inline-flex; align-items: center; }
         .nav-logo-img { height: 34px; width: auto; display: block; }
