@@ -66,3 +66,70 @@
 - [x] Console checked after interaction.
 
 final result: passed
+
+---
+
+# Plans & Pricing — Nest 15 Card QA
+
+## Comparison target
+
+- Source visual truth: `/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/TemporaryItems/NSIRD_screencaptureui_mrCePt/截屏2026-08-27 00.41.41.png`
+- Browser-rendered implementation: `http://127.0.0.1:3001/en#plans`
+- Implementation screenshot: `/Users/a1/Documents/lumiqstudiovercel/artifacts/plans-nest-home-final.png`
+- State: English locale, desktop Plans & Pricing scene, four hardware cards visible, Nest price pending.
+
+## Viewport and normalization
+
+- Source pixels: 1595 × 859.
+- Browser CSS viewport: 1280 × 720; browser screenshot pixels: 1118 × 712; device pixel ratio: 2.
+- Full comparison: `/Users/a1/Documents/lumiqstudiovercel/artifacts/plans-nest-reference-vs-final.png`; both captures were normalized to 859 pixels high before horizontal comparison.
+- Focused card comparison: `/Users/a1/Documents/lumiqstudiovercel/artifacts/plans-nest-reference-vs-cards.png`; source and implementation card regions were proportionally normalized into equal-width panels.
+
+## Full-view comparison evidence
+
+- The original centered heading, supporting text, draft notice, dark navy palette and numbered hardware-card hierarchy are preserved.
+- The original three products retain their order and visual treatment.
+- Lumiq Nest 15 is added as card `04` using the supplied oak product image and the same card structure.
+- The grid reports no horizontal document overflow; the fourth card remains inside the CSS viewport.
+
+## Focused region comparison evidence
+
+- Card borders, radii, blue glow, large italic numbers, image shadows, copy hierarchy and divider positions remain consistent with the reference.
+- Nest uses the real optimized product asset rather than a placeholder or code-drawn approximation.
+- The four-card composition is intentionally denser than the three-card source so the new peer product remains in the same row on desktop.
+
+## Required fidelity surfaces
+
+- Fonts and typography: existing Lumiq display, serif-number and supporting-text styles are unchanged; the Nest type and title follow the same hierarchy.
+- Spacing and layout rhythm: four equal desktop columns, two columns at intermediate widths and one column on small screens; card gap, padding and visual/copy split remain consistent.
+- Colors and visual tokens: existing navy, blue, cream notice and muted copy tokens are unchanged.
+- Image quality and asset fidelity: all four real optimized product assets render with contain sizing and drop shadows; Nest retains its frame, screen artwork and perspective.
+- Copy and content: Nest is identified as a smart family calendar; because no approved price exists, both pricing surfaces state that the price will be announced rather than inventing a number.
+
+## Interaction and browser checks
+
+- Four homepage hardware cards are present with localized product-detail links.
+- Nest links to `/en/products/nest`.
+- The dedicated `/en/plans` hardware grid also contains Nest and its waitlist/detail actions.
+- Browser console errors after the clean-cache final loads: none.
+- No horizontal overflow was detected on either checked desktop pricing surface.
+
+## Findings
+
+- No actionable P0, P1 or P2 differences remain.
+- Intentional difference: the desktop grid is denser because the requested fourth peer product is now present.
+
+## Comparison history
+
+- Initial post-change preview inherited stale development manifests from a prior concurrent build; the generated cache was moved to a recoverable temporary directory and regenerated.
+- Final fresh-browser captures loaded without console errors and confirmed all four cards, the Nest detail link and the pending-price state.
+
+## Implementation checklist
+
+- [x] Added Nest 15 to the homepage pricing scene as card 04.
+- [x] Added Nest 15 to the dedicated Plans page.
+- [x] Added English, Traditional Chinese and Japanese copy.
+- [x] Added responsive four/two/one-column behavior.
+- [x] Verified links, price state, overflow and browser console.
+
+final result: passed
