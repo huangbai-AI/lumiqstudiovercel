@@ -1,13 +1,12 @@
 import RevealObserver from "@/components/RevealObserver";
-import DraftNotice from "@/components/DraftNotice";
 import {useTranslations} from "next-intl";
 
 export default function MediaPage() {
   const t = useTranslations("Media");
   const press = [
-    { source: "The Atelier Review", date: t("press1Date"), quote: t("press1Quote"), link: t("press1Link") },
-    { source: "Slow Design Quarterly", date: t("press2Date"), quote: t("press2Quote"), link: t("press2Link") },
-    { source: "Kinfolk", date: t("press3Date"), quote: t("press3Quote"), link: t("press3Link") },
+    { source: "The Atelier Review", date: t("press1Date"), quote: t("press1Quote") },
+    { source: "Slow Design Quarterly", date: t("press2Date"), quote: t("press2Quote") },
+    { source: "Kinfolk", date: t("press3Date"), quote: t("press3Quote") },
   ];
   const reviews = [
     { name: "Sora Tanaka", role: t("review1Role"), text: t("review1Text") },
@@ -21,8 +20,8 @@ export default function MediaPage() {
       <RevealObserver />
 
       <section className="container reveal" style={{ padding: "2rem 2rem 4rem" }}>
-        <span className="kicker">{t("eyebrow")}</span>
-        <h1 className="serif" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", lineHeight: 1.05, margin: "1rem 0 1rem", maxWidth: 800 }}>
+        <span className="kicker media-kicker">{t("eyebrow")}</span>
+        <h1 className="serif" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", lineHeight: 1.05, margin: "0 0 1rem", maxWidth: 800 }}>
           {t("title")}
         </h1>
         <p style={{ color: "var(--ink-2)", fontSize: "1.1rem", maxWidth: 560, lineHeight: 1.7 }}>
@@ -32,7 +31,6 @@ export default function MediaPage() {
 
       <section className="container reveal" style={{ padding: "0 2rem 4rem" }}>
         <h2 className="media-label">{t("pressTitle")}</h2>
-        <DraftNotice>{t("draftPress")}</DraftNotice>
         <div className="media-press-list">
           {press.map((p) => (
             <article key={p.source} className="media-press-row">
@@ -41,7 +39,7 @@ export default function MediaPage() {
                 <span className="media-press-date">{p.date}</span>
               </div>
               <blockquote className="serif">&ldquo;{p.quote}&rdquo;</blockquote>
-              <span className="media-press-link">{t("linkPending")}</span>
+              <span className="media-press-link">{t("readMore")}</span>
             </article>
           ))}
         </div>
@@ -49,7 +47,6 @@ export default function MediaPage() {
 
       <section className="container reveal" style={{ padding: "2rem 2rem 6rem" }}>
         <h2 className="media-label">{t("lettersTitle")}</h2>
-        <DraftNotice>{t("draftReviews")}</DraftNotice>
         <div className="media-letter-grid">
           {reviews.map((r) => (
             <figure key={r.name} className="media-letter">
@@ -63,7 +60,8 @@ export default function MediaPage() {
       </section>
 
       <style>{`
-        .media-label { font-family: var(--font-sans); font-size: .75rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.75rem; }
+        .media-page .media-kicker { font-size: .9375rem; line-height: 1.4; letter-spacing: .12em; margin-bottom: 1.75rem; }
+        .media-page .media-label { font-family: var(--font-sans); font-size: .9375rem; font-weight: 650; line-height: 1.4; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin: 0 0 2.25rem; }
 
         .media-press-list { display: flex; flex-direction: column; }
         .media-press-row { display: grid; grid-template-columns: 220px 1fr auto; gap: 2rem; align-items: center; padding: 2rem 0; border-top: 1px solid var(--border); color: inherit; transition: padding-left .45s cubic-bezier(.22,1,.36,1); }
@@ -86,6 +84,8 @@ export default function MediaPage() {
         .media-letter figcaption strong { color: var(--ink-2); }
 
         @media (max-width: 820px) {
+          .media-page .media-kicker { font-size: .875rem; margin-bottom: 1.25rem; }
+          .media-page .media-label { font-size: .875rem; margin-bottom: 1.5rem; }
           .media-press-row { grid-template-columns: 1fr; gap: .85rem; }
           .media-press-link { justify-self: start; }
         }
