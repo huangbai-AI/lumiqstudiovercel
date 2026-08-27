@@ -155,8 +155,8 @@ export default function ProductsShowcase() {
           <Image
             src="/assets/products/lumiq-ola-tablet-hero.webp"
             alt={t("heroAlt")}
-            width={1136}
-            height={942}
+            width={1144}
+            height={922}
             sizes="(max-width: 820px) 100vw, 50vw"
             priority
           />
