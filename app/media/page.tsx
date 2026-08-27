@@ -1,13 +1,12 @@
 import RevealObserver from "@/components/RevealObserver";
-import DraftNotice from "@/components/DraftNotice";
 import {useTranslations} from "next-intl";
 
 export default function MediaPage() {
   const t = useTranslations("Media");
   const press = [
-    { source: "The Atelier Review", date: t("press1Date"), quote: t("press1Quote"), link: t("press1Link") },
-    { source: "Slow Design Quarterly", date: t("press2Date"), quote: t("press2Quote"), link: t("press2Link") },
-    { source: "Kinfolk", date: t("press3Date"), quote: t("press3Quote"), link: t("press3Link") },
+    { source: "The Atelier Review", date: t("press1Date"), quote: t("press1Quote") },
+    { source: "Slow Design Quarterly", date: t("press2Date"), quote: t("press2Quote") },
+    { source: "Kinfolk", date: t("press3Date"), quote: t("press3Quote") },
   ];
   const reviews = [
     { name: "Sora Tanaka", role: t("review1Role"), text: t("review1Text") },
@@ -32,7 +31,6 @@ export default function MediaPage() {
 
       <section className="container reveal" style={{ padding: "0 2rem 4rem" }}>
         <h2 className="media-label">{t("pressTitle")}</h2>
-        <DraftNotice>{t("draftPress")}</DraftNotice>
         <div className="media-press-list">
           {press.map((p) => (
             <article key={p.source} className="media-press-row">
@@ -41,7 +39,7 @@ export default function MediaPage() {
                 <span className="media-press-date">{p.date}</span>
               </div>
               <blockquote className="serif">&ldquo;{p.quote}&rdquo;</blockquote>
-              <span className="media-press-link">{t("linkPending")}</span>
+              <span className="media-press-link">{t("readMore")}</span>
             </article>
           ))}
         </div>
@@ -49,7 +47,6 @@ export default function MediaPage() {
 
       <section className="container reveal" style={{ padding: "2rem 2rem 6rem" }}>
         <h2 className="media-label">{t("lettersTitle")}</h2>
-        <DraftNotice>{t("draftReviews")}</DraftNotice>
         <div className="media-letter-grid">
           {reviews.map((r) => (
             <figure key={r.name} className="media-letter">
