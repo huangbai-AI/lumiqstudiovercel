@@ -6,7 +6,7 @@ import {htmlLang, type Locale} from "@/i18n/routing";
 export const metadata: Metadata = {
   title: {
     default: "Lumiq Studio — Where Stories Come Alive",
-    template: "%s — Lumiq Studio",
+    template: "%s",
   },
   description:
     "Lumiq Studio creates AI-powered story and companion experiences — helping children read and imagine, while giving older adults a gentle presence for conversation, reminders, and connection.",

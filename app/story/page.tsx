@@ -1,157 +1,257 @@
-import {Link} from "@/i18n/navigation";
-import {useTranslations} from "next-intl";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import RevealObserver from "@/components/RevealObserver";
+import { PRODUCT_BY_ID } from "@/lib/products";
 
 export default function StoryPage() {
   const t = useTranslations("Story");
-  const principles = [1, 2, 3, 4].map((i) => ({n: `0${i}`, t: t(`p${i}Title`), d: t(`p${i}Body`)}));
+  const principles = [1, 2, 3, 4].map((i) => ({
+    n: `0${i}`,
+    title: t(`p${i}Title`),
+    body: t(`p${i}Body`),
+  }));
   const years = ["2011", "2024", "2025", "2026"];
-  const milestones = years.map((year, i) => ({year, t: t(`m${i + 1}Title`), d: t(`m${i + 1}Body`)}));
+  const milestones = years.map((year, i) => ({
+    year,
+    title: t(`m${i + 1}Title`),
+    body: t(`m${i + 1}Body`),
+  }));
+  const collection = [
+    PRODUCT_BY_ID.tablet,
+    PRODUCT_BY_ID.ola,
+    PRODUCT_BY_ID.print,
+  ];
 
   return (
-    <div className="editorial-page story-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
+    <main className="editorial-page story-page">
       <RevealObserver />
 
-      <section className="container reveal" style={{ padding: "2rem 2rem 5rem" }}>
-        <span className="kicker">{t("eyebrow")}</span>
-        <h1 className="serif" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)", lineHeight: 1.05, letterSpacing: "-0.02em", margin: "1rem 0 2rem", maxWidth: 900 }}>
-          {t("titleBefore")} <em style={{ color: "var(--gold)" }}>{t("titleEm")}</em>
-        </h1>
+      <section className="container story-hero">
+        <div className="story-hero-copy reveal">
+          <span className="kicker">{t("eyebrow")}</span>
+          <h1 className="serif">
+            {t("titleBefore")} <em>{t("titleEm")}</em>
+          </h1>
+          <p>{t("origin1")}</p>
+        </div>
+
+        <figure className="story-hero-media reveal">
+          <Image
+            src="/assets/story/lumiq-story-family-v2.webp"
+            alt={t("heroAlt")}
+            fill
+            sizes="(max-width: 768px) 100vw, 1200px"
+            priority
+          />
+          <figcaption>
+            <span>{t("principlesEyebrow")}</span>
+            <strong>{t("quote")}</strong>
+          </figcaption>
+        </figure>
       </section>
 
-      <section className="reveal" style={{ padding: "0 0 5rem" }}>
-        <div className="story-hero-frame">
-          <img src="/story-hero.jpg" alt={t("heroAlt")} />
+      <section className="container story-origin reveal">
+        <div className="story-section-label">
+          <span>01</span>
+          <p>{t("eyebrow")}</p>
+        </div>
+        <div className="story-origin-copy">
+          <p>{t("origin2")}</p>
+          <p>{t("origin3")}</p>
         </div>
       </section>
 
-      <section className="container reveal" style={{ maxWidth: 760, padding: "0 2rem 5rem", color: "var(--ink-2)", fontSize: "1.1rem", lineHeight: 1.8 }}>
-        <p style={{ marginBottom: "1.5rem" }}>
-          {t("origin1")}
-        </p>
-        <p style={{ marginBottom: "1.5rem" }}>
-          {t("origin2")}
-        </p>
-        <p>
-          {t("origin3")}
-        </p>
-      </section>
-
-      {/* Principles — interactive numbered list */}
-      <section className="story-principles reveal">
+      <section className="story-principles">
         <div className="container">
-          <span className="kicker">{t("principlesEyebrow")}</span>
-          <h2 className="serif story-h2">{t("principlesTitle")}</h2>
-          <div className="story-principle-list">
-            {principles.map((p) => (
-              <div key={p.n} className="story-principle">
-                <span className="story-principle-num serif">{p.n}</span>
-                <div className="story-principle-body">
-                  <h3 className="serif">{p.t}</h3>
-                  <p>{p.d}</p>
-                </div>
-                <span className="story-principle-dash" aria-hidden />
-              </div>
+          <div className="story-section-head reveal">
+            <div>
+              <span className="kicker">{t("principlesEyebrow")}</span>
+              <h2 className="serif">{t("principlesTitle")}</h2>
+            </div>
+            <p>{t("origin3")}</p>
+          </div>
+          <div className="story-principle-grid">
+            {principles.map((principle) => (
+              <article key={principle.n} className="story-principle reveal">
+                <span className="story-principle-num serif">
+                  {principle.n}
+                </span>
+                <h3 className="serif">{principle.title}</h3>
+                <p>{principle.body}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Pull quote */}
-      <section className="container reveal" style={{ padding: "6rem 2rem", textAlign: "center" }}>
-        <blockquote className="serif story-quote">
-          &ldquo;{t("quote")}&rdquo;
-        </blockquote>
-        <div className="story-quote-rule" aria-hidden />
-        <span className="story-quote-src">{t("quoteSource")}</span>
-      </section>
-
-      {/* Timeline */}
-      <section className="story-timeline reveal">
+      <section className="story-quote-band reveal">
         <div className="container">
-          <span className="kicker">{t("timelineEyebrow")}</span>
-          <h2 className="serif story-h2">{t("timelineTitle")}</h2>
-          <div className="story-timeline-grid">
-            {milestones.map((m) => (
-              <div key={m.year} className="story-milestone">
-                <span className="story-milestone-year serif">{m.year}</span>
-                <h3>{m.t}</h3>
-                <p>{m.d}</p>
-              </div>
-            ))}
-          </div>
+          <span aria-hidden="true">“</span>
+          <blockquote className="serif">{t("quote")}</blockquote>
+          <cite>{t("quoteSource")}</cite>
         </div>
       </section>
 
-      {/* Future */}
-      <section className="reveal" style={{ background: "var(--cream-2)", padding: "5rem 0", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)" }}>
-        <div className="container story-future" style={{ maxWidth: 1200 }}>
-          <div className="story-future-media">
-            <img src="/why-b.jpg" alt="" loading="lazy" />
-          </div>
+      <section className="container story-timeline">
+        <div className="story-section-head reveal">
           <div>
+            <span className="kicker">{t("timelineEyebrow")}</span>
+            <h2 className="serif">{t("timelineTitle")}</h2>
+          </div>
+        </div>
+        <ol className="story-timeline-grid">
+          {milestones.map((milestone) => (
+            <li key={milestone.year} className="story-milestone reveal">
+              <span className="story-milestone-year serif">
+                {milestone.year}
+              </span>
+              <h3>{milestone.title}</h3>
+              <p>{milestone.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="story-future reveal">
+        <div className="container story-future-grid">
+          <div className="story-future-copy">
             <span className="kicker">{t("futureEyebrow")}</span>
-            <h2 className="serif" style={{ fontSize: "2.25rem", lineHeight: 1.2, margin: "0.75rem 0 1.5rem", color: "var(--ink)" }}>
-              {t("futureTitle")}
-            </h2>
-            <p style={{ color: "var(--ink-2)", lineHeight: 1.75, marginBottom: "1rem" }}>
-              {t("future1")}
-            </p>
-            <p style={{ color: "var(--ink-2)", lineHeight: 1.75, marginBottom: "1.75rem" }}>
-              {t("future2")}
-            </p>
-            <Link href="/products" className="btn btn-navy">{t("cta")}</Link>
+            <h2 className="serif">{t("futureTitle")}</h2>
+            <p>{t("future1")}</p>
+            <p>{t("future2")}</p>
+            <Link href="/products" className="btn btn-navy story-cta">
+              {t("cta")}
+              <ArrowRight size={17} strokeWidth={1.8} aria-hidden />
+            </Link>
+          </div>
+          <div className="story-collection" aria-label={t("cta")}>
+            {collection.map((product) => (
+              <Link href={product.href} key={product.id}>
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={540}
+                  height={540}
+                  sizes="(max-width: 760px) 30vw, 180px"
+                />
+                <span>{product.shortName}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
       <style>{`
-        .story-hero-frame { max-width: 1400px; margin: 0 auto; overflow: hidden; border-radius: 8px; }
-        .story-hero-frame img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; transition: transform 1.2s ease; }
-        .story-hero-frame:hover img { transform: scale(1.025); }
-        .story-h2 { font-size: clamp(1.9rem, 3.5vw, 2.75rem); line-height: 1.15; margin: 0 0 2.5rem; max-width: 640px; }
+        .story-page {
+          padding-top: 7rem;
+          color: var(--ink);
+          background: linear-gradient(180deg, #fff 0%, #fbfaf8 42%, #fff 100%);
+        }
+        .story-page .container { max-width: 1240px; }
+        .story-hero { padding: 4.5rem 2rem 7rem; }
+        .story-hero-copy { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 3rem 5rem; align-items: end; margin-bottom: 3.5rem; }
+        .story-hero-copy .kicker { grid-column: 1 / -1; }
+        .story-hero-copy h1 { font-size: clamp(3rem, 6.6vw, 6.25rem); line-height: .98; letter-spacing: -.035em; margin: 0; max-width: 920px; }
+        .story-hero-copy h1 em { display: block; color: var(--gold); font-size: .68em; line-height: 1.08; margin-top: .18em; }
+        .story-hero-copy > p { margin: 0 0 .35rem; color: var(--ink-2); font-size: clamp(1rem, 1.35vw, 1.2rem); line-height: 1.75; }
+        .story-hero-media { position: relative; aspect-ratio: 16 / 9; margin: 0; overflow: hidden; border: 1px solid rgba(20, 20, 20, .08); border-radius: 28px; background: #111827; box-shadow: 0 30px 80px rgba(24, 18, 10, .14); }
+        .story-hero-media img { object-fit: cover; transition: transform 1.2s cubic-bezier(.22, 1, .36, 1); }
+        .story-hero-media:hover img { transform: scale(1.018); }
+        .story-hero-media::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(180deg, transparent, rgba(2, 6, 18, .72)); pointer-events: none; }
+        .story-hero-media figcaption { position: absolute; z-index: 1; right: clamp(1.25rem, 3vw, 2.75rem); bottom: clamp(1.25rem, 3vw, 2.5rem); left: clamp(1.25rem, 3vw, 2.75rem); display: flex; align-items: end; justify-content: space-between; gap: 2rem; color: #fff; }
+        .story-hero-media figcaption span { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.72); }
+        .story-hero-media figcaption strong { max-width: 640px; text-align: right; font-family: var(--font-serif); font-size: clamp(1.15rem, 2vw, 1.85rem); font-weight: 500; line-height: 1.25; }
 
-        .story-principles { border-top: 1px solid var(--border); padding: 5.5rem 0; }
-        .story-principle-list { display: flex; flex-direction: column; }
-        .story-principle { display: grid; grid-template-columns: 90px 1fr 60px; gap: 2rem; align-items: center; padding: 2rem 0; border-top: 1px solid var(--border); transition: padding-left 0.45s cubic-bezier(0.22, 1, 0.36, 1); position: relative; }
-        .story-principle:last-child { border-bottom: 1px solid var(--border); }
-        .story-principle:hover { padding-left: 1.25rem; }
-        .story-principle-num { font-size: 1.5rem; font-style: italic; color: var(--ink-4); transition: color 0.35s; }
-        .story-principle:hover .story-principle-num { color: var(--gold); }
-        .story-principle-body h3 { font-size: 1.5rem; margin: 0 0 0.4rem; }
-        .story-principle-body p { color: var(--ink-2); line-height: 1.65; max-width: 560px; margin: 0; }
-        .story-principle-dash { justify-self: end; width: 28px; height: 1px; background: var(--ink-4); transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s; }
-        .story-principle:hover .story-principle-dash { width: 52px; background: var(--gold); }
+        .story-origin { display: grid; grid-template-columns: minmax(180px, .4fr) minmax(0, 1fr); gap: 3rem 7rem; padding: 0 2rem 7rem; }
+        .story-section-label { display: flex; align-items: start; gap: 1rem; padding-top: .4rem; border-top: 1px solid var(--border-h); color: var(--ink-3); }
+        .story-section-label span { color: var(--gold); font-family: var(--font-serif); }
+        .story-section-label p { margin: 0; font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; }
+        .story-origin-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .story-origin-copy p { margin: 0; color: var(--ink-2); font-size: clamp(1.05rem, 1.35vw, 1.25rem); line-height: 1.75; }
 
-        .story-quote { font-size: clamp(1.5rem, 3.4vw, 2.4rem); line-height: 1.35; font-style: italic; max-width: 860px; margin: 0 auto; color: var(--ink); }
-        .story-quote-rule { width: 56px; height: 1px; background: var(--gold); margin: 2rem auto 1rem; }
-        .story-quote-src { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); }
+        .story-principles { padding: 7rem 0; background: #f5f3ee; border-block: 1px solid rgba(20,20,20,.06); }
+        .story-section-head { display: flex; align-items: end; justify-content: space-between; gap: 3rem; margin-bottom: 3.5rem; }
+        .story-section-head h2 { margin: .8rem 0 0; max-width: 700px; font-size: clamp(2.25rem, 4.5vw, 4rem); line-height: 1.04; letter-spacing: -.025em; }
+        .story-section-head > p { max-width: 430px; margin: 0; color: var(--ink-3); line-height: 1.7; }
+        .story-principle-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid rgba(20,20,20,.09); border-radius: 24px; overflow: hidden; background: rgba(255,255,255,.64); }
+        .story-principle { min-height: 280px; padding: clamp(2rem, 4vw, 3.25rem); border-right: 1px solid rgba(20,20,20,.08); border-bottom: 1px solid rgba(20,20,20,.08); transition: background .3s ease; }
+        .story-principle:nth-child(even) { border-right: 0; }
+        .story-principle:nth-last-child(-n+2) { border-bottom: 0; }
+        .story-principle:hover { background: #fff; }
+        .story-principle-num { display: block; margin-bottom: 2.75rem; color: var(--gold); font-size: 1.1rem; font-style: italic; }
+        .story-principle h3 { margin: 0 0 .8rem; font-size: clamp(1.5rem, 2.3vw, 2rem); }
+        .story-principle p { max-width: 480px; margin: 0; color: var(--ink-2); line-height: 1.7; }
 
-        .story-timeline { border-top: 1px solid var(--border); padding: 5.5rem 0 6rem; }
-        .story-timeline-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; position: relative; }
-        .story-timeline-grid::before { content: ""; position: absolute; top: 0.6rem; left: 0; right: 0; height: 1px; background: var(--border); }
-        .story-milestone { position: relative; padding-top: 2rem; }
-        .story-milestone::before { content: ""; position: absolute; top: 0.32rem; left: 0; width: 9px; height: 9px; border-radius: 50%; background: #fff; border: 1px solid var(--ink-4); transition: background 0.3s, border-color 0.3s, transform 0.3s; }
-        .story-milestone:hover::before { background: var(--gold); border-color: var(--gold); transform: scale(1.3); }
-        .story-milestone-year { display: block; font-size: 1.4rem; font-style: italic; color: var(--ink); margin-bottom: 0.5rem; }
-        .story-milestone h3 { font-family: var(--font-sans); font-size: 0.9375rem; font-weight: 600; color: var(--ink); margin: 0 0 0.4rem; }
-        .story-milestone p { color: var(--ink-3); font-size: 0.9rem; line-height: 1.6; margin: 0; }
+        .story-quote-band { padding: 8rem 0; background: #071020; color: #fff; text-align: center; }
+        .story-quote-band .container { max-width: 980px; }
+        .story-quote-band .container > span { display: block; height: 3.5rem; color: #8eb2ff; font: 400 5rem/1 Georgia, serif; }
+        .story-quote-band blockquote { margin: 1rem auto 2rem; font-size: clamp(2rem, 4.6vw, 4.25rem); line-height: 1.16; letter-spacing: -.02em; }
+        .story-quote-band cite { color: #9baac2; font-size: .72rem; font-style: normal; letter-spacing: .18em; text-transform: uppercase; }
 
-        .story-future { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-        .story-future-media { overflow: hidden; border-radius: 6px; }
-        .story-future-media img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; transition: transform 0.9s ease; }
-        .story-future-media:hover img { transform: scale(1.04); }
+        .story-timeline { padding: 7rem 2rem 8rem; }
+        .story-timeline-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); list-style: none; margin: 0; padding: 0; }
+        .story-timeline-grid::before { content: ""; position: absolute; top: 8px; right: 0; left: 0; height: 1px; background: var(--border); }
+        .story-milestone { position: relative; padding-top: 2.75rem; }
+        .story-milestone::before { content: ""; position: absolute; top: 3px; left: 0; width: 11px; height: 11px; border: 2px solid #fff; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+        .story-milestone-year { display: block; margin-bottom: .65rem; color: var(--ink); font-size: 1.5rem; font-style: italic; }
+        .story-milestone h3 { margin: 0 0 .6rem; font-size: 1rem; font-weight: 650; }
+        .story-milestone p { margin: 0; color: var(--ink-3); font-size: .94rem; line-height: 1.65; }
+
+        .story-future { padding: 0 0 7rem; }
+        .story-future-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr); gap: clamp(3rem, 7vw, 7rem); align-items: center; padding: clamp(3rem, 6vw, 5rem); border: 1px solid rgba(20,20,20,.08); border-radius: 30px; background: #f5f3ee; overflow: hidden; }
+        .story-future-copy h2 { margin: .8rem 0 1.5rem; font-size: clamp(2.2rem, 4.2vw, 3.8rem); line-height: 1.05; letter-spacing: -.025em; }
+        .story-future-copy p { margin: 0 0 1rem; color: var(--ink-2); line-height: 1.72; }
+        .story-cta { display: inline-flex; gap: .75rem; align-items: center; margin-top: 1rem; }
+        .story-collection { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; align-items: end; }
+        .story-collection a { display: grid; grid-template-rows: 1fr auto; min-width: 0; padding: 1rem 1rem .85rem; border: 1px solid rgba(20,20,20,.08); border-radius: 20px; background: rgba(255,255,255,.74); color: var(--ink); transition: transform .3s ease, box-shadow .3s ease, background .3s ease; }
+        .story-collection a:nth-child(2) { transform: translateY(-1.5rem); }
+        .story-collection a:hover { transform: translateY(-.4rem); background: #fff; box-shadow: 0 18px 50px rgba(24,18,10,.09); }
+        .story-collection a:nth-child(2):hover { transform: translateY(-1.9rem); }
+        .story-collection img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
+        .story-collection span { display: block; padding-top: .55rem; text-align: center; font-size: .75rem; font-weight: 600; }
 
         @media (max-width: 900px) {
-          .story-future { grid-template-columns: 1fr; gap: 2rem; }
-          .story-timeline-grid { grid-template-columns: 1fr; gap: 2rem; }
+          .story-hero-copy, .story-origin, .story-future-grid { grid-template-columns: 1fr; }
+          .story-hero-copy { gap: 1.75rem; }
+          .story-hero-copy .kicker { grid-column: auto; }
+          .story-origin { gap: 2rem; }
+          .story-origin-copy { gap: 2rem; }
+          .story-section-head { align-items: start; flex-direction: column; }
+          .story-future-grid { padding: 3rem 2rem; }
+        }
+        @media (max-width: 700px) {
+          .story-page { padding-top: 5.75rem; }
+          .story-hero { padding: 3rem 1rem 5rem; }
+          .story-hero-copy { margin-bottom: 2.25rem; }
+          .story-hero-copy h1 { font-size: clamp(2.65rem, 13vw, 4.25rem); }
+          .story-hero-media { aspect-ratio: 4 / 5; border-radius: 20px; }
+          .story-hero-media img { object-position: 42% center; }
+          .story-hero-media figcaption { align-items: start; flex-direction: column; gap: .65rem; }
+          .story-hero-media figcaption strong { text-align: left; }
+          .story-origin { padding: 0 1rem 5rem; }
+          .story-origin-copy, .story-principle-grid, .story-timeline-grid { grid-template-columns: 1fr; }
+          .story-principles { padding: 5rem 0; }
+          .story-principle-grid { border-radius: 18px; }
+          .story-principle { min-height: auto; border-right: 0; border-bottom: 1px solid rgba(20,20,20,.08) !important; }
+          .story-principle:last-child { border-bottom: 0 !important; }
+          .story-principle-num { margin-bottom: 1.75rem; }
+          .story-quote-band { padding: 6rem 0; }
+          .story-timeline { padding: 5rem 1rem 6rem; }
+          .story-timeline-grid { gap: 2.25rem; }
           .story-timeline-grid::before { display: none; }
-          .story-milestone { padding-top: 0; padding-left: 1.5rem; border-left: 1px solid var(--border); }
-          .story-milestone::before { top: 0.4rem; left: -5px; }
-          .story-principle { grid-template-columns: 56px 1fr; gap: 1.25rem; }
-          .story-principle-dash { display: none; }
+          .story-milestone { padding: 0 0 0 1.5rem; border-left: 1px solid var(--border); }
+          .story-milestone::before { top: .35rem; left: -6px; }
+          .story-future { padding: 0 1rem 5rem; }
+          .story-future-grid { padding: 2.5rem 1.25rem; border-radius: 22px; }
+          .story-collection { gap: .5rem; }
+          .story-collection a { padding: .55rem .4rem .65rem; border-radius: 14px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .story-hero-media img, .story-collection a { transition: none; }
         }
       `}</style>
-    </div>
+    </main>
   );
 }

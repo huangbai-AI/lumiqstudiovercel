@@ -94,6 +94,7 @@ export default function SiteHeader() {
               key={l.href}
               href={l.href}
               className={isActive(l.href) ? "active" : ""}
+              aria-current={isActive(l.href) ? "page" : undefined}
             >
               {l.label}
             </Link>
@@ -222,8 +223,8 @@ export default function SiteHeader() {
         .navbar.homepage-nav:not(.scrolled) .login-btn:hover { background: #fff; color: #071020; }
         .navbar.homepage-nav:not(.scrolled) .site-mobile-trigger { background: rgba(7,13,28,0.58); border-color: rgba(238,244,255,0.28); color: #fff; }
         .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; gap: 1.5rem; }
-        .nav-logo { display: inline-flex; align-items: center; }
-        .nav-logo-img { height: 34px; width: auto; display: block; }
+        .nav-logo { display: inline-flex; align-items: center; justify-content: center; width: 112px; height: 42px; overflow: visible; flex: 0 0 auto; }
+        .nav-logo-img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
         .nav-actions { display: flex; align-items: center; gap: 1rem; }
         .site-desktop-nav { align-items: center; gap: 2rem; }
         .site-desktop-nav a { color: var(--ink-3); font-weight: 500; font-size: 0.95rem; transition: color 0.2s; position: relative; }
@@ -249,10 +250,12 @@ export default function SiteHeader() {
         .site-mobile-languages button { padding: .65rem .5rem; border: 1px solid var(--border); border-radius: 9px; background: white; color: var(--ink-3); cursor: pointer; }
         .site-mobile-languages button.active { background: var(--ink); color: white; border-color: var(--ink); }
         .site-login-btn { display: inline-flex !important; padding: 0.45rem 1rem; font-size: 0.8125rem; }
+        .nav-logo:focus-visible, .site-desktop-nav a:focus-visible, .lang-btn:focus-visible, .site-mobile-trigger:focus-visible, .site-mobile-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 8px; }
         @media (max-width: 767px) {
           .site-desktop-nav, .site-desktop-action { display: none !important; }
           .nav-actions { gap: 0.5rem; }
           .nav-inner { padding: 0.85rem 1.25rem; }
+          .nav-logo { width: 96px; height: 38px; }
           .site-login-btn { padding: 0.4rem 0.85rem; font-size: 0.8125rem; }
           .site-mobile-trigger { display: inline-flex !important; }
           .site-mobile-menu.open { display: flex !important; }

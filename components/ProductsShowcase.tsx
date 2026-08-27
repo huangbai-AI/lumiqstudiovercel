@@ -21,7 +21,7 @@ import DraftNotice from "@/components/DraftNotice";
 
 export default function ProductsShowcase() {
   const t = useTranslations("Products");
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
   const heroMediaRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const products = [
@@ -116,7 +116,7 @@ export default function ProductsShowcase() {
   const current = products[active];
 
   return (
-    <div ref={rootRef} className="prod-page editorial-page">
+    <main ref={rootRef} className="prod-page editorial-page">
       {/* Announcement bar */}
       <div className="prod-topbar" role="note">
         <div className="prod-topbar-inner">
@@ -213,12 +213,16 @@ export default function ProductsShowcase() {
         </div>
 
         <div className="prod-stage reveal">
-          <div className="prod-stage-media">
+          <Link
+            href={current.href}
+            className="prod-stage-media"
+            aria-label={t("discover", { name: current.name })}
+          >
             {products.map((p, i) => (
               <Image
                 key={p.id}
                 src={p.img}
-                alt={p.name}
+                alt={i === active ? p.name : ""}
                 width={1000}
                 height={1000}
                 sizes="(max-width: 820px) 100vw, 55vw"
@@ -226,7 +230,10 @@ export default function ProductsShowcase() {
                 loading={i === 0 ? undefined : "lazy"}
               />
             ))}
-          </div>
+            <span className="prod-stage-media-cta">
+              {t("discover", { name: current.name })}
+            </span>
+          </Link>
 
           <div className="prod-stage-panel">
             <div className="prod-panel-body" key={current.id}>
@@ -276,7 +283,13 @@ export default function ProductsShowcase() {
       {/* Lifestyle */}
       <section className="container prod-life reveal">
         <div className="prod-life-media">
-          <img src="/pal-kid.jpg" alt={t("lifeAlt")} loading="lazy" />
+          <Image
+            src="/pal-kid.jpg"
+            alt={t("lifeAlt")}
+            width={1200}
+            height={900}
+            sizes="(max-width: 960px) 100vw, 50vw"
+          />
         </div>
         <div className="prod-life-text">
           <span className="prod-kicker">{t("why")}</span>
@@ -304,7 +317,7 @@ export default function ProductsShowcase() {
       </section>
 
       <style>{`
-        .prod-page { background: #fff; color: var(--ink); padding-top: 4.5rem; line-height: 1.6; }
+        .prod-page { background: #fff; color: var(--ink); padding-top: 6.5rem; line-height: 1.6; }
         .prod-page .container { max-width: 1200px; }
 
         .prod-kicker { display: block; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
@@ -320,8 +333,8 @@ export default function ProductsShowcase() {
         .prod-hero-text h1 em { font-style: italic; color: var(--gold); }
         .prod-lead { color: var(--ink-2); font-size: 1.125rem; line-height: 1.7; max-width: 30rem; }
         .prod-cta-row { display: flex; align-items: center; gap: 1.75rem; margin-top: 2.25rem; flex-wrap: wrap; }
-        .prod-hero-media { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-lg); aspect-ratio: 1 / 1; }
-        .prod-hero-media img { width: 100%; height: 100%; object-fit: cover; display: block; transform: translate(var(--px, 0px), var(--py, 0px)) scale(1.06); transition: transform 0.5s ease-out; will-change: transform; }
+        .prod-hero-media { border-radius: 28px; overflow: hidden; border: 1px solid rgba(20,20,20,.08); box-shadow: 0 28px 70px rgba(24,18,10,.12); aspect-ratio: 1 / 1; background: radial-gradient(circle at 52% 44%, #fff 0%, #f5f2ec 68%, #eee9df 100%); }
+        .prod-hero-media img { width: 100%; height: 100%; object-fit: contain; padding: clamp(1.5rem, 4vw, 3.25rem); display: block; transform: translate(var(--px, 0px), var(--py, 0px)) scale(.94); transition: transform 0.5s ease-out; will-change: transform; }
 
         .prod-feats { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .prod-feats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -346,10 +359,14 @@ export default function ProductsShowcase() {
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
         .prod-stage { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: stretch; }
-        .prod-stage-media { position: relative; aspect-ratio: 1 / 1; background: var(--cream-3); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-        .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.05); transition: opacity 0.6s ease, transform 0.9s ease; }
-        .prod-stage-media img.nest { object-fit: contain; padding: 1.5rem; }
+        .prod-stage-media { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(20,20,20,.08); border-radius: 24px; background: radial-gradient(circle at 50% 48%, #fff 0%, var(--cream-3) 72%); color: inherit; cursor: pointer; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
+        .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: clamp(1rem, 3vw, 2.25rem); opacity: 0; transform: scale(1.03); transition: opacity 0.6s ease, transform 0.9s ease; }
+        .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
         .prod-stage-media img.on { opacity: 1; transform: scale(1); }
+        .prod-stage-media:hover img.on, .prod-stage-media:focus-visible img.on { transform: scale(1.025); }
+        .prod-stage-media:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+        .prod-stage-media-cta { position: absolute; z-index: 3; right: 1.25rem; bottom: 1.25rem; display: inline-flex; align-items: center; min-height: 44px; padding: .7rem 1.1rem; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; background: rgba(15,20,30,.88); color: #fff; font-size: .9rem; font-weight: 600; box-shadow: 0 12px 30px rgba(0,0,0,.2); backdrop-filter: blur(10px); transition: transform .25s ease, background .25s ease; }
+        .prod-stage-media:hover .prod-stage-media-cta, .prod-stage-media:focus-visible .prod-stage-media-cta { transform: translateY(-2px); background: var(--ink); }
 
         .prod-stage-panel { display: flex; flex-direction: column; justify-content: center; }
         @keyframes prodFade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
@@ -369,7 +386,7 @@ export default function ProductsShowcase() {
         .prod-counter { font-size: 0.8125rem; letter-spacing: 0.14em; color: var(--ink-3); }
 
         .prod-life { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding-top: 2rem; padding-bottom: 6rem; }
-        .prod-life-media { border-radius: 12px; overflow: hidden; border: 1px solid var(--border); aspect-ratio: 4 / 3; }
+        .prod-life-media { border-radius: 24px; overflow: hidden; border: 1px solid rgba(20,20,20,.08); aspect-ratio: 4 / 3; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
         .prod-life-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s ease; }
         .prod-life-media:hover img { transform: scale(1.04); }
         .prod-life-text h2 { font-size: clamp(1.9rem, 3.5vw, 2.75rem); line-height: 1.14; margin: 0 0 1.25rem; }
@@ -402,8 +419,13 @@ export default function ProductsShowcase() {
           .prod-feat, .prod-promise-item { border-left: none !important; border-top: 1px solid var(--border); padding: 1.4rem 0.5rem; }
           .prod-feat:first-child, .prod-promise-item:first-child { border-top: none; }
           .prod-topbar-inner { gap: 0.5rem 1rem; letter-spacing: 0.12em; }
+          .prod-hero-media, .prod-stage-media { border-radius: 20px; }
+          .prod-hero-media img { padding: 1rem; transform: scale(.97); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .prod-hero-media img, .prod-stage-media img, .prod-life-media img { transition: none; }
         }
       `}</style>
-    </div>
+    </main>
   );
 }

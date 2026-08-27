@@ -38,7 +38,7 @@ export default function OlaProductPage() {
   ];
 
   return (
-    <div
+    <main
       className="lumiq-root editorial-page"
       style={{ paddingTop: "6rem", color: "var(--ink)" }}
     >
@@ -139,7 +139,7 @@ export default function OlaProductPage() {
         <div className="pal-tracks">
           <article className="pal-track">
             <div className="pal-track-img">
-              <img src="/pal-kid.jpg" alt={t("kidsAlt")} loading="lazy" />
+              <Image src="/pal-kid.jpg" alt={t("kidsAlt")} width={1200} height={900} sizes="(max-width: 960px) 100vw, 50vw" />
             </div>
             <span className="kicker" style={{ color: "var(--rose)" }}>
               {t("kids")}
@@ -165,7 +165,7 @@ export default function OlaProductPage() {
 
           <article className="pal-track">
             <div className="pal-track-img">
-              <img src="/pal-elder.jpg" alt={t("adultsAlt")} loading="lazy" />
+              <Image src="/pal-elder.jpg" alt={t("adultsAlt")} width={1200} height={900} sizes="(max-width: 960px) 100vw, 50vw" />
             </div>
             <span className="kicker" style={{ color: "var(--purple)" }}>
               {t("adults")}
@@ -211,7 +211,7 @@ export default function OlaProductPage() {
           {ways.map((w) => (
             <article key={w.title} className="way-card">
               <div className="way-img">
-                <img src={w.img} alt={w.title} loading="lazy" />
+                <Image src={w.img} alt={w.title} width={1200} height={900} sizes="(max-width: 820px) 100vw, 33vw" />
               </div>
               <div className="way-body">
                 <span className={`f-pill ${w.pillCls}`}>{w.pill}</span>
@@ -266,6 +266,6 @@ export default function OlaProductPage() {
         .pal-list li::before { content: "✦"; color: var(--gold); margin-right: .6rem; }
         @media (max-width: 820px) { .pal-tracks { grid-template-columns: 1fr; } }
       `}</style>
-    </div>
+    </main>
   );
 }

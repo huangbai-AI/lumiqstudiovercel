@@ -9,7 +9,7 @@ interface SubPageProps {
 
 export default function SubPage({ eyebrow, title, intro, children }: SubPageProps) {
   return (
-    <div className="subpage">
+    <main className="subpage">
       <section className="subpage-hero">
         <div className="container">
           {eyebrow && <div className="eyebrow">{eyebrow}</div>}
@@ -20,6 +20,6 @@ export default function SubPage({ eyebrow, title, intro, children }: SubPageProp
       <section className="subpage-body">
         <div className="container prose">{children}</div>
       </section>
-    </div>
+    </main>
   );
 }

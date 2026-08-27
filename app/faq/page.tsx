@@ -29,7 +29,7 @@ export default function FaqPage() {
   }, [faqs, query]);
 
   return (
-    <div className="editorial-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
+    <main className="editorial-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
       <Script
         id="faq-schema"
         type="application/ld+json"
@@ -102,6 +102,6 @@ export default function FaqPage() {
         .faq-a > p { overflow: hidden; margin: 0; color: var(--ink-2); line-height: 1.7; }
         .faq-a.open > p { padding-bottom: 1.5rem; }
       `}</style>
-    </div>
+    </main>
   );
 }

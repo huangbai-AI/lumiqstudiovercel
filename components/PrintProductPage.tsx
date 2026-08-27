@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function PrintProductPage() {
   const t = useTranslations("Book");
   return (
-    <div
+    <main
       className="lumiq-root editorial-page"
       style={{ paddingTop: "6rem", color: "var(--ink)" }}
     >
@@ -75,6 +75,6 @@ export default function PrintProductPage() {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

@@ -48,7 +48,7 @@ export default function NestProductPage() {
   const selected = finishes.find((item) => item.id === finish) ?? finishes[0];
 
   return (
-    <div className="nest-page">
+    <main className="nest-page">
       <section className="nest-hero">
         <div className="nest-hero-copy">
           <Link href="/products" className="nest-back">
@@ -222,6 +222,6 @@ export default function NestProductPage() {
           {t("join")} <span aria-hidden>→</span>
         </Link>
       </section>
-    </div>
+    </main>
   );
 }

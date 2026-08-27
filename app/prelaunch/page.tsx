@@ -48,7 +48,7 @@ export default function PrelaunchPage() {
   };
 
   return (
-    <div className="lumiq-root editorial-page" style={{ paddingTop: "8rem", minHeight: "100vh" }}>
+    <main className="lumiq-root editorial-page" style={{ paddingTop: "8rem", minHeight: "100vh" }}>
       <div className="bg-layer" aria-hidden>
         <div className="stars" />
         <div className="bokeh b1" />
@@ -132,6 +132,6 @@ export default function PrelaunchPage() {
           <Link href="/products" style={{ color: "var(--ink-2)", fontWeight: 500, borderBottom: "1px solid var(--ink-4)", paddingBottom: 2 }}>{t("back")}</Link>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

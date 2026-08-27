@@ -50,5 +50,10 @@ describe("public content hygiene", () => {
       href: "/products/print",
       price: { kind: "usd", amount: 69 },
     });
+    expect(PRODUCT_BY_ID.nest).toMatchObject({
+      name: "Lumiq Nest 15",
+      href: "/products/nest",
+      price: { kind: "pending" },
+    });
   });
 });

@@ -17,7 +17,7 @@ export default function MediaPage() {
   ];
 
   return (
-    <div className="editorial-page media-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
+    <main className="editorial-page media-page" style={{ paddingTop: "6rem", color: "var(--ink)" }}>
       <RevealObserver />
 
       <section className="container reveal" style={{ padding: "2rem 2rem 4rem" }}>
@@ -90,6 +90,6 @@ export default function MediaPage() {
           .media-press-link { justify-self: start; }
         }
       `}</style>
-    </div>
+    </main>
   );
 }

@@ -58,10 +58,10 @@ function usePageScroller() {
     const clamp = (value: number) => Math.min(1, Math.max(0, value));
     const renderProduct = (progress: number) => {
       productProgress = clamp(progress);
-      root.style.setProperty("--ola-travel", productProgress.toFixed(4));
+      root.style.setProperty("--ola-progress", productProgress.toFixed(4));
       root.style.setProperty(
         "--ola-opacity",
-        (1 - clamp((productProgress - 0.86) / 0.14)).toFixed(4),
+        (1 - productProgress).toFixed(4),
       );
     };
 
@@ -103,10 +103,9 @@ function usePageScroller() {
         window.scrollY > (sections.length - 1) * viewport + 1,
       );
 
-      // Keep direct hash navigation and browser scroll restoration in sync without
-      // coupling the product to the controlled page-transition timeline.
-      if (!locked && page >= 0.5 && productProgress < 0.999) renderProduct(1);
-      if (!locked && page < 0.5 && productProgress > 0.001) renderProduct(0);
+      // Keep direct hash navigation, scrollbar dragging, and browser restoration
+      // in sync with the same stationary fade used by controlled transitions.
+      if (!locked) renderProduct(page);
     };
 
     const requestUpdate = () => {
@@ -147,10 +146,7 @@ function usePageScroller() {
           : 640;
         const animate = (now: number) => {
           const raw = Math.min(1, (now - startedAt) / duration);
-          const eased =
-            target > start
-              ? 1 - Math.pow(1 - raw, 4)
-              : raw * raw * (3 - 2 * raw);
+          const eased = raw * raw * (3 - 2 * raw);
           renderProduct(start + (target - start) * eased);
           if (raw < 1) {
             productFrame = requestAnimationFrame(animate);
@@ -450,7 +446,18 @@ export default function Home() {
           >
             <p className="eyebrow">{t("collection")}</p>
             <h2>{localizedProducts[activeProduct].name}</h2>
-            <p>{localizedProducts[activeProduct].description}</p>
+            <p className="product-showcase-description">
+              {localizedProducts[activeProduct].description}
+            </p>
+            <Link
+              href={localizedProducts[activeProduct].href}
+              className="product-showcase-cta"
+            >
+              {t("exploreProduct", {
+                name: localizedProducts[activeProduct].name,
+              })}
+              <span aria-hidden="true">→</span>
+            </Link>
           </div>
 
           <div className="product-dial" aria-hidden="true">

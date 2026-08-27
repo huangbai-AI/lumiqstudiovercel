@@ -795,9 +795,8 @@ html.parallax-page.is-footer-scrolling { scroll-snap-type: none; overscroll-beha
 body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-serif; }
 .parallax-home.site-shell {
   --hero-mix: 0;
-  --ola-travel: 0;
+  --ola-progress: 0;
   --ola-opacity: 1;
-  --ola-exit-distance: 72vw;
 }
 .parallax-home .scene {
   height: 100svh !important;
@@ -836,7 +835,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
   transform: scale(.25);
 }
 
-/* Product departure is its own timeline; page progress never writes these variables. */
+/* The hero product leaves with its scene: straight upward while fading out. */
 .parallax-home .shared-ola-product {
   position: fixed;
   z-index: 6;
@@ -845,7 +844,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
   place-items: center;
   pointer-events: none;
   opacity: var(--ola-opacity);
-  transform: translate3d(calc(var(--ola-travel) * var(--ola-exit-distance)), 0, 0);
+  transform: translate3d(0, calc(var(--ola-progress) * -100svh), 0);
   will-change: transform, opacity;
 }
 .parallax-home .shared-ola-product img {
@@ -863,12 +862,12 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 }
 .parallax-home .shared-product-aura {
   position: absolute;
-  width: calc(27vw - var(--ola-travel) * 5vw);
+  width: 27vw;
   height: 56svh;
   border-radius: 50%;
   background: radial-gradient(ellipse, rgba(20,116,255,.58), rgba(9,49,170,.16) 55%, transparent 73%);
   filter: blur(54px);
-  opacity: calc(.55 - var(--ola-travel) * .16);
+  opacity: .55;
 }
 @keyframes shared-product-focus-in {
   from { opacity: 0; filter: blur(18px) drop-shadow(0 42px 38px rgba(0,0,0,.72)); }
@@ -943,6 +942,14 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
   opacity: clamp(0, calc(1 - var(--p) * 2.4), 1);
 }
 
+@media (min-width: 821px) {
+  .parallax-home .hero-copy h1 {
+    font-size: clamp(30px, 2.35vw, 50px);
+    letter-spacing: .12em;
+    transform: scaleX(.72);
+  }
+}
+
 /* Page-two set is now atmosphere only; the travelling product remains above it. */
 .parallax-home .meet-scene::before {
   content: "";
@@ -1000,7 +1007,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 .parallax-home .freedom-copy > p:last-child,
 .parallax-home .tablet-copy > p:not(.eyebrow) { font-size: 17px; line-height: 1.4; font-weight: 310; }
 
-/* Page two: one large arc, four products, pointer-direction navigation. */
+/* Page two: one large arc, five products, pointer-direction navigation. */
 .parallax-home .meet-scene::before { display: none; }
 .parallax-home .product-showcase-stage {
   isolation: isolate;
@@ -1057,12 +1064,38 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
   letter-spacing: .045em;
   transform: scaleX(.86);
 }
-.parallax-home .product-showcase-copy > p:last-child {
+.parallax-home .product-showcase-description {
   max-width: 1120px;
   margin: 0 auto;
   color: #8491aa;
   font: 310 var(--section-description-size)/1.35 "LUMIQ Teko", sans-serif;
   letter-spacing: .045em;
+}
+.parallax-home .product-showcase-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  margin-top: 17px;
+  padding: 9px 18px;
+  border: 1px solid rgba(145, 181, 244, .42);
+  border-radius: 999px;
+  background: rgba(10, 22, 48, .8);
+  color: #eef5ff;
+  font: 390 17px "LUMIQ Teko", sans-serif;
+  letter-spacing: .06em;
+  pointer-events: auto;
+  transition: transform .25s ease, border-color .25s ease, background .25s ease;
+}
+.parallax-home .product-showcase-cta:hover,
+.parallax-home .product-showcase-cta:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(184, 212, 255, .82);
+  background: rgba(23, 55, 112, .92);
+}
+.parallax-home .product-showcase-cta:focus-visible {
+  outline: 2px solid #b8d6ff;
+  outline-offset: 3px;
 }
 .parallax-home .product-dial {
   position: absolute;
@@ -1109,7 +1142,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
   transition: scale .28s cubic-bezier(.16,1,.3,1);
 }
 .parallax-home .carousel-product img { transform: translateY(-5svh) scale(.8); }
-.parallax-home .carousel-product.product-0 img { transform: translateY(-20svh) scale(.576); }
+.parallax-home .carousel-product.product-0 img { transform: translateY(-2svh) scale(.576); }
 .parallax-home .carousel-product.product-2 img { transform: translateY(-5svh) scale(.88); }
 .parallax-home .carousel-product.product-3 img { transform: translateY(calc(-5svh - 2cm)) scale(.648); }
 .parallax-home .carousel-product.product-4 img { transform: translateY(-5svh) scale(.72); }
@@ -1319,6 +1352,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
   border: 1px solid rgba(126, 162, 225, .2);
   border-radius: clamp(18px, 1.5vw, 28px);
   background: linear-gradient(155deg, rgba(13, 28, 57, .92), rgba(4, 9, 21, .96));
+  color: inherit;
   box-shadow: 0 26px 74px rgba(0, 0, 0, .28);
   transition: transform .55s cubic-bezier(.16, 1, .3, 1), border-color .4s ease, box-shadow .4s ease;
 }
@@ -1330,6 +1364,11 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
   transform: translateY(-8px);
   border-color: rgba(126, 177, 255, .55);
   box-shadow: 0 34px 94px rgba(0, 0, 0, .4), 0 0 45px rgba(37, 105, 239, .1);
+}
+.parallax-home .hardware-plan-card:focus-visible {
+  outline: 2px solid #b8d6ff;
+  outline-offset: 4px;
+  transform: translateY(-5px);
 }
 .parallax-home .hardware-plan-visual {
   position: relative;
@@ -1388,9 +1427,10 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 .parallax-home .hardware-plan-purchase > p span { color: #71819d; font: 400 12px var(--font-geist-mono); letter-spacing: .08em; }
 .parallax-home .hardware-plan-purchase strong { color: #f5f8ff; font: 390 clamp(43px, 3.7vw, 66px)/.78 "LUMIQ Teko", sans-serif; letter-spacing: -.01em; }
 .parallax-home .hardware-plan-purchase > p.is-pending strong { max-width: 120px; font-size: clamp(26px, 2.2vw, 38px); line-height: .9; }
-.parallax-home .hardware-plan-purchase > a { display: inline-flex; align-items: center; gap: 13px; padding: 12px 19px; border: 1px solid rgba(157, 190, 247, .34); border-radius: 999px; background: rgba(228, 238, 255, .96); color: #071020; font: 390 clamp(15px, 1vw, 18px) "LUMIQ Teko", sans-serif; letter-spacing: .04em; white-space: nowrap; transition: transform .3s cubic-bezier(.16, 1, .3, 1), box-shadow .3s ease; }
-.parallax-home .hardware-plan-purchase > a:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(69, 129, 255, .28); }
-.parallax-home .hardware-plan-purchase > a span { font-size: 22px; }
+.parallax-home .hardware-plan-explore { display: inline-flex; align-items: center; gap: 13px; padding: 12px 19px; border: 1px solid rgba(157, 190, 247, .34); border-radius: 999px; background: rgba(228, 238, 255, .96); color: #071020; font: 390 clamp(15px, 1vw, 18px) "LUMIQ Teko", sans-serif; letter-spacing: .04em; white-space: nowrap; transition: transform .3s cubic-bezier(.16, 1, .3, 1), box-shadow .3s ease; }
+.parallax-home .hardware-plan-card:hover .hardware-plan-explore,
+.parallax-home .hardware-plan-card:focus-visible .hardware-plan-explore { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(69, 129, 255, .28); }
+.parallax-home .hardware-plan-explore > span { font-size: 22px; }
 
 .parallax-home .plans-page {
   min-height: 100svh;
@@ -1538,9 +1578,6 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 
 @media (max-width: 820px) {
   .parallax-home .scene { min-height: 560px; }
-  .parallax-home .shared-ola-product {
-    --ola-exit-distance: 82vw;
-  }
   .parallax-home .shared-ola-product img { height: 78.4svh; }
   .parallax-home .hero-letter { height: 44vw; }
   .parallax-home .hero-o .hero-letter { height: 45vw; }
@@ -1552,7 +1589,8 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
   .parallax-home .hero-copy p { font-size: 17px; }
   .parallax-home .product-showcase-copy { top: 138px; width: calc(100% - 38px); }
   .parallax-home .product-showcase-copy h2 { font-size: clamp(48px, 14vw, 72px); }
-  .parallax-home .product-showcase-copy > p:last-child { font-size: 14px; line-height: 1.2; }
+  .parallax-home .product-showcase-description { font-size: 14px; line-height: 1.2; }
+  .parallax-home .product-showcase-cta { display: none; }
   .parallax-home .product-dial { top: 61%; width: 184vw; height: 120vw; }
   .parallax-home .carousel-product { width: 62vw; height: 43svh; }
   .parallax-home .carousel-product.slot-0 { top: auto; bottom: clamp(78px, 11svh, 112px); }
@@ -1622,7 +1660,7 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 
 @media (prefers-reduced-motion: reduce) {
   html.parallax-page { scroll-snap-type: y mandatory; }
-  .parallax-home .shared-ola-product { transform: translate3d(calc(var(--ola-travel) * var(--ola-exit-distance)), 0, 0) !important; }
+  .parallax-home .shared-ola-product { transform: translate3d(0, calc(var(--ola-progress) * -100svh), 0) !important; }
   .parallax-home .shared-ola-product img { transform: translateX(9%) !important; }
 }
 
@@ -1820,7 +1858,7 @@ body.parallax-page { font-size: var(--site-min-font-size); }
 .parallax-home .plan-grid span,
 .parallax-home .hardware-plan-copy > p:not(.eyebrow),
 .parallax-home .hardware-plan-purchase > p span,
-.parallax-home .hardware-plan-purchase > a,
+.parallax-home .hardware-plan-explore,
 .parallax-home .quote-grid cite,
 .parallax-home .footer-newsletter small,
 .parallax-home .footer-newsletter input,
@@ -1864,7 +1902,7 @@ body.parallax-page { font-size: var(--site-min-font-size); }
   text-transform: uppercase;
 }
 
-.parallax-home .product-showcase-copy > p:last-child,
+.parallax-home .product-showcase-description,
 .parallax-home .product-detail-copy > p:not(.eyebrow),
 .parallax-home .legacy-heading > p:last-of-type,
 .parallax-home .ola-hero-copy > .ola-lede,
@@ -1883,7 +1921,7 @@ body.parallax-page { font-size: var(--site-min-font-size); }
 
 @media (max-width: 820px) {
   .parallax-home .product-showcase-copy { width: calc(100% - 32px); }
-  .parallax-home .product-showcase-copy > p:last-child,
+  .parallax-home .product-showcase-description,
   .parallax-home .product-detail-copy > p:not(.eyebrow),
   .parallax-home .legacy-heading > p:last-of-type,
   .parallax-home .ola-hero-copy > .ola-lede,

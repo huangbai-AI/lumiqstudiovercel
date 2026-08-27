@@ -16,7 +16,7 @@ const wayVisuals = [
 export default function TabletPage() {
   const t = useTranslations("Tablet");
   const [dashPage, setDashPage] = useState(0);
-  const rootRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLElement>(null);
   const ways = wayVisuals.map((way, index) => ({
     ...way,
     pill: t(`way${index + 1}Pill`),
@@ -41,7 +41,7 @@ export default function TabletPage() {
   }, []);
 
   return (
-    <div
+    <main
       ref={rootRef}
       className="lumiq-root editorial-page"
       style={{ paddingTop: "6rem", color: "var(--ink)" }}
@@ -124,7 +124,7 @@ export default function TabletPage() {
           {ways.map((w) => (
             <article key={w.title} className="way-card">
               <div className="way-img">
-                <img src={w.img} alt={w.title} loading="lazy" />
+                <Image src={w.img} alt={w.title} width={1200} height={900} sizes="(max-width: 820px) 100vw, 33vw" />
               </div>
               <div className="way-body">
                 <span className={`f-pill ${w.pillCls}`}>{w.pill}</span>
@@ -167,10 +167,12 @@ export default function TabletPage() {
         <div className="pillars-grid">
           <div className="pillar-card reveal d1">
             <div className="pillar-art">
-              <img
+              <Image
                 src="/img/spotlight-stories.jpg"
                 alt={t("spot1Alt")}
-                loading="lazy"
+                width={1200}
+                height={900}
+                sizes="(max-width: 960px) 100vw, 33vw"
               />
             </div>
             <h3 className="serif">{t("spot1Title")}</h3>
@@ -178,10 +180,12 @@ export default function TabletPage() {
           </div>
           <div className="pillar-card reveal d2">
             <div className="pillar-art">
-              <img
+              <Image
                 src="/img/spotlight-touch.jpg"
                 alt={t("spot2Alt")}
-                loading="lazy"
+                width={1200}
+                height={900}
+                sizes="(max-width: 960px) 100vw, 33vw"
               />
             </div>
             <h3 className="serif">{t("spot2Title")}</h3>
@@ -189,10 +193,12 @@ export default function TabletPage() {
           </div>
           <div className="pillar-card reveal d3">
             <div className="pillar-art">
-              <img
+              <Image
                 src="/img/spotlight-safe.jpg"
                 alt={t("spot3Alt")}
-                loading="lazy"
+                width={1200}
+                height={900}
+                sizes="(max-width: 960px) 100vw, 33vw"
               />
             </div>
             <h3 className="serif">{t("spot3Title")}</h3>
@@ -240,7 +246,7 @@ export default function TabletPage() {
         <div className="age-grid">
           <div className="age-card reveal d1">
             <div className="age-art">
-              <img src="/img/age-3-5.jpg" alt={t("age1Alt")} loading="lazy" />
+              <Image src="/img/age-3-5.jpg" alt={t("age1Alt")} width={1200} height={900} sizes="(max-width: 960px) 100vw, 33vw" />
             </div>
             <span className="age-badge">{t("age1Badge")}</span>
             <h3 className="serif">{t("age1Title")}</h3>
@@ -251,7 +257,7 @@ export default function TabletPage() {
           </div>
           <div className="age-card featured reveal d2">
             <div className="age-art">
-              <img src="/img/age-6-8.jpg" alt={t("age2Alt")} loading="lazy" />
+              <Image src="/img/age-6-8.jpg" alt={t("age2Alt")} width={1200} height={900} sizes="(max-width: 960px) 100vw, 33vw" />
             </div>
             <span className="age-badge">{t("age2Badge")}</span>
             <h3 className="serif">{t("age2Title")}</h3>
@@ -262,7 +268,7 @@ export default function TabletPage() {
           </div>
           <div className="age-card reveal d3">
             <div className="age-art">
-              <img src="/img/age-9-12.jpg" alt={t("age3Alt")} loading="lazy" />
+              <Image src="/img/age-9-12.jpg" alt={t("age3Alt")} width={1200} height={900} sizes="(max-width: 960px) 100vw, 33vw" />
             </div>
             <span className="age-badge">{t("age3Badge")}</span>
             <h3 className="serif">{t("age3Title")}</h3>
@@ -678,6 +684,6 @@ export default function TabletPage() {
           </div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

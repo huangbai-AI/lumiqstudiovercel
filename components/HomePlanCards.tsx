@@ -51,9 +51,13 @@ export default function PlanCards() {
   return (
     <div className="hardware-plan-grid">
       {hardwarePlans.map((plan) => (
-        <article
+        <Link
+          href={plan.href}
           className={`hardware-plan-card ${plan.className}`}
           key={plan.name}
+          aria-label={t("explore", {
+            name: plan.name.replace("Lumiq ", ""),
+          })}
         >
           <div className="hardware-plan-visual">
             <span aria-hidden="true">{plan.index}</span>
@@ -80,13 +84,13 @@ export default function PlanCards() {
                   </>
                 )}
               </p>
-              <Link href={plan.href}>
+              <span className="hardware-plan-explore">
                 {t("explore", { name: plan.name.replace("Lumiq ", "") })}{" "}
                 <span aria-hidden="true">→</span>
-              </Link>
+              </span>
             </div>
           </div>
-        </article>
+        </Link>
       ))}
     </div>
   );

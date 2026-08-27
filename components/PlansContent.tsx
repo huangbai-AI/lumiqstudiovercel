@@ -289,7 +289,7 @@ export default function PlansContent() {
   }));
 
   return (
-    <div
+    <main
       className="editorial-page"
       style={{ paddingTop: "6rem", color: "var(--ink)" }}
     >
@@ -496,6 +496,6 @@ export default function PlansContent() {
         @media (max-width: 900px) { .hw-grid { grid-template-columns: 1fr !important; } }
         @media (max-width: 760px) { .pal-table-wrap { display: none; } .pal-cards { display: grid; gap: 1.5rem; grid-template-columns: 1fr; } }
       `}</style>
-    </div>
+    </main>
   );
 }
