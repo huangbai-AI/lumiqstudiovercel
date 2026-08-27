@@ -17,7 +17,6 @@ import {
   Truck,
 } from "lucide-react";
 import { PRODUCT_BY_ID } from "@/lib/products";
-import DraftNotice from "@/components/DraftNotice";
 
 export default function ProductsShowcase() {
   const t = useTranslations("Products");
@@ -125,9 +124,6 @@ export default function ProductsShowcase() {
           <span>{t("returns")}</span>
           <span className="prod-topbar-dot" aria-hidden />
           <span>{t("warranty")}</span>
-        </div>
-        <div className="container" style={{ paddingBottom: ".75rem" }}>
-          <DraftNotice compact>{t("promiseNotice")}</DraftNotice>
         </div>
       </div>
 
