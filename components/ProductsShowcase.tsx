@@ -209,11 +209,7 @@ export default function ProductsShowcase() {
         </div>
 
         <div className="prod-stage reveal">
-          <Link
-            href={current.href}
-            className="prod-stage-media"
-            aria-label={t("discover", { name: current.name })}
-          >
+          <div className="prod-stage-media">
             {products.map((p, i) => (
               <Image
                 key={p.id}
@@ -226,10 +222,7 @@ export default function ProductsShowcase() {
                 loading={i === 0 ? undefined : "lazy"}
               />
             ))}
-            <span className="prod-stage-media-cta">
-              {t("discover", { name: current.name })}
-            </span>
-          </Link>
+          </div>
 
           <div className="prod-stage-panel">
             <div className="prod-panel-body" key={current.id}>
@@ -248,7 +241,7 @@ export default function ProductsShowcase() {
                   </li>
                 ))}
               </ul>
-              <Link href={current.href} className="btn btn-navy">
+              <Link href={current.href} className="prod-product-link">
                 {t("discover", { name: current.name })}
               </Link>
             </div>
@@ -355,14 +348,11 @@ export default function ProductsShowcase() {
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
         .prod-stage { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: stretch; }
-        .prod-stage-media { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(20,20,20,.08); border-radius: 24px; background: radial-gradient(circle at 50% 48%, #fff 0%, var(--cream-3) 72%); color: inherit; cursor: pointer; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
+        .prod-stage-media { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(20,20,20,.08); border-radius: 24px; background: radial-gradient(circle at 50% 48%, #fff 0%, var(--cream-3) 72%); color: inherit; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
         .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: clamp(1rem, 3vw, 2.25rem); opacity: 0; transform: scale(1.03); transition: opacity 0.6s ease, transform 0.9s ease; }
         .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
         .prod-stage-media img.on { opacity: 1; transform: scale(1); }
-        .prod-stage-media:hover img.on, .prod-stage-media:focus-visible img.on { transform: scale(1.025); }
-        .prod-stage-media:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
-        .prod-stage-media-cta { position: absolute; z-index: 3; right: 1.25rem; bottom: 1.25rem; display: inline-flex; align-items: center; min-height: 44px; padding: .7rem 1.1rem; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; background: rgba(15,20,30,.88); color: #fff; font-size: .9rem; font-weight: 600; box-shadow: 0 12px 30px rgba(0,0,0,.2); backdrop-filter: blur(10px); transition: transform .25s ease, background .25s ease; }
-        .prod-stage-media:hover .prod-stage-media-cta, .prod-stage-media:focus-visible .prod-stage-media-cta { transform: translateY(-2px); background: var(--ink); }
+        .prod-stage-media:hover img.on { transform: scale(1.025); }
 
         .prod-stage-panel { display: flex; flex-direction: column; justify-content: center; }
         @keyframes prodFade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
@@ -375,6 +365,9 @@ export default function ProductsShowcase() {
         .prod-specs { list-style: none; margin: 0 0 2rem; padding: 0; }
         .prod-specs li { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--border); font-size: 0.9375rem; color: var(--ink-2); }
         .prod-tick { width: 5px; height: 5px; background: var(--gold); flex-shrink: 0; }
+        .prod-product-link { display: inline-flex; width: fit-content; padding: .35rem 0 .45rem; border-bottom: 1px solid rgba(169,132,46,.55); color: var(--ink); font-size: .9375rem; font-weight: 600; transition: color .25s ease, border-color .25s ease; }
+        .prod-product-link:hover { color: var(--gold); border-color: var(--gold); }
+        .prod-product-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
 
         .prod-stage-nav { display: flex; align-items: center; gap: 1.25rem; margin-top: 2.25rem; }
         .prod-stage-nav button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border-h); background: #fff; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background .25s, color .25s, border-color .25s; }
