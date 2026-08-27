@@ -135,7 +135,7 @@ export default function StoryPage() {
                   alt={product.name}
                   width={540}
                   height={540}
-                  sizes="(max-width: 760px) 30vw, 180px"
+                  sizes="(max-width: 760px) 42vw, (max-width: 1100px) 36vw, 280px"
                 />
                 <span>{product.shortName}</span>
               </Link>
@@ -201,15 +201,15 @@ export default function StoryPage() {
         .story-milestone p { margin: 0; color: var(--ink-3); font-size: .94rem; line-height: 1.65; }
 
         .story-page .story-future { padding: 0 0 clamp(5rem, 6vw, 6rem); }
-        .story-page .story-future-grid { display: grid; grid-template-columns: minmax(280px, .78fr) minmax(520px, 1.22fr); gap: clamp(2.75rem, 5vw, 5.5rem); align-items: center; padding: clamp(4rem, 5vw, 5rem) clamp(3rem, 5vw, 4.5rem); border-radius: 28px; background: #f1efe9; overflow: hidden; }
+        .story-page .story-future-grid { display: grid; grid-template-columns: minmax(280px, .82fr) minmax(500px, 1.18fr); gap: clamp(3rem, 5vw, 5.5rem); align-items: center; padding: clamp(4rem, 5vw, 5rem) clamp(3rem, 5vw, 4.5rem); border-radius: 28px; background: #f1efe9; overflow: hidden; }
         .story-future-copy h2 { margin: .8rem 0 1.5rem; font-size: clamp(2.2rem, 4.2vw, 3.8rem); line-height: 1.05; letter-spacing: -.025em; }
         .story-future-copy p { margin: 0 0 1rem; color: var(--ink-2); line-height: 1.72; }
         .story-cta { display: inline-flex; gap: .75rem; align-items: center; margin-top: 1rem; }
-        .story-collection { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(.7rem, 1.5vw, 1.25rem); align-items: end; }
-        .story-collection a { display: grid; grid-template-rows: 1fr auto; min-width: 0; color: var(--ink); transition: transform .3s cubic-bezier(.22, 1, .36, 1); }
+        .story-collection { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 2.4vw, 2rem) clamp(.9rem, 1.8vw, 1.4rem); align-items: start; }
+        .story-collection a { display: grid; grid-template-rows: auto auto; min-width: 0; color: var(--ink-2); text-align: center; transition: transform .3s cubic-bezier(.22, 1, .36, 1); }
         .story-collection a:hover { transform: translateY(-.35rem); }
-        .story-collection img { width: 100%; height: auto; aspect-ratio: 1; padding: clamp(.45rem, 1vw, .85rem); border-radius: 16px; background: #e7e3da; object-fit: contain; }
-        .story-collection span { display: block; padding-top: .8rem; text-align: center; font-size: .75rem; font-weight: 600; }
+        .story-collection img { width: 100%; height: auto; aspect-ratio: 1; padding: clamp(.75rem, 1.4vw, 1.15rem); border-radius: 18px; background: #e7e3da; object-fit: contain; }
+        .story-collection span { display: block; width: 100%; padding-top: .65rem; text-align: center; font-size: clamp(.75rem, .8vw, .82rem); font-weight: 500; line-height: 1.4; letter-spacing: .015em; }
 
         @media (max-width: 900px) {
           .story-hero-copy, .story-page .story-origin, .story-page .story-future-grid { grid-template-columns: 1fr; }
