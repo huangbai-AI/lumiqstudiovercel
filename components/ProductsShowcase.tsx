@@ -17,7 +17,6 @@ import {
   Truck,
 } from "lucide-react";
 import { PRODUCT_BY_ID } from "@/lib/products";
-import DraftNotice from "@/components/DraftNotice";
 
 export default function ProductsShowcase() {
   const t = useTranslations("Products");
@@ -126,9 +125,6 @@ export default function ProductsShowcase() {
           <span className="prod-topbar-dot" aria-hidden />
           <span>{t("warranty")}</span>
         </div>
-        <div className="container" style={{ paddingBottom: ".75rem" }}>
-          <DraftNotice compact>{t("promiseNotice")}</DraftNotice>
-        </div>
       </div>
 
       {/* Hero */}
@@ -157,10 +153,10 @@ export default function ProductsShowcase() {
           onMouseLeave={onHeroLeave}
         >
           <Image
-            src={PRODUCT_BY_ID.ola.image}
+            src="/assets/products/lumiq-ola-tablet-hero.webp"
             alt={t("heroAlt")}
-            width={1024}
-            height={1024}
+            width={1268}
+            height={944}
             sizes="(max-width: 820px) 100vw, 50vw"
             priority
           />
@@ -213,11 +209,7 @@ export default function ProductsShowcase() {
         </div>
 
         <div className="prod-stage reveal">
-          <Link
-            href={current.href}
-            className="prod-stage-media"
-            aria-label={t("discover", { name: current.name })}
-          >
+          <div className="prod-stage-media">
             {products.map((p, i) => (
               <Image
                 key={p.id}
@@ -230,10 +222,7 @@ export default function ProductsShowcase() {
                 loading={i === 0 ? undefined : "lazy"}
               />
             ))}
-            <span className="prod-stage-media-cta">
-              {t("discover", { name: current.name })}
-            </span>
-          </Link>
+          </div>
 
           <div className="prod-stage-panel">
             <div className="prod-panel-body" key={current.id}>
@@ -252,7 +241,7 @@ export default function ProductsShowcase() {
                   </li>
                 ))}
               </ul>
-              <Link href={current.href} className="btn btn-navy">
+              <Link href={current.href} className="prod-product-link">
                 {t("discover", { name: current.name })}
               </Link>
             </div>
@@ -280,24 +269,20 @@ export default function ProductsShowcase() {
         </div>
       </section>
 
-      {/* Lifestyle */}
-      <section className="container prod-life reveal">
-        <div className="prod-life-media">
-          <Image
-            src="/pal-kid.jpg"
-            alt={t("lifeAlt")}
-            width={1200}
-            height={900}
-            sizes="(max-width: 960px) 100vw, 50vw"
-          />
-        </div>
-        <div className="prod-life-text">
-          <span className="prod-kicker">{t("why")}</span>
-          <h2 className="serif">{t("whyTitle")}</h2>
-          <p>{t("whyBody")}</p>
-          <Link href="/story" className="prod-ghost-link">
-            {t("story")}
-          </Link>
+      {/* Brand story invitation */}
+      <section className="prod-story-invite reveal">
+        <div className="container prod-story-invite-inner">
+          <div className="prod-story-invite-heading">
+            <span className="prod-kicker">{t("why")}</span>
+            <h2 className="serif">{t("whyTitle")}</h2>
+          </div>
+          <div className="prod-story-invite-copy">
+            <p>{t("whyBody")}</p>
+            <Link href="/story" className="prod-story-link">
+              <span>{t("story")}</span>
+              <ArrowRight size={16} strokeWidth={1.7} aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -328,15 +313,15 @@ export default function ProductsShowcase() {
         .prod-topbar-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.9rem 1.75rem; padding: 0.7rem 1.5rem; font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); }
         .prod-topbar-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-4); }
 
-        .prod-hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4rem; align-items: center; padding-top: 5rem; padding-bottom: 5rem; }
+        .prod-page > .prod-hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4rem; align-items: center; padding-top: clamp(3.5rem, 5vw, 4.5rem); padding-bottom: clamp(3.5rem, 5vw, 4.5rem); }
         .prod-hero-text h1 { font-size: clamp(2.75rem, 6vw, 4.75rem); line-height: 1.03; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
         .prod-hero-text h1 em { font-style: italic; color: var(--gold); }
         .prod-lead { color: var(--ink-2); font-size: 1.125rem; line-height: 1.7; max-width: 30rem; }
         .prod-cta-row { display: flex; align-items: center; gap: 1.75rem; margin-top: 2.25rem; flex-wrap: wrap; }
-        .prod-hero-media { border-radius: 28px; overflow: hidden; border: 1px solid rgba(20,20,20,.08); box-shadow: 0 28px 70px rgba(24,18,10,.12); aspect-ratio: 1 / 1; background: radial-gradient(circle at 52% 44%, #fff 0%, #f5f2ec 68%, #eee9df 100%); }
-        .prod-hero-media img { width: 100%; height: 100%; object-fit: contain; padding: clamp(1.5rem, 4vw, 3.25rem); display: block; transform: translate(var(--px, 0px), var(--py, 0px)) scale(.94); transition: transform 0.5s ease-out; will-change: transform; }
+        .prod-hero-media { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; overflow: visible; }
+        .prod-hero-media img { width: 112%; height: 112%; max-width: none; object-fit: contain; display: block; filter: drop-shadow(0 24px 28px rgba(31,23,14,.12)) drop-shadow(0 7px 10px rgba(31,23,14,.08)); transform: translate(var(--px, 0px), var(--py, 0px)) scale(.98); transition: transform 0.5s ease-out; will-change: transform; }
 
-        .prod-feats { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .prod-page > .prod-feats { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .prod-feats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
         .prod-feat { display: flex; align-items: center; gap: 1rem; padding: 1.75rem 1.75rem; border-left: 1px solid var(--border); }
         .prod-feat:first-child { border-left: none; }
@@ -345,7 +330,7 @@ export default function ProductsShowcase() {
         .prod-feat strong { display: block; font-size: 0.9375rem; color: var(--ink); }
         .prod-feat small { display: block; font-size: 0.8125rem; color: var(--ink-3); margin-top: 0.15rem; }
 
-        .prod-lineup { padding-top: 6rem; padding-bottom: 5rem; scroll-margin-top: 5rem; }
+        .prod-page > .prod-lineup { padding-top: clamp(4rem, 6vw, 5rem); padding-bottom: clamp(4rem, 6vw, 5rem); scroll-margin-top: 5rem; }
         .prod-lineup-head h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.12; margin: 0; max-width: 680px; }
 
         .prod-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; margin: 3rem 0 3.5rem; }
@@ -359,14 +344,11 @@ export default function ProductsShowcase() {
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
         .prod-stage { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: stretch; }
-        .prod-stage-media { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(20,20,20,.08); border-radius: 24px; background: radial-gradient(circle at 50% 48%, #fff 0%, var(--cream-3) 72%); color: inherit; cursor: pointer; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
+        .prod-stage-media { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(20,20,20,.08); border-radius: 24px; background: radial-gradient(circle at 50% 48%, #fff 0%, var(--cream-3) 72%); color: inherit; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
         .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: clamp(1rem, 3vw, 2.25rem); opacity: 0; transform: scale(1.03); transition: opacity 0.6s ease, transform 0.9s ease; }
         .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
         .prod-stage-media img.on { opacity: 1; transform: scale(1); }
-        .prod-stage-media:hover img.on, .prod-stage-media:focus-visible img.on { transform: scale(1.025); }
-        .prod-stage-media:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
-        .prod-stage-media-cta { position: absolute; z-index: 3; right: 1.25rem; bottom: 1.25rem; display: inline-flex; align-items: center; min-height: 44px; padding: .7rem 1.1rem; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; background: rgba(15,20,30,.88); color: #fff; font-size: .9rem; font-weight: 600; box-shadow: 0 12px 30px rgba(0,0,0,.2); backdrop-filter: blur(10px); transition: transform .25s ease, background .25s ease; }
-        .prod-stage-media:hover .prod-stage-media-cta, .prod-stage-media:focus-visible .prod-stage-media-cta { transform: translateY(-2px); background: var(--ink); }
+        .prod-stage-media:hover img.on { transform: scale(1.025); }
 
         .prod-stage-panel { display: flex; flex-direction: column; justify-content: center; }
         @keyframes prodFade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
@@ -379,20 +361,27 @@ export default function ProductsShowcase() {
         .prod-specs { list-style: none; margin: 0 0 2rem; padding: 0; }
         .prod-specs li { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--border); font-size: 0.9375rem; color: var(--ink-2); }
         .prod-tick { width: 5px; height: 5px; background: var(--gold); flex-shrink: 0; }
+        .prod-product-link { display: inline-flex; width: fit-content; padding: .35rem 0 .45rem; border-bottom: 1px solid rgba(169,132,46,.55); color: var(--ink); font-size: .9375rem; font-weight: 600; transition: color .25s ease, border-color .25s ease; }
+        .prod-product-link:hover { color: var(--gold); border-color: var(--gold); }
+        .prod-product-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
 
         .prod-stage-nav { display: flex; align-items: center; gap: 1.25rem; margin-top: 2.25rem; }
         .prod-stage-nav button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border-h); background: #fff; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background .25s, color .25s, border-color .25s; }
         .prod-stage-nav button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
         .prod-counter { font-size: 0.8125rem; letter-spacing: 0.14em; color: var(--ink-3); }
 
-        .prod-life { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding-top: 2rem; padding-bottom: 6rem; }
-        .prod-life-media { border-radius: 24px; overflow: hidden; border: 1px solid rgba(20,20,20,.08); aspect-ratio: 4 / 3; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
-        .prod-life-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s ease; }
-        .prod-life-media:hover img { transform: scale(1.04); }
-        .prod-life-text h2 { font-size: clamp(1.9rem, 3.5vw, 2.75rem); line-height: 1.14; margin: 0 0 1.25rem; }
-        .prod-life-text p { color: var(--ink-2); line-height: 1.75; max-width: 30rem; margin-bottom: 1.75rem; }
+        .prod-page > .prod-story-invite { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); background: var(--cream-2); }
+        .prod-story-invite-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr); gap: clamp(3rem, 8vw, 7rem); align-items: start; padding-top: clamp(3.5rem, 5vw, 4.5rem); padding-bottom: clamp(3.5rem, 5vw, 4.5rem); }
+        .prod-story-invite .prod-kicker { margin-bottom: .8rem; }
+        .prod-story-invite-heading h2 { max-width: 36rem; font-size: clamp(1.85rem, 3.2vw, 2.5rem); line-height: 1.16; }
+        .prod-story-invite-copy p { color: var(--ink-2); font-size: .975rem; line-height: 1.75; margin: .15rem 0 1.5rem; }
+        .prod-story-link { display: inline-flex; align-items: center; gap: .55rem; color: var(--ink-2); font-size: .875rem; font-weight: 600; }
+        .prod-story-link svg { transition: transform .25s ease; }
+        .prod-story-link:hover { color: var(--gold); }
+        .prod-story-link:hover svg { transform: translateX(3px); }
+        .prod-story-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
 
-        .prod-promise { border-top: 1px solid var(--border); }
+        .prod-page > .prod-promise { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); }
         .prod-promise-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
         .prod-promise-item { display: flex; flex-direction: column; gap: 0.35rem; padding: 2.75rem 1.75rem; border-left: 1px solid var(--border); }
         .prod-promise-item:first-child { border-left: none; }
@@ -401,29 +390,31 @@ export default function ProductsShowcase() {
         .prod-promise-item small { font-size: 0.8125rem; color: var(--ink-3); line-height: 1.5; }
 
         @media (max-width: 960px) {
-          .prod-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 3.5rem; padding-bottom: 3.5rem; }
+          .prod-page > .prod-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 3.5rem; padding-bottom: 3.5rem; }
           .prod-feats-grid { grid-template-columns: repeat(2, 1fr); }
           .prod-feat:nth-child(odd) { border-left: none; }
           .prod-feat:nth-child(n+3) { border-top: 1px solid var(--border); }
-          .prod-lineup { padding-top: 4rem; padding-bottom: 3.5rem; }
+          .prod-page > .prod-lineup { padding-top: 4rem; padding-bottom: 3.5rem; }
           .prod-tabs { grid-template-columns: 1fr; gap: 0.5rem; margin: 2.25rem 0 2.5rem; }
           .prod-tab { padding: 0.9rem 0 0.9rem; }
           .prod-stage { grid-template-columns: 1fr; gap: 2.5rem; }
-          .prod-life { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 4rem; }
+          .prod-story-invite-inner { grid-template-columns: 1fr; gap: 1.5rem; }
           .prod-promise-grid { grid-template-columns: repeat(2, 1fr); }
           .prod-promise-item:nth-child(odd) { border-left: none; }
           .prod-promise-item:nth-child(n+3) { border-top: 1px solid var(--border); }
         }
         @media (max-width: 640px) {
+          .prod-page > .prod-hero { padding-top: 3rem; padding-bottom: 3rem; }
+          .prod-page > .prod-lineup { padding-top: 3.5rem; padding-bottom: 3rem; }
           .prod-feats-grid, .prod-promise-grid { grid-template-columns: 1fr; }
           .prod-feat, .prod-promise-item { border-left: none !important; border-top: 1px solid var(--border); padding: 1.4rem 0.5rem; }
           .prod-feat:first-child, .prod-promise-item:first-child { border-top: none; }
           .prod-topbar-inner { gap: 0.5rem 1rem; letter-spacing: 0.12em; }
-          .prod-hero-media, .prod-stage-media { border-radius: 20px; }
-          .prod-hero-media img { padding: 1rem; transform: scale(.97); }
+          .prod-stage-media { border-radius: 20px; }
+          .prod-hero-media img { width: 108%; height: 108%; transform: scale(.98); }
         }
         @media (prefers-reduced-motion: reduce) {
-          .prod-hero-media img, .prod-stage-media img, .prod-life-media img { transition: none; }
+          .prod-hero-media img, .prod-stage-media img, .prod-story-link svg { transition: none; }
         }
       `}</style>
     </main>
