@@ -269,24 +269,20 @@ export default function ProductsShowcase() {
         </div>
       </section>
 
-      {/* Lifestyle */}
-      <section className="container prod-life reveal">
-        <div className="prod-life-media">
-          <Image
-            src="/pal-kid.jpg"
-            alt={t("lifeAlt")}
-            width={1200}
-            height={900}
-            sizes="(max-width: 960px) 100vw, 50vw"
-          />
-        </div>
-        <div className="prod-life-text">
-          <span className="prod-kicker">{t("why")}</span>
-          <h2 className="serif">{t("whyTitle")}</h2>
-          <p>{t("whyBody")}</p>
-          <Link href="/story" className="prod-ghost-link">
-            {t("story")}
-          </Link>
+      {/* Brand story invitation */}
+      <section className="prod-story-invite reveal">
+        <div className="container prod-story-invite-inner">
+          <div className="prod-story-invite-heading">
+            <span className="prod-kicker">{t("why")}</span>
+            <h2 className="serif">{t("whyTitle")}</h2>
+          </div>
+          <div className="prod-story-invite-copy">
+            <p>{t("whyBody")}</p>
+            <Link href="/story" className="prod-story-link">
+              <span>{t("story")}</span>
+              <ArrowRight size={16} strokeWidth={1.7} aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -374,12 +370,16 @@ export default function ProductsShowcase() {
         .prod-stage-nav button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
         .prod-counter { font-size: 0.8125rem; letter-spacing: 0.14em; color: var(--ink-3); }
 
-        .prod-life { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; padding-top: 2rem; padding-bottom: 6rem; }
-        .prod-life-media { border-radius: 24px; overflow: hidden; border: 1px solid rgba(20,20,20,.08); aspect-ratio: 4 / 3; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
-        .prod-life-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.9s ease; }
-        .prod-life-media:hover img { transform: scale(1.04); }
-        .prod-life-text h2 { font-size: clamp(1.9rem, 3.5vw, 2.75rem); line-height: 1.14; margin: 0 0 1.25rem; }
-        .prod-life-text p { color: var(--ink-2); line-height: 1.75; max-width: 30rem; margin-bottom: 1.75rem; }
+        .prod-story-invite { border-top: 1px solid var(--border); background: var(--cream-2); }
+        .prod-story-invite-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr); gap: clamp(3rem, 8vw, 7rem); align-items: start; padding-top: clamp(4rem, 7vw, 5.5rem); padding-bottom: clamp(4rem, 7vw, 5.5rem); }
+        .prod-story-invite .prod-kicker { margin-bottom: .8rem; }
+        .prod-story-invite-heading h2 { max-width: 36rem; font-size: clamp(1.85rem, 3.2vw, 2.5rem); line-height: 1.16; }
+        .prod-story-invite-copy p { color: var(--ink-2); font-size: .975rem; line-height: 1.75; margin: .15rem 0 1.5rem; }
+        .prod-story-link { display: inline-flex; align-items: center; gap: .55rem; color: var(--ink-2); font-size: .875rem; font-weight: 600; }
+        .prod-story-link svg { transition: transform .25s ease; }
+        .prod-story-link:hover { color: var(--gold); }
+        .prod-story-link:hover svg { transform: translateX(3px); }
+        .prod-story-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
 
         .prod-promise { border-top: 1px solid var(--border); }
         .prod-promise-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -398,7 +398,7 @@ export default function ProductsShowcase() {
           .prod-tabs { grid-template-columns: 1fr; gap: 0.5rem; margin: 2.25rem 0 2.5rem; }
           .prod-tab { padding: 0.9rem 0 0.9rem; }
           .prod-stage { grid-template-columns: 1fr; gap: 2.5rem; }
-          .prod-life { grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 4rem; }
+          .prod-story-invite-inner { grid-template-columns: 1fr; gap: 1.5rem; }
           .prod-promise-grid { grid-template-columns: repeat(2, 1fr); }
           .prod-promise-item:nth-child(odd) { border-left: none; }
           .prod-promise-item:nth-child(n+3) { border-top: 1px solid var(--border); }
@@ -412,7 +412,7 @@ export default function ProductsShowcase() {
           .prod-hero-media img { padding: 1rem; transform: scale(.97); }
         }
         @media (prefers-reduced-motion: reduce) {
-          .prod-hero-media img, .prod-stage-media img, .prod-life-media img { transition: none; }
+          .prod-hero-media img, .prod-stage-media img, .prod-story-link svg { transition: none; }
         }
       `}</style>
     </main>
