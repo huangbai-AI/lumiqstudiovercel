@@ -6,7 +6,6 @@ import { useState } from "react";
 import Image from "next/image";
 import RevealObserver from "@/components/RevealObserver";
 import { PRODUCT_BY_ID } from "@/lib/products";
-import DraftNotice from "@/components/DraftNotice";
 
 type Billing = "yearly" | "monthly";
 type Row = { label: string; values: (string | boolean)[] };
@@ -297,7 +296,7 @@ export default function PlansContent() {
 
       <section
         className="container reveal"
-        style={{ padding: "2rem 2rem 3rem", maxWidth: 1100 }}
+        style={{ padding: "2rem 2rem 4rem", maxWidth: 1100 }}
       >
         <span className="kicker">{t("eyebrow")}</span>
         <h1
@@ -309,7 +308,6 @@ export default function PlansContent() {
         <p className="lq-body" style={{ color: "var(--ink-2)", maxWidth: 560 }}>
           {t("intro")}
         </p>
-        <DraftNotice>{t("pricingNotice")}</DraftNotice>
       </section>
 
       <section className="container reveal" style={{ padding: "0 2rem 5rem" }}>
