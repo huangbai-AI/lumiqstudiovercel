@@ -313,7 +313,7 @@ export default function ProductsShowcase() {
         .prod-topbar-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.9rem 1.75rem; padding: 0.7rem 1.5rem; font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); }
         .prod-topbar-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-4); }
 
-        .prod-hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4rem; align-items: center; padding-top: 5rem; padding-bottom: 5rem; }
+        .prod-page > .prod-hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 4rem; align-items: center; padding-top: clamp(3.5rem, 5vw, 4.5rem); padding-bottom: clamp(3.5rem, 5vw, 4.5rem); }
         .prod-hero-text h1 { font-size: clamp(2.75rem, 6vw, 4.75rem); line-height: 1.03; letter-spacing: -0.02em; margin: 0 0 1.5rem; }
         .prod-hero-text h1 em { font-style: italic; color: var(--gold); }
         .prod-lead { color: var(--ink-2); font-size: 1.125rem; line-height: 1.7; max-width: 30rem; }
@@ -321,7 +321,7 @@ export default function ProductsShowcase() {
         .prod-hero-media { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; overflow: visible; }
         .prod-hero-media img { width: 112%; height: 112%; max-width: none; object-fit: contain; display: block; filter: drop-shadow(0 24px 28px rgba(31,23,14,.12)) drop-shadow(0 7px 10px rgba(31,23,14,.08)); transform: translate(var(--px, 0px), var(--py, 0px)) scale(.98); transition: transform 0.5s ease-out; will-change: transform; }
 
-        .prod-feats { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .prod-page > .prod-feats { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .prod-feats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
         .prod-feat { display: flex; align-items: center; gap: 1rem; padding: 1.75rem 1.75rem; border-left: 1px solid var(--border); }
         .prod-feat:first-child { border-left: none; }
@@ -330,7 +330,7 @@ export default function ProductsShowcase() {
         .prod-feat strong { display: block; font-size: 0.9375rem; color: var(--ink); }
         .prod-feat small { display: block; font-size: 0.8125rem; color: var(--ink-3); margin-top: 0.15rem; }
 
-        .prod-lineup { padding-top: 6rem; padding-bottom: 5rem; scroll-margin-top: 5rem; }
+        .prod-page > .prod-lineup { padding-top: clamp(4rem, 6vw, 5rem); padding-bottom: clamp(4rem, 6vw, 5rem); scroll-margin-top: 5rem; }
         .prod-lineup-head h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.12; margin: 0; max-width: 680px; }
 
         .prod-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; margin: 3rem 0 3.5rem; }
@@ -370,8 +370,8 @@ export default function ProductsShowcase() {
         .prod-stage-nav button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
         .prod-counter { font-size: 0.8125rem; letter-spacing: 0.14em; color: var(--ink-3); }
 
-        .prod-story-invite { border-top: 1px solid var(--border); background: var(--cream-2); }
-        .prod-story-invite-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr); gap: clamp(3rem, 8vw, 7rem); align-items: start; padding-top: clamp(4rem, 7vw, 5.5rem); padding-bottom: clamp(4rem, 7vw, 5.5rem); }
+        .prod-page > .prod-story-invite { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); background: var(--cream-2); }
+        .prod-story-invite-inner { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(18rem, .85fr); gap: clamp(3rem, 8vw, 7rem); align-items: start; padding-top: clamp(3.5rem, 5vw, 4.5rem); padding-bottom: clamp(3.5rem, 5vw, 4.5rem); }
         .prod-story-invite .prod-kicker { margin-bottom: .8rem; }
         .prod-story-invite-heading h2 { max-width: 36rem; font-size: clamp(1.85rem, 3.2vw, 2.5rem); line-height: 1.16; }
         .prod-story-invite-copy p { color: var(--ink-2); font-size: .975rem; line-height: 1.75; margin: .15rem 0 1.5rem; }
@@ -381,7 +381,7 @@ export default function ProductsShowcase() {
         .prod-story-link:hover svg { transform: translateX(3px); }
         .prod-story-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
 
-        .prod-promise { border-top: 1px solid var(--border); }
+        .prod-page > .prod-promise { padding-top: 0; padding-bottom: 0; border-top: 1px solid var(--border); }
         .prod-promise-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
         .prod-promise-item { display: flex; flex-direction: column; gap: 0.35rem; padding: 2.75rem 1.75rem; border-left: 1px solid var(--border); }
         .prod-promise-item:first-child { border-left: none; }
@@ -390,11 +390,11 @@ export default function ProductsShowcase() {
         .prod-promise-item small { font-size: 0.8125rem; color: var(--ink-3); line-height: 1.5; }
 
         @media (max-width: 960px) {
-          .prod-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 3.5rem; padding-bottom: 3.5rem; }
+          .prod-page > .prod-hero { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 3.5rem; padding-bottom: 3.5rem; }
           .prod-feats-grid { grid-template-columns: repeat(2, 1fr); }
           .prod-feat:nth-child(odd) { border-left: none; }
           .prod-feat:nth-child(n+3) { border-top: 1px solid var(--border); }
-          .prod-lineup { padding-top: 4rem; padding-bottom: 3.5rem; }
+          .prod-page > .prod-lineup { padding-top: 4rem; padding-bottom: 3.5rem; }
           .prod-tabs { grid-template-columns: 1fr; gap: 0.5rem; margin: 2.25rem 0 2.5rem; }
           .prod-tab { padding: 0.9rem 0 0.9rem; }
           .prod-stage { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -404,6 +404,8 @@ export default function ProductsShowcase() {
           .prod-promise-item:nth-child(n+3) { border-top: 1px solid var(--border); }
         }
         @media (max-width: 640px) {
+          .prod-page > .prod-hero { padding-top: 3rem; padding-bottom: 3rem; }
+          .prod-page > .prod-lineup { padding-top: 3.5rem; padding-bottom: 3rem; }
           .prod-feats-grid, .prod-promise-grid { grid-template-columns: 1fr; }
           .prod-feat, .prod-promise-item { border-left: none !important; border-top: 1px solid var(--border); padding: 1.4rem 0.5rem; }
           .prod-feat:first-child, .prod-promise-item:first-child { border-top: none; }
