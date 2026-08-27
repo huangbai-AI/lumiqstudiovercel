@@ -457,8 +457,8 @@ export default function PlansContent() {
         .hw-card:hover .hw-img-contain-print img { transform: scale(1.08); }
         .hw-price.serif { color: var(--ink); font-size: clamp(1.5rem, 2.4vw, 1.85rem); margin-bottom: 1.25rem; }
         .hw-price.serif.hw-price-pending { font-size: clamp(.95rem, 1.4vw, 1.05rem); line-height: 1.35; white-space: nowrap; }
-        .hw-actions { display: flex; align-items: center; gap: .5rem; flex-wrap: nowrap; min-width: 0; margin-top: auto; }
-        .hw-reserve { flex: 0 1 auto; min-width: 0; min-height: 44px; padding: .55rem .65rem; font-size: .78rem; white-space: nowrap; }
+        .hw-actions { display: flex; align-items: center; gap: .4rem; flex-wrap: nowrap; min-width: 0; margin-top: auto; }
+        .hw-reserve { flex: 0 1 auto; min-width: 0; min-height: 44px; padding: .55rem .6rem; font-size: .76rem; white-space: nowrap; }
         .hw-more { display: inline-flex; align-items: center; flex: 0 0 auto; min-height: 44px; color: var(--ink-2); font-size: .78rem; font-weight: 500; white-space: nowrap; border-bottom: 1px solid var(--ink-4); transition: color .25s, border-color .25s; }
         .hw-more:hover { color: var(--ink); border-color: var(--ink); }
 
