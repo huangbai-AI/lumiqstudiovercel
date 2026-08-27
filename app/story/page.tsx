@@ -150,7 +150,7 @@ export default function StoryPage() {
           background: linear-gradient(180deg, #fff 0%, #fbfaf8 42%, #fff 100%);
         }
         .story-page .container { max-width: 1240px; }
-        .story-hero { padding: 4.5rem 2rem 7rem; }
+        .story-page .story-hero { padding: 4.5rem 2rem 0; }
         .story-hero-copy { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 3rem 5rem; align-items: end; margin-bottom: 3.5rem; }
         .story-hero-copy .kicker { grid-column: 1 / -1; }
         .story-hero-copy h1 { font-size: clamp(3rem, 6.6vw, 6.25rem); line-height: .98; letter-spacing: -.035em; margin: 0; max-width: 920px; }
@@ -164,7 +164,7 @@ export default function StoryPage() {
         .story-hero-media figcaption span { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.72); }
         .story-hero-media figcaption strong { max-width: 640px; text-align: right; font-family: var(--font-serif); font-size: clamp(1.15rem, 2vw, 1.85rem); font-weight: 500; line-height: 1.25; }
 
-        .story-origin { display: grid; grid-template-columns: minmax(180px, .4fr) minmax(0, 1fr); gap: 3rem 7rem; padding: 0 2rem 7rem; }
+        .story-page .story-origin { display: grid; grid-template-columns: minmax(180px, .4fr) minmax(0, 1fr); gap: 3rem 7rem; padding: clamp(4.5rem, 7vw, 7rem) 2rem; }
         .story-section-label { display: flex; align-items: start; gap: 1rem; padding-top: .4rem; border-top: 1px solid var(--border-h); color: var(--ink-3); }
         .story-section-label span { color: var(--gold); font-family: var(--font-serif); }
         .story-section-label p { margin: 0; font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; }
@@ -213,7 +213,7 @@ export default function StoryPage() {
         .story-collection span { display: block; padding-top: .55rem; text-align: center; font-size: .75rem; font-weight: 600; }
 
         @media (max-width: 900px) {
-          .story-hero-copy, .story-origin, .story-future-grid { grid-template-columns: 1fr; }
+          .story-hero-copy, .story-page .story-origin, .story-future-grid { grid-template-columns: 1fr; }
           .story-hero-copy { gap: 1.75rem; }
           .story-hero-copy .kicker { grid-column: auto; }
           .story-origin { gap: 2rem; }
@@ -223,14 +223,14 @@ export default function StoryPage() {
         }
         @media (max-width: 700px) {
           .story-page { padding-top: 5.75rem; }
-          .story-hero { padding: 3rem 1rem 5rem; }
+          .story-page .story-hero { padding: 3rem 1rem 0; }
           .story-hero-copy { margin-bottom: 2.25rem; }
           .story-hero-copy h1 { font-size: clamp(2.65rem, 13vw, 4.25rem); }
           .story-hero-media { aspect-ratio: 4 / 5; border-radius: 20px; }
           .story-hero-media img { object-position: 42% center; }
           .story-hero-media figcaption { align-items: start; flex-direction: column; gap: .65rem; }
           .story-hero-media figcaption strong { text-align: left; }
-          .story-origin { padding: 0 1rem 5rem; }
+          .story-page .story-origin { padding: 3.5rem 1rem 5rem; }
           .story-origin-copy, .story-principle-grid, .story-timeline-grid { grid-template-columns: 1fr; }
           .story-principles { padding: 5rem 0; }
           .story-principle-grid { border-radius: 18px; }
