@@ -165,14 +165,14 @@ export default function StoryPage() {
         .story-hero-media figcaption span { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.72); }
         .story-hero-media figcaption strong { max-width: 640px; text-align: right; font-family: var(--font-serif); font-size: clamp(1.15rem, 2vw, 1.85rem); font-weight: 500; line-height: 1.25; }
 
-        .story-page .story-origin { display: grid; grid-template-columns: minmax(180px, .4fr) minmax(0, 1fr); gap: 3rem 7rem; padding: clamp(4.5rem, 7vw, 7rem) 2rem; }
+        .story-page .story-origin { display: grid; grid-template-columns: minmax(180px, .4fr) minmax(0, 1fr); gap: 3rem 7rem; padding: clamp(5rem, 7vw, 7rem) 2rem; }
         .story-section-label { display: flex; align-items: start; gap: 1rem; padding-top: .4rem; border-top: 1px solid var(--border-h); color: var(--ink-3); }
         .story-section-label span { color: var(--gold); font-family: var(--font-serif); }
         .story-section-label p { margin: 0; font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; }
         .story-origin-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
         .story-origin-copy p { margin: 0; color: var(--ink-2); font-size: clamp(1.05rem, 1.35vw, 1.25rem); line-height: 1.75; }
 
-        .story-principles { padding: 7rem 0; background: #f5f3ee; border-block: 1px solid rgba(20,20,20,.06); }
+        .story-page .story-principles { padding: clamp(6rem, 8vw, 8rem) 0; background: #f5f3ee; border-block: 1px solid rgba(20,20,20,.06); }
         .story-section-head { display: flex; align-items: end; justify-content: space-between; gap: 3rem; margin-bottom: 3.5rem; }
         .story-section-head h2 { margin: .8rem 0 0; max-width: 700px; font-size: clamp(2.25rem, 4.5vw, 4rem); line-height: 1.04; letter-spacing: -.025em; }
         .story-section-head > p { max-width: 430px; margin: 0; color: var(--ink-3); line-height: 1.7; }
@@ -185,13 +185,13 @@ export default function StoryPage() {
         .story-principle h3 { margin: 0 0 .8rem; font-size: clamp(1.5rem, 2.3vw, 2rem); }
         .story-principle p { max-width: 480px; margin: 0; color: var(--ink-2); line-height: 1.7; }
 
-        .story-quote-band { padding: 8rem 0; background: #071020; color: #fff; text-align: center; }
+        .story-page .story-quote-band { padding: clamp(6rem, 8vw, 8rem) 0; background: #071020; color: #fff; text-align: center; }
         .story-quote-band .container { max-width: 980px; }
         .story-quote-band .container > span { display: block; height: 3.5rem; color: #8eb2ff; font: 400 5rem/1 Georgia, serif; }
         .story-quote-band blockquote { margin: 1rem auto 2rem; font-size: clamp(2rem, 4.6vw, 4.25rem); line-height: 1.16; letter-spacing: -.02em; }
         .story-quote-band cite { color: #9baac2; font-size: .72rem; font-style: normal; letter-spacing: .18em; text-transform: uppercase; }
 
-        .story-timeline { padding: 7rem 2rem 8rem; }
+        .story-page .story-timeline { padding: clamp(5.5rem, 7vw, 7rem) 2rem clamp(5rem, 6vw, 6rem); }
         .story-timeline-grid { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1.5rem, 3vw, 3rem); list-style: none; margin: 0; padding: 0; }
         .story-timeline-grid::before { content: ""; position: absolute; top: 8px; right: 0; left: 0; height: 1px; background: var(--border); }
         .story-milestone { position: relative; padding-top: 2.75rem; }
@@ -200,8 +200,8 @@ export default function StoryPage() {
         .story-milestone h3 { margin: 0 0 .6rem; font-size: 1rem; font-weight: 650; }
         .story-milestone p { margin: 0; color: var(--ink-3); font-size: .94rem; line-height: 1.65; }
 
-        .story-future { padding: 0 0 7rem; }
-        .story-page .story-future-grid { display: grid; grid-template-columns: minmax(280px, .78fr) minmax(520px, 1.22fr); gap: clamp(2.75rem, 5vw, 5.5rem); align-items: center; padding: clamp(3rem, 5vw, 4.5rem); border-radius: 28px; background: #f1efe9; overflow: hidden; }
+        .story-page .story-future { padding: 0 0 clamp(5rem, 6vw, 6rem); }
+        .story-page .story-future-grid { display: grid; grid-template-columns: minmax(280px, .78fr) minmax(520px, 1.22fr); gap: clamp(2.75rem, 5vw, 5.5rem); align-items: center; padding: clamp(4rem, 5vw, 5rem) clamp(3rem, 5vw, 4.5rem); border-radius: 28px; background: #f1efe9; overflow: hidden; }
         .story-future-copy h2 { margin: .8rem 0 1.5rem; font-size: clamp(2.2rem, 4.2vw, 3.8rem); line-height: 1.05; letter-spacing: -.025em; }
         .story-future-copy p { margin: 0 0 1rem; color: var(--ink-2); line-height: 1.72; }
         .story-cta { display: inline-flex; gap: .75rem; align-items: center; margin-top: 1rem; }
@@ -218,7 +218,7 @@ export default function StoryPage() {
           .story-origin { gap: 2rem; }
           .story-origin-copy { gap: 2rem; }
           .story-section-head { align-items: start; flex-direction: column; }
-          .story-page .story-future-grid { padding: 3rem 2rem; }
+          .story-page .story-future-grid { padding: 4rem 3rem; }
         }
         @media (max-width: 700px) {
           .story-page { padding-top: 5.75rem; }
@@ -229,21 +229,21 @@ export default function StoryPage() {
           .story-hero-media img { object-position: 42% center; }
           .story-hero-media figcaption { align-items: start; flex-direction: column; gap: .65rem; }
           .story-hero-media figcaption strong { text-align: left; }
-          .story-page .story-origin { padding: 3.5rem 1rem 5rem; }
+          .story-page .story-origin { padding: 4rem 1rem 5rem; }
           .story-origin-copy, .story-principle-grid, .story-timeline-grid { grid-template-columns: 1fr; }
-          .story-principles { padding: 5rem 0; }
+          .story-page .story-principles { padding: 5rem 0; }
           .story-principle-grid { border-radius: 18px; }
           .story-principle { min-height: auto; border-right: 0; border-bottom: 1px solid rgba(20,20,20,.08) !important; }
           .story-principle:last-child { border-bottom: 0 !important; }
           .story-principle-num { margin-bottom: 1.75rem; }
-          .story-quote-band { padding: 6rem 0; }
-          .story-timeline { padding: 5rem 1rem 6rem; }
+          .story-page .story-quote-band { padding: 5.5rem 0; }
+          .story-page .story-timeline { padding: 4.5rem 1rem 5rem; }
           .story-timeline-grid { gap: 2.25rem; }
           .story-timeline-grid::before { display: none; }
           .story-milestone { padding: 0 0 0 1.5rem; border-left: 1px solid var(--border); }
           .story-milestone::before { top: .35rem; left: -6px; }
-          .story-future { padding: 0 1rem 5rem; }
-          .story-page .story-future-grid { padding: 2.5rem 1.25rem; border-radius: 20px; }
+          .story-page .story-future { padding: 0 1rem 5rem; }
+          .story-page .story-future-grid { padding: 3rem 1.25rem; border-radius: 20px; }
           .story-collection { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem .75rem; }
           .story-collection img { padding: .65rem; border-radius: 14px; }
         }
