@@ -40,7 +40,7 @@ export default function StoryPage() {
 
         <figure className="story-hero-media reveal">
           <Image
-            src="/assets/story/lumiq-story-family-v2.webp"
+            src="/assets/story/lumiq-story-family-v3.webp"
             alt={t("heroAlt")}
             fill
             sizes="(max-width: 768px) 100vw, 1200px"
