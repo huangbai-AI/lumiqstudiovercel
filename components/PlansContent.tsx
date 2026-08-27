@@ -15,6 +15,7 @@ const hardware = [
     name: PRODUCT_BY_ID.tablet.name,
     price: "399",
     img: PRODUCT_BY_ID.tablet.image,
+    imageFit: "cover",
     blurbKey: "tabletBlurb",
     href: PRODUCT_BY_ID.tablet.href,
   },
@@ -22,6 +23,7 @@ const hardware = [
     name: PRODUCT_BY_ID.ola.name,
     price: "599",
     img: PRODUCT_BY_ID.ola.image,
+    imageFit: "contain-ola",
     blurbKey: "palBlurb",
     href: PRODUCT_BY_ID.ola.href,
   },
@@ -29,6 +31,7 @@ const hardware = [
     name: PRODUCT_BY_ID.print.name,
     price: "69",
     img: PRODUCT_BY_ID.print.image,
+    imageFit: "contain-print",
     blurbKey: "printBlurb",
     href: PRODUCT_BY_ID.print.href,
   },
@@ -36,6 +39,7 @@ const hardware = [
     name: PRODUCT_BY_ID.nest.name,
     price: null,
     img: PRODUCT_BY_ID.nest.image,
+    imageFit: "cover",
     blurbKey: "nestBlurb",
     href: PRODUCT_BY_ID.nest.href,
   },
@@ -314,7 +318,9 @@ export default function PlansContent() {
         <div className="hw-grid">
           {hardware.map((h) => (
             <article key={h.name} className="hw-card">
-              <div className="hw-img">
+              <div
+                className={`hw-img${h.imageFit !== "cover" ? ` hw-img-${h.imageFit}` : ""}`}
+              >
                 <Image
                   src={h.img}
                   alt={h.name}
@@ -456,7 +462,12 @@ export default function PlansContent() {
         .hw-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--border-h); }
         .hw-img { aspect-ratio: 4/3; border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem; background: var(--cream-3); }
         .hw-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s ease; }
+        .hw-img-contain-ola img, .hw-img-contain-print img { object-fit: contain; }
+        .hw-img-contain-ola img { transform: scale(1.02); }
+        .hw-img-contain-print img { transform: scale(1.08); }
         .hw-card:hover .hw-img img { transform: scale(1.05); }
+        .hw-card:hover .hw-img-contain-ola img { transform: scale(1.02); }
+        .hw-card:hover .hw-img-contain-print img { transform: scale(1.08); }
         .hw-more { align-self: center; color: var(--ink-2); font-size: .9rem; font-weight: 500; border-bottom: 1px solid var(--ink-4); padding-bottom: 2px; transition: color .25s, border-color .25s; }
         .hw-more:hover { color: var(--ink); border-color: var(--ink); }
 
