@@ -361,9 +361,9 @@ export default function ProductsShowcase() {
         .prod-specs { list-style: none; margin: 0 0 2rem; padding: 0; }
         .prod-specs li { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--border); font-size: 0.9375rem; color: var(--ink-2); }
         .prod-tick { width: 5px; height: 5px; background: var(--gold); flex-shrink: 0; }
-        .prod-product-link { display: inline-flex; width: fit-content; padding: .35rem 0 .45rem; border-bottom: 1px solid rgba(169,132,46,.55); color: var(--ink); font-size: .9375rem; font-weight: 600; transition: color .25s ease, border-color .25s ease; }
-        .prod-product-link:hover { color: var(--gold); border-color: var(--gold); }
-        .prod-product-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 5px; }
+        .prod-page .prod-product-link { display: inline-flex; align-items: center; justify-content: center; width: fit-content; min-height: 46px; padding: .75rem 1.5rem; border-radius: 999px; background: var(--ink); color: #fff; font-size: .9375rem; font-weight: 600; line-height: 1.2; transition: color .25s ease, background .25s ease, box-shadow .25s ease, transform .25s ease; }
+        .prod-page .prod-product-link:hover { background: var(--gold); color: #fff; transform: translateY(-2px); box-shadow: 0 12px 26px rgba(24,18,10,.14); }
+        .prod-page .prod-product-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 
         .prod-stage-nav { display: flex; align-items: center; gap: 1.25rem; margin-top: 2.25rem; }
         .prod-stage-nav button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border-h); background: #fff; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background .25s, color .25s, border-color .25s; }
@@ -412,6 +412,7 @@ export default function ProductsShowcase() {
           .prod-topbar-inner { gap: 0.5rem 1rem; letter-spacing: 0.12em; }
           .prod-stage-media { border-radius: 20px; }
           .prod-hero-media img { width: 108%; height: 108%; transform: scale(.98); }
+          .prod-page .prod-product-link { width: 100%; min-height: 48px; }
         }
         @media (prefers-reduced-motion: reduce) {
           .prod-hero-media img, .prod-stage-media img, .prod-story-link svg { transition: none; }
