@@ -153,10 +153,10 @@ export default function ProductsShowcase() {
           onMouseLeave={onHeroLeave}
         >
           <Image
-            src={PRODUCT_BY_ID.ola.image}
+            src="/assets/products/lumiq-ola-tablet-hero.webp"
             alt={t("heroAlt")}
-            width={1024}
-            height={1024}
+            width={1136}
+            height={942}
             sizes="(max-width: 820px) 100vw, 50vw"
             priority
           />
@@ -318,8 +318,8 @@ export default function ProductsShowcase() {
         .prod-hero-text h1 em { font-style: italic; color: var(--gold); }
         .prod-lead { color: var(--ink-2); font-size: 1.125rem; line-height: 1.7; max-width: 30rem; }
         .prod-cta-row { display: flex; align-items: center; gap: 1.75rem; margin-top: 2.25rem; flex-wrap: wrap; }
-        .prod-hero-media { border-radius: 28px; overflow: hidden; border: 1px solid rgba(20,20,20,.08); box-shadow: 0 28px 70px rgba(24,18,10,.12); aspect-ratio: 1 / 1; background: radial-gradient(circle at 52% 44%, #fff 0%, #f5f2ec 68%, #eee9df 100%); }
-        .prod-hero-media img { width: 100%; height: 100%; object-fit: contain; padding: clamp(1.5rem, 4vw, 3.25rem); display: block; transform: translate(var(--px, 0px), var(--py, 0px)) scale(.94); transition: transform 0.5s ease-out; will-change: transform; }
+        .prod-hero-media { display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; overflow: visible; }
+        .prod-hero-media img { width: 112%; height: 112%; max-width: none; object-fit: contain; display: block; filter: drop-shadow(0 24px 28px rgba(31,23,14,.12)) drop-shadow(0 7px 10px rgba(31,23,14,.08)); transform: translate(var(--px, 0px), var(--py, 0px)) scale(.98); transition: transform 0.5s ease-out; will-change: transform; }
 
         .prod-feats { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
         .prod-feats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
@@ -408,8 +408,8 @@ export default function ProductsShowcase() {
           .prod-feat, .prod-promise-item { border-left: none !important; border-top: 1px solid var(--border); padding: 1.4rem 0.5rem; }
           .prod-feat:first-child, .prod-promise-item:first-child { border-top: none; }
           .prod-topbar-inner { gap: 0.5rem 1rem; letter-spacing: 0.12em; }
-          .prod-hero-media, .prod-stage-media { border-radius: 20px; }
-          .prod-hero-media img { padding: 1rem; transform: scale(.97); }
+          .prod-stage-media { border-radius: 20px; }
+          .prod-hero-media img { width: 108%; height: 108%; transform: scale(.98); }
         }
         @media (prefers-reduced-motion: reduce) {
           .prod-hero-media img, .prod-stage-media img, .prod-story-link svg { transition: none; }
