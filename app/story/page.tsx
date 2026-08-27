@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import RevealObserver from "@/components/RevealObserver";
+import StoryHeroVideo from "@/components/StoryHeroVideo";
 import { PRODUCT_BY_ID } from "@/lib/products";
 
 export default function StoryPage() {
@@ -38,19 +39,14 @@ export default function StoryPage() {
           <p>{t("origin1")}</p>
         </div>
 
-        <figure className="story-hero-media reveal">
-          <Image
-            src="/assets/story/lumiq-story-family-v3.webp"
-            alt={t("heroAlt")}
-            fill
-            sizes="(max-width: 768px) 100vw, 1200px"
-            priority
-          />
-          <figcaption>
-            <span>{t("principlesEyebrow")}</span>
-            <strong>{t("quote")}</strong>
-          </figcaption>
-        </figure>
+        <StoryHeroVideo
+          eyebrow={t("principlesEyebrow")}
+          label={t("heroVideoLabel")}
+          playLabel={t("heroVideoPlay")}
+          poster="/assets/story/lumiq-story-family-v3.webp"
+          quote={t("quote")}
+          src="/assets/story/lumiq-brand-film.mp4"
+        />
       </section>
 
       <section className="container story-origin reveal">
@@ -158,9 +154,13 @@ export default function StoryPage() {
         .story-hero-copy h1 em { display: block; color: var(--gold); font-size: .68em; line-height: 1.08; margin-top: .18em; }
         .story-hero-copy > p { margin: 0 0 .35rem; color: var(--ink-2); font-size: clamp(1rem, 1.35vw, 1.2rem); line-height: 1.75; }
         .story-hero-media { position: relative; aspect-ratio: 16 / 9; margin: 0; overflow: hidden; border: 1px solid rgba(20, 20, 20, .08); border-radius: 28px; background: #111827; box-shadow: 0 30px 80px rgba(24, 18, 10, .14); }
-        .story-hero-media img { object-fit: cover; transition: transform 1.2s cubic-bezier(.22, 1, .36, 1); }
-        .story-hero-media:hover img { transform: scale(1.018); }
-        .story-hero-media::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(180deg, transparent, rgba(2, 6, 18, .72)); pointer-events: none; }
+        .story-hero-media video { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .story-hero-media::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(180deg, transparent, rgba(2, 6, 18, .72)); opacity: 1; pointer-events: none; transition: opacity .25s ease; }
+        .story-hero-media.is-playing::after { opacity: 0; }
+        .story-video-play { position: absolute; z-index: 2; top: 50%; left: 50%; display: grid; width: 64px; height: 64px; padding: 0; place-items: center; border: 1px solid rgba(255,255,255,.72); border-radius: 50%; color: #071020; background: rgba(255,255,255,.9); box-shadow: 0 12px 36px rgba(2,6,18,.24); backdrop-filter: blur(10px); cursor: pointer; transform: translate(-50%, -50%); transition: transform .25s cubic-bezier(.22, 1, .36, 1), background .25s ease; }
+        .story-video-play:hover { background: #fff; transform: translate(-50%, -50%) scale(1.06); }
+        .story-video-play:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+        .story-video-play svg { margin-left: 3px; }
         .story-hero-media figcaption { position: absolute; z-index: 1; right: clamp(1.25rem, 3vw, 2.75rem); bottom: clamp(1.25rem, 3vw, 2.5rem); left: clamp(1.25rem, 3vw, 2.75rem); display: flex; align-items: end; justify-content: space-between; gap: 2rem; color: #fff; }
         .story-hero-media figcaption span { font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.72); }
         .story-hero-media figcaption strong { max-width: 640px; text-align: right; font-family: var(--font-serif); font-size: clamp(1.15rem, 2vw, 1.85rem); font-weight: 500; line-height: 1.25; }
@@ -225,10 +225,12 @@ export default function StoryPage() {
           .story-page .story-hero { padding: 3rem 1rem 0; }
           .story-hero-copy { margin-bottom: 2.25rem; }
           .story-hero-copy h1 { font-size: clamp(2.65rem, 13vw, 4.25rem); }
-          .story-hero-media { aspect-ratio: 4 / 5; border-radius: 20px; }
-          .story-hero-media img { object-position: 42% center; }
-          .story-hero-media figcaption { align-items: start; flex-direction: column; gap: .65rem; }
-          .story-hero-media figcaption strong { text-align: left; }
+          .story-hero-media { aspect-ratio: 16 / 9; border-radius: 20px; }
+          .story-hero-media video { object-position: center; }
+          .story-video-play { width: 56px; height: 56px; }
+          .story-hero-media figcaption { right: 1rem; bottom: .85rem; left: 1rem; align-items: start; flex-direction: column; gap: .25rem; }
+          .story-hero-media figcaption span { font-size: .58rem; }
+          .story-hero-media figcaption strong { text-align: left; font-size: .95rem; line-height: 1.28; }
           .story-page .story-origin { padding: 4rem 1rem 5rem; }
           .story-origin-copy, .story-principle-grid, .story-timeline-grid { grid-template-columns: 1fr; }
           .story-page .story-principles { padding: 5rem 0; }
@@ -248,7 +250,7 @@ export default function StoryPage() {
           .story-collection img { padding: .65rem; border-radius: 14px; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .story-hero-media img, .story-collection a { transition: none; }
+          .story-hero-media::after, .story-video-play, .story-collection a { transition: none; }
         }
       `}</style>
     </main>
