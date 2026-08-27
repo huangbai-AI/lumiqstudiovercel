@@ -22,6 +22,7 @@ export default function StoryPage() {
     PRODUCT_BY_ID.tablet,
     PRODUCT_BY_ID.ola,
     PRODUCT_BY_ID.print,
+    PRODUCT_BY_ID.nest,
   ];
 
   return (
@@ -200,26 +201,24 @@ export default function StoryPage() {
         .story-milestone p { margin: 0; color: var(--ink-3); font-size: .94rem; line-height: 1.65; }
 
         .story-future { padding: 0 0 7rem; }
-        .story-future-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr); gap: clamp(3rem, 7vw, 7rem); align-items: center; padding: clamp(3rem, 6vw, 5rem); border: 1px solid rgba(20,20,20,.08); border-radius: 30px; background: #f5f3ee; overflow: hidden; }
+        .story-page .story-future-grid { display: grid; grid-template-columns: minmax(280px, .78fr) minmax(520px, 1.22fr); gap: clamp(2.75rem, 5vw, 5.5rem); align-items: center; padding: clamp(3rem, 5vw, 4.5rem); border-radius: 28px; background: #f1efe9; overflow: hidden; }
         .story-future-copy h2 { margin: .8rem 0 1.5rem; font-size: clamp(2.2rem, 4.2vw, 3.8rem); line-height: 1.05; letter-spacing: -.025em; }
         .story-future-copy p { margin: 0 0 1rem; color: var(--ink-2); line-height: 1.72; }
         .story-cta { display: inline-flex; gap: .75rem; align-items: center; margin-top: 1rem; }
-        .story-collection { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; align-items: end; }
-        .story-collection a { display: grid; grid-template-rows: 1fr auto; min-width: 0; padding: 1rem 1rem .85rem; border: 1px solid rgba(20,20,20,.08); border-radius: 20px; background: rgba(255,255,255,.74); color: var(--ink); transition: transform .3s ease, box-shadow .3s ease, background .3s ease; }
-        .story-collection a:nth-child(2) { transform: translateY(-1.5rem); }
-        .story-collection a:hover { transform: translateY(-.4rem); background: #fff; box-shadow: 0 18px 50px rgba(24,18,10,.09); }
-        .story-collection a:nth-child(2):hover { transform: translateY(-1.9rem); }
-        .story-collection img { width: 100%; height: auto; aspect-ratio: 1; object-fit: contain; }
-        .story-collection span { display: block; padding-top: .55rem; text-align: center; font-size: .75rem; font-weight: 600; }
+        .story-collection { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(.7rem, 1.5vw, 1.25rem); align-items: end; }
+        .story-collection a { display: grid; grid-template-rows: 1fr auto; min-width: 0; color: var(--ink); transition: transform .3s cubic-bezier(.22, 1, .36, 1); }
+        .story-collection a:hover { transform: translateY(-.35rem); }
+        .story-collection img { width: 100%; height: auto; aspect-ratio: 1; padding: clamp(.45rem, 1vw, .85rem); border-radius: 16px; background: #e7e3da; object-fit: contain; }
+        .story-collection span { display: block; padding-top: .8rem; text-align: center; font-size: .75rem; font-weight: 600; }
 
         @media (max-width: 900px) {
-          .story-hero-copy, .story-page .story-origin, .story-future-grid { grid-template-columns: 1fr; }
+          .story-hero-copy, .story-page .story-origin, .story-page .story-future-grid { grid-template-columns: 1fr; }
           .story-hero-copy { gap: 1.75rem; }
           .story-hero-copy .kicker { grid-column: auto; }
           .story-origin { gap: 2rem; }
           .story-origin-copy { gap: 2rem; }
           .story-section-head { align-items: start; flex-direction: column; }
-          .story-future-grid { padding: 3rem 2rem; }
+          .story-page .story-future-grid { padding: 3rem 2rem; }
         }
         @media (max-width: 700px) {
           .story-page { padding-top: 5.75rem; }
@@ -244,9 +243,9 @@ export default function StoryPage() {
           .story-milestone { padding: 0 0 0 1.5rem; border-left: 1px solid var(--border); }
           .story-milestone::before { top: .35rem; left: -6px; }
           .story-future { padding: 0 1rem 5rem; }
-          .story-future-grid { padding: 2.5rem 1.25rem; border-radius: 22px; }
-          .story-collection { gap: .5rem; }
-          .story-collection a { padding: .55rem .4rem .65rem; border-radius: 14px; }
+          .story-page .story-future-grid { padding: 2.5rem 1.25rem; border-radius: 20px; }
+          .story-collection { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem .75rem; }
+          .story-collection img { padding: .65rem; border-radius: 14px; }
         }
         @media (prefers-reduced-motion: reduce) {
           .story-hero-media img, .story-collection a { transition: none; }
