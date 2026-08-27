@@ -1,19 +1,10 @@
+import type {FC, ReactNode} from "react";
+
 type DraftNoticeProps = {
-  children?: React.ReactNode;
+  children?: ReactNode;
   compact?: boolean;
 };
 
-export default function DraftNotice({
-  children = "Draft — details pending brand or legal confirmation.",
-  compact = false,
-}: DraftNoticeProps) {
-  return (
-    <aside
-      className={`draft-notice${compact ? " draft-notice-compact" : ""}`}
-      role="note"
-    >
-      <span aria-hidden="true">◇</span>
-      <span>{children}</span>
-    </aside>
-  );
-}
+const DraftNotice: FC<DraftNoticeProps> = () => null;
+
+export default DraftNotice;

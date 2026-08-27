@@ -260,6 +260,13 @@ export default function SiteHeader() {
           .site-mobile-trigger { display: inline-flex !important; }
           .site-mobile-menu.open { display: flex !important; }
         }
+        @media (max-width: 420px) {
+          .nav-inner { gap: 0.5rem; padding-inline: 1rem; }
+          .nav-logo { width: 88px; height: 35px; }
+          .nav-actions { min-width: 0; gap: 0.375rem; }
+          .site-login-btn { padding: 0.4rem 0.7rem; font-size: 0.75rem; white-space: nowrap; }
+          .site-mobile-trigger { width: 38px; height: 38px; }
+        }
         @media (min-width: 768px) {
           .site-desktop-nav { display: flex !important; }
           .site-desktop-action { display: block !important; }

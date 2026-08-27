@@ -6,7 +6,6 @@ import { useState } from "react";
 import Image from "next/image";
 import RevealObserver from "@/components/RevealObserver";
 import { PRODUCT_BY_ID } from "@/lib/products";
-import DraftNotice from "@/components/DraftNotice";
 
 type Billing = "yearly" | "monthly";
 type Row = { label: string; values: (string | boolean)[] };
@@ -16,6 +15,7 @@ const hardware = [
     name: PRODUCT_BY_ID.tablet.name,
     price: "399",
     img: PRODUCT_BY_ID.tablet.image,
+    imageFit: "cover",
     blurbKey: "tabletBlurb",
     href: PRODUCT_BY_ID.tablet.href,
   },
@@ -23,6 +23,7 @@ const hardware = [
     name: PRODUCT_BY_ID.ola.name,
     price: "599",
     img: PRODUCT_BY_ID.ola.image,
+    imageFit: "contain-ola",
     blurbKey: "palBlurb",
     href: PRODUCT_BY_ID.ola.href,
   },
@@ -30,6 +31,7 @@ const hardware = [
     name: PRODUCT_BY_ID.print.name,
     price: "69",
     img: PRODUCT_BY_ID.print.image,
+    imageFit: "contain-print",
     blurbKey: "printBlurb",
     href: PRODUCT_BY_ID.print.href,
   },
@@ -37,6 +39,7 @@ const hardware = [
     name: PRODUCT_BY_ID.nest.name,
     price: null,
     img: PRODUCT_BY_ID.nest.image,
+    imageFit: "cover",
     blurbKey: "nestBlurb",
     href: PRODUCT_BY_ID.nest.href,
   },
@@ -297,7 +300,7 @@ export default function PlansContent() {
 
       <section
         className="container reveal"
-        style={{ padding: "2rem 2rem 3rem", maxWidth: 1100 }}
+        style={{ padding: "2rem 2rem 4rem", maxWidth: 1100 }}
       >
         <span className="kicker">{t("eyebrow")}</span>
         <h1
@@ -309,14 +312,15 @@ export default function PlansContent() {
         <p className="lq-body" style={{ color: "var(--ink-2)", maxWidth: 560 }}>
           {t("intro")}
         </p>
-        <DraftNotice>{t("pricingNotice")}</DraftNotice>
       </section>
 
       <section className="container reveal" style={{ padding: "0 2rem 5rem" }}>
         <div className="hw-grid">
           {hardware.map((h) => (
             <article key={h.name} className="hw-card">
-              <div className="hw-img">
+              <div
+                className={`hw-img${h.imageFit !== "cover" ? ` hw-img-${h.imageFit}` : ""}`}
+              >
                 <Image
                   src={h.img}
                   alt={h.name}
@@ -344,12 +348,7 @@ export default function PlansContent() {
                 {t(h.blurbKey)}
               </p>
               <div
-                className="serif"
-                style={{
-                  fontSize: "clamp(1.5rem, 2.4vw, 1.85rem)",
-                  color: "var(--ink)",
-                  marginBottom: "1.25rem",
-                }}
+                className={`hw-price serif${h.price === null ? " hw-price-pending" : ""}`}
               >
                 {h.price === null ? (
                   t("pricePending")
@@ -369,18 +368,10 @@ export default function PlansContent() {
                   </>
                 )}
               </div>
-              <div
-                style={{
-                  display: "flex",
-                  gap: ".75rem",
-                  flexWrap: "wrap",
-                  marginTop: "auto",
-                }}
-              >
+              <div className="hw-actions">
                 <Link
                   href="/prelaunch"
-                  className="btn btn-navy"
-                  style={{ padding: ".6rem 1.1rem", fontSize: ".9rem" }}
+                  className="btn btn-navy hw-reserve"
                 >
                   {t("reserve")}
                 </Link>
@@ -453,13 +444,22 @@ export default function PlansContent() {
       </section>
 
       <style>{`
-        .hw-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-        .hw-card { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 1.25rem 1.25rem 1.75rem; display: flex; flex-direction: column; transition: transform .4s, box-shadow .4s, border-color .4s; }
+        .hw-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; }
+        .hw-card { min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 1.25rem 1.25rem 1.75rem; display: flex; flex-direction: column; transition: transform .4s, box-shadow .4s, border-color .4s; }
         .hw-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--border-h); }
         .hw-img { aspect-ratio: 4/3; border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem; background: var(--cream-3); }
         .hw-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s ease; }
+        .hw-img-contain-ola img, .hw-img-contain-print img { object-fit: contain; }
+        .hw-img-contain-ola img { transform: scale(1.02); }
+        .hw-img-contain-print img { transform: scale(1.08); }
         .hw-card:hover .hw-img img { transform: scale(1.05); }
-        .hw-more { align-self: center; color: var(--ink-2); font-size: .9rem; font-weight: 500; border-bottom: 1px solid var(--ink-4); padding-bottom: 2px; transition: color .25s, border-color .25s; }
+        .hw-card:hover .hw-img-contain-ola img { transform: scale(1.02); }
+        .hw-card:hover .hw-img-contain-print img { transform: scale(1.08); }
+        .hw-price.serif { color: var(--ink); font-size: clamp(1.5rem, 2.4vw, 1.85rem); margin-bottom: 1.25rem; }
+        .hw-price.serif.hw-price-pending { font-size: clamp(.95rem, 1.4vw, 1.05rem); line-height: 1.35; white-space: nowrap; }
+        .hw-actions { display: flex; align-items: center; gap: .4rem; flex-wrap: nowrap; min-width: 0; margin-top: auto; }
+        .hw-reserve { flex: 0 1 auto; min-width: 0; min-height: 44px; padding: .55rem .6rem; font-size: .76rem; white-space: nowrap; }
+        .hw-more { display: inline-flex; align-items: center; flex: 0 0 auto; min-height: 44px; color: var(--ink-2); font-size: .78rem; font-weight: 500; white-space: nowrap; border-bottom: 1px solid var(--ink-4); transition: color .25s, border-color .25s; }
         .hw-more:hover { color: var(--ink); border-color: var(--ink); }
 
         .billing-toggle { display: inline-flex; border: 1px solid var(--border-h); border-radius: 999px; padding: 4px; background: #fff; }
@@ -493,7 +493,8 @@ export default function PlansContent() {
         .plan-choose.is-dark:hover { background: #000; }
 
         .pal-cards { display: none; }
-        @media (max-width: 900px) { .hw-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 1100px) { .hw-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+        @media (max-width: 640px) { .hw-grid { grid-template-columns: 1fr; } .hw-reserve, .hw-more { font-size: .9rem; } .hw-reserve { padding-inline: 1rem; } }
         @media (max-width: 760px) { .pal-table-wrap { display: none; } .pal-cards { display: grid; gap: 1.5rem; grid-template-columns: 1fr; } }
       `}</style>
     </main>
