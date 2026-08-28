@@ -1336,6 +1336,9 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 }
 .parallax-home .plans-scene .compact-heading { margin-bottom: clamp(20px, 2.8svh, 34px); }
 .parallax-home .plans-scene .compact-heading h2 { margin-block: 8px 12px; font-size: clamp(45px, 4.7vw, 78px); }
+.parallax-home .plans-scene .hardware-plan-card {
+  grid-template-rows: clamp(210px, 28svh, 270px) auto;
+}
 .parallax-home .hardware-plan-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1431,6 +1434,46 @@ body.parallax-page { font-family: "LUMIQ Teko", var(--font-geist-sans), sans-ser
 .parallax-home .hardware-plan-card:hover .hardware-plan-explore,
 .parallax-home .hardware-plan-card:focus-visible .hardware-plan-explore { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(69, 129, 255, .28); }
 .parallax-home .hardware-plan-explore > span { font-size: 22px; }
+
+@media (min-width: 1181px) and (max-height: 820px) {
+  .parallax-home .plans-scene .legacy-stage {
+    padding-top: clamp(74px, 8svh, 82px);
+    padding-bottom: 24px;
+  }
+  .parallax-home .plans-scene .compact-heading { margin-bottom: 14px; }
+  .parallax-home .plans-scene .compact-heading h2 {
+    margin-block: 4px 8px;
+    font-size: clamp(42px, 4vw, 62px);
+  }
+  .parallax-home .plans-scene .compact-heading > p:last-of-type {
+    font-size: clamp(15px, 1vw, 18px);
+    line-height: 1.3;
+  }
+  .parallax-home .plans-scene .hardware-plan-card {
+    grid-template-rows: clamp(180px, 24svh, 205px) auto;
+  }
+  .parallax-home .plans-scene .hardware-plan-copy { padding: 16px 20px; }
+  .parallax-home .plans-scene .hardware-plan-copy h3 {
+    margin-block: 5px 6px;
+    font-size: clamp(36px, 2.8vw, 44px);
+  }
+  .parallax-home .plans-scene .hardware-plan-copy > p:not(.eyebrow) {
+    font-size: clamp(14px, .9vw, 16px);
+    line-height: 1.25;
+  }
+  .parallax-home .plans-scene .hardware-plan-purchase {
+    gap: 12px;
+    padding-top: 10px;
+  }
+  .parallax-home .plans-scene .hardware-plan-purchase strong {
+    font-size: clamp(42px, 3.2vw, 52px);
+  }
+  .parallax-home .plans-scene .hardware-plan-explore {
+    gap: 9px;
+    padding: 9px 14px;
+    font-size: clamp(14px, .9vw, 16px);
+  }
+}
 
 .parallax-home .plans-page {
   min-height: 100svh;
@@ -2020,6 +2063,79 @@ body.parallax-page { font-size: var(--site-min-font-size); }
 .locale-ja .parallax-home .discover-label {
   text-transform: none;
   letter-spacing: .08em;
+}
+
+@media (min-width: 1181px) {
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-copy,
+  .locale-ja .parallax-home .plans-scene .hardware-plan-copy {
+    padding: 22px;
+  }
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-copy h3,
+  .locale-ja .parallax-home .plans-scene .hardware-plan-copy h3 {
+    margin-block: 6px 7px;
+    font-family: "LUMIQ Teko", Arial, sans-serif;
+    font-size: clamp(40px, 2.8vw, 52px);
+    line-height: .9;
+    letter-spacing: .035em;
+    white-space: nowrap;
+    word-break: keep-all;
+  }
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-copy > p:not(.eyebrow),
+  .locale-ja .parallax-home .plans-scene .hardware-plan-copy > p:not(.eyebrow) {
+    font-size: 17px !important;
+    line-height: 1.35;
+  }
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-purchase,
+  .locale-ja .parallax-home .plans-scene .hardware-plan-purchase {
+    align-items: center;
+    gap: 10px;
+    padding-top: 12px;
+  }
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-explore,
+  .locale-ja .parallax-home .plans-scene .hardware-plan-explore {
+    flex: 1 1 auto;
+    justify-content: center;
+    min-width: 0;
+    gap: 8px;
+    padding: 10px 12px;
+    font-size: 16px !important;
+  }
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-purchase > p.is-pending strong,
+  .locale-ja .parallax-home .plans-scene .hardware-plan-purchase > p.is-pending strong {
+    max-width: 96px;
+    font-size: 24px;
+    line-height: 1.05;
+  }
+}
+
+@media (min-width: 1181px) and (max-height: 820px) {
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-copy,
+  .locale-ja .parallax-home .plans-scene .hardware-plan-copy {
+    padding: 14px 18px;
+  }
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-copy h3,
+  .locale-ja .parallax-home .plans-scene .hardware-plan-copy h3 {
+    margin-block: 4px 5px;
+    font-size: 38px;
+  }
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-copy > p:not(.eyebrow),
+  .locale-ja .parallax-home .plans-scene .hardware-plan-copy > p:not(.eyebrow) {
+    font-size: 15px !important;
+    line-height: 1.25;
+  }
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-purchase,
+  .locale-ja .parallax-home .plans-scene .hardware-plan-purchase {
+    padding-top: 8px;
+  }
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-explore,
+  .locale-ja .parallax-home .plans-scene .hardware-plan-explore {
+    padding: 8px 10px;
+    font-size: 14px !important;
+  }
+  .locale-zh-hant .parallax-home .plans-scene .hardware-plan-purchase > p.is-pending strong,
+  .locale-ja .parallax-home .plans-scene .hardware-plan-purchase > p.is-pending strong {
+    font-size: 20px;
+  }
 }
 
 .locale-zh-hant .parallax-home .hero-copy h1,
