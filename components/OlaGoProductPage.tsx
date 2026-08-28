@@ -1,116 +1,89 @@
 "use client";
 
-import Image from "next/image";
-import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import DraftNotice from "@/components/DraftNotice";
+import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
 export default function OlaGoProductPage() {
   const t = useTranslations("OlaGo");
-  const features = [
-    "reminders",
-    "weather",
-    "journal",
-    "cellular",
-    "location",
-    "safety",
-  ] as const;
+
+  const firstFeatures = ["reminders", "weather", "journal"] as const;
+  const connectedFeatures = ["cellular", "location", "safety"] as const;
 
   return (
-    <main
-      className="lumiq-root editorial-page"
-      style={{ paddingTop: "6rem", color: "var(--ink)" }}
-    >
-      <section
-        className="container"
-        style={{ padding: "1.5rem 2rem 5rem", maxWidth: 1200 }}
-      >
-        <Link
-          href="/products"
-          style={{ color: "var(--ink-3)", fontSize: ".9rem" }}
-        >
-          {t("all")}
-        </Link>
-        <div
-          className="detail-split"
-          style={{ marginTop: "1.5rem", alignItems: "center" }}
-        >
-          <div>
-            <span className="kicker">Lumiq Ola Go</span>
-            <h1
-              className="serif"
-              style={{
-                fontSize: "clamp(2.8rem, 7vw, 6rem)",
-                lineHeight: 0.96,
-                margin: ".8rem 0 1.25rem",
-              }}
-            >
-              {t("title")}
-            </h1>
-            <p className="sec-lede">{t("lede")}</p>
-            <DraftNotice>{t("conceptNotice")}</DraftNotice>
-            <div className="price-line">
-              <div className="price" style={{ fontSize: "1.25rem" }}>
-                {t("included")}
-              </div>
-              <Link href="/prelaunch" className="btn btn-navy">
-                {t("join")}
-              </Link>
-            </div>
-          </div>
-          <div
-            className="ds-img"
-            style={{ background: "linear-gradient(145deg,#eef7ff,#f6f0ff)" }}
-          >
-            <Image
-              src="/assets/web/lumiq-ola-go.webp"
-              width={900}
-              height={900}
-              sizes="(max-width: 820px) 100vw, 50vw"
-              priority
-              alt={t("alt")}
-              style={{ width: "100%", height: "auto", objectFit: "contain" }}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section
-        className="container"
-        style={{ padding: "0 2rem 5rem", maxWidth: 1200 }}
-      >
-        <div className="section-head">
-          <span className="kicker">{t("relationshipEyebrow")}</span>
-          <h2 className="serif">{t("relationshipTitle")}</h2>
-          <p className="lead">{t("relationshipBody")}</p>
-        </div>
-        <div className="value-grid">
-          {features.map((key, index) => (
-            <article className="value-card" key={key}>
-              <span className="value-badge">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className="serif">{t(`${key}Title`)}</h3>
-              <p>{t(`${key}Body`)}</p>
-            </article>
-          ))}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            gap: "1rem",
-            flexWrap: "wrap",
-            marginTop: "2rem",
-          }}
-        >
-          <Link href="/products/ola" className="btn btn-soft">
-            {t("meetOla")}
-          </Link>
-          <Link href="/prelaunch" className="btn btn-navy">
-            {t("join")}
-          </Link>
-        </div>
-      </section>
-    </main>
+    <ProductDetailTemplate
+      slug="ola-go"
+      accent="#806d5e"
+      accentSoft="#e8e0d8"
+      backLabel={t("all")}
+      productName="Lumiq Ola Go"
+      title={t("title")}
+      lede={t("lede")}
+      conceptNotice={t("conceptNotice")}
+      priceLabel={t("included")}
+      ctaLabel={t("join")}
+      heroImage={{
+        src: "/assets/web/lumiq-ola-go.webp",
+        alt: t("alt"),
+        fit: "contain",
+      }}
+      story={{
+        eyebrow: t("relationshipEyebrow"),
+        title: t("relationshipTitle"),
+        body: t("relationshipBody"),
+        image: {
+          src: "/assets/ola-go-detail/generated/ola-go-return-home-v3.png",
+          alt: t("alt"),
+          fit: "cover",
+          position: "center",
+        },
+      }}
+      scenesEyebrow={t("relationshipEyebrow")}
+      scenesTitle={t("title")}
+      scenes={firstFeatures.map((key, index) => ({
+        eyebrow: String(index + 1).padStart(2, "0"),
+        title: t(`${key}Title`),
+        body: t(`${key}Body`),
+        image: {
+          src:
+            index === 0
+              ? "/assets/ola-go-detail/generated/ola-go-schoolbag-v2.png"
+              : index === 1
+                ? "/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png"
+                : "/assets/ola-go-detail/generated/ola-go-bedside-journal-v3.png",
+          alt: t("alt"),
+        },
+      }))}
+      features={{
+        eyebrow: t("relationshipEyebrow"),
+        title: t("relationshipTitle"),
+        intro: t("relationshipBody"),
+        items: connectedFeatures.map((key) => ({
+          title: t(`${key}Title`),
+          body: t(`${key}Body`),
+        })),
+        image: {
+          src: "/assets/web/lumiq-ola-go.webp",
+          alt: t("alt"),
+          fit: "contain",
+        },
+      }}
+      darkSection={{
+        eyebrow: t("relationshipEyebrow"),
+        title: t("included"),
+        intro: t("conceptNotice"),
+        items: firstFeatures.map((key) => ({
+          title: t(`${key}Title`),
+          body: t(`${key}Body`),
+        })),
+        image: {
+          src: "/assets/web/lumiq-ola-go.webp",
+          alt: t("alt"),
+          fit: "contain",
+        },
+      }}
+      finalTitle={t("relationshipTitle")}
+      finalBody={t("relationshipBody")}
+      secondaryAction={{ href: "/products/ola", label: t("meetOla") }}
+    />
   );
 }

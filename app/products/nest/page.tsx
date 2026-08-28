@@ -1,6 +1,5 @@
 import type {Metadata} from "next";
 import NestProductPage from "@/components/NestProductPage";
-import "./nest.css";
 
 export const metadata: Metadata = {
   title: "Lumiq Nest 15 — Smart Family Calendar",

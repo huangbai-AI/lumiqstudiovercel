@@ -343,14 +343,14 @@ export default function ProductsShowcase() {
         .prod-tab-name { display: block; font-family: var(--font-serif); font-size: 1.375rem; margin-top: 0.35rem; }
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
-        .prod-stage { display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: stretch; }
-        .prod-stage-media { position: relative; display: block; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(20,20,20,.08); border-radius: 24px; background: radial-gradient(circle at 50% 48%, #fff 0%, var(--cream-3) 72%); color: inherit; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
+        .prod-stage { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 4rem; align-items: stretch; }
+        .prod-stage-media { position: relative; display: block; width: 100%; min-width: 0; align-self: center; aspect-ratio: 1 / 1; overflow: hidden; border: 1px solid rgba(20,20,20,.08); border-radius: 24px; background: radial-gradient(circle at 50% 48%, #fff 0%, var(--cream-3) 72%); color: inherit; box-shadow: 0 20px 54px rgba(24,18,10,.08); }
         .prod-stage-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: clamp(1rem, 3vw, 2.25rem); opacity: 0; transform: scale(1.03); transition: opacity 0.6s ease, transform 0.9s ease; }
         .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
         .prod-stage-media img.on { opacity: 1; transform: scale(1); }
         .prod-stage-media:hover img.on { transform: scale(1.025); }
 
-        .prod-stage-panel { display: flex; flex-direction: column; justify-content: center; }
+        .prod-stage-panel { min-width: 0; display: flex; flex-direction: column; justify-content: center; }
         @keyframes prodFade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         .prod-panel-body { animation: prodFade 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
         .prod-index { display: block; font-size: 4rem; line-height: 1; color: var(--lilac-2); }
@@ -358,10 +358,10 @@ export default function ProductsShowcase() {
         .prod-panel-body h3 { font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.1; margin: 0; }
         .prod-sub { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin: 0.6rem 0 1rem; }
         .prod-panel-body p { color: var(--ink-2); line-height: 1.7; margin-bottom: 1.5rem; }
-        .prod-specs { list-style: none; margin: 0 0 2rem; padding: 0; }
-        .prod-specs li { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--border); font-size: 0.9375rem; color: var(--ink-2); }
+        .prod-page .prod-specs { width: 100%; list-style: none; margin: 0; padding: 0 0 2.25rem; }
+        .prod-page .prod-specs li { display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0; border-bottom: 1px dashed var(--border); font-size: 0.9375rem; color: var(--ink-2); }
         .prod-tick { width: 5px; height: 5px; background: var(--gold); flex-shrink: 0; }
-        .prod-page .prod-product-link { display: inline-flex; align-items: center; justify-content: center; width: fit-content; min-height: 46px; padding: .75rem 1.5rem; border-radius: 999px; background: var(--ink); color: #fff; font-size: .9375rem; font-weight: 600; line-height: 1.2; transition: color .25s ease, background .25s ease, box-shadow .25s ease, transform .25s ease; }
+        .prod-page .prod-product-link { position: relative; display: inline-flex; align-items: center; justify-content: center; width: fit-content; min-height: 48px; margin-top: .25rem; padding: .8rem 1.6rem; border-radius: 999px; background: var(--ink); color: #fff; font-size: .9375rem; font-weight: 600; line-height: 1.2; transition: color .25s ease, background .25s ease, box-shadow .25s ease, transform .25s ease; }
         .prod-page .prod-product-link:hover { background: var(--gold); color: #fff; transform: translateY(-2px); box-shadow: 0 12px 26px rgba(24,18,10,.14); }
         .prod-page .prod-product-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {getLocale} from "next-intl/server";
 import "./globals.css";
+import "./product-detail-template.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
 export const metadata: Metadata = {
