@@ -156,7 +156,7 @@ export default function StoryPage() {
         .story-hero-media { position: relative; aspect-ratio: 16 / 9; margin: 0; overflow: hidden; border: 1px solid rgba(20, 20, 20, .08); border-radius: 28px; background: #111827; box-shadow: 0 30px 80px rgba(24, 18, 10, .14); }
         .story-hero-media video { display: block; width: 100%; height: 100%; object-fit: cover; }
         .story-hero-media::after { content: ""; position: absolute; inset: 55% 0 0; background: linear-gradient(180deg, transparent, rgba(2, 6, 18, .72)); opacity: 1; pointer-events: none; transition: opacity .25s ease; }
-        .story-hero-media.is-playing::after { opacity: 0; }
+        .story-hero-media[data-playing]::after { opacity: 0; }
         .story-video-play { position: absolute; z-index: 2; top: 50%; left: 50%; display: grid; width: 64px; height: 64px; padding: 0; place-items: center; border: 1px solid rgba(255,255,255,.72); border-radius: 50%; color: #071020; background: rgba(255,255,255,.9); box-shadow: 0 12px 36px rgba(2,6,18,.24); backdrop-filter: blur(10px); cursor: pointer; transform: translate(-50%, -50%); transition: transform .25s cubic-bezier(.22, 1, .36, 1), background .25s ease; }
         .story-video-play:hover { background: #fff; transform: translate(-50%, -50%) scale(1.06); }
         .story-video-play:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }

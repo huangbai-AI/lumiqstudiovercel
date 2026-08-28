@@ -50,7 +50,8 @@ export default function StoryHeroVideo({
 
   return (
     <figure
-      className={`story-hero-media reveal${hasStarted ? " is-playing" : ""}`}
+      className="story-hero-media reveal"
+      data-playing={hasStarted ? "" : undefined}
     >
       <video
         ref={videoRef}
