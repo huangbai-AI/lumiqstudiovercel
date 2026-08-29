@@ -113,19 +113,78 @@ body.pearl-home-page {
   top: 54%;
   left: clamp(58px, 4.5vw, 90px);
   width: min(37vw, 650px);
-  padding: clamp(20px, 1.8vw, 28px);
+  padding: 0;
   border: 0;
-  border-radius: 22px;
-  background: rgba(250, 249, 255, 0.66);
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
-  backdrop-filter: blur(18px) saturate(110%);
+  backdrop-filter: none;
   transform: translateY(-46%);
 }
 
 .pearl-panel-hero .pearl-panel-bg {
   top: 0 !important;
   height: 100%;
-  object-position: center bottom;
+  object-position: center;
+}
+
+.pearl-copy-hero .pearl-overline,
+.pearl-copy-hero h1,
+.pearl-copy-hero .pearl-lead {
+  text-shadow: 0 2px 18px rgba(255, 255, 255, 0.82);
+}
+
+@media (min-width: 901px) {
+  .pearl-panel-hero {
+    background: #f8f7fb;
+  }
+
+  .pearl-panel-hero::before {
+    position: absolute;
+    z-index: -4;
+    inset: -32px;
+    background: url("/assets/home-pearl/home-products-bg.webp") center / cover no-repeat;
+    content: "";
+    filter: blur(28px) saturate(108%);
+    opacity: 0.58;
+    transform: scale(1.04);
+  }
+
+  .pearl-panel-hero::after {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(248, 247, 251, 0.92) 0%,
+      rgba(248, 247, 251, 0) 9%,
+      rgba(248, 247, 251, 0) 91%,
+      rgba(248, 247, 251, 0.92) 100%
+    );
+    content: "";
+    pointer-events: none;
+  }
+
+  .pearl-panel-hero .pearl-panel-bg {
+    top: clamp(68px, 8vh, 88px) !important;
+    height: calc(100% - clamp(68px, 8vh, 88px) - 16px);
+    object-fit: contain;
+    object-position: center top;
+  }
+}
+
+@media (min-width: 901px) and (max-height: 700px) {
+  .pearl-home .pearl-hero-discover {
+    right: 18px;
+    bottom: 8px;
+    min-height: 64px;
+    gap: 18px;
+  }
+
+  .pearl-home .pearl-hero-discover span {
+    width: 60px;
+    height: 60px;
+  }
 }
 
 .pearl-home .pearl-overline {
@@ -506,10 +565,10 @@ body.pearl-home-page {
     top: 88px;
     right: 16px;
     bottom: auto;
-    padding: 18px 19px;
-    border-radius: 22px;
-    background: rgba(250, 249, 255, 0.78);
-    backdrop-filter: blur(18px) saturate(110%);
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    backdrop-filter: none;
   }
 
   .pearl-copy h1 {
@@ -658,8 +717,8 @@ body.pearl-home-page {
   .pearl-copy-hero {
     right: 12px;
     left: 12px;
-    padding: 17px 16px;
-    border-radius: 21px;
+    padding: 0;
+    border-radius: 0;
   }
 
   .pearl-copy h1 {
