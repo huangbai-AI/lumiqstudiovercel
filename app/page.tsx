@@ -19,223 +19,242 @@ import {
   WandSparkles,
   type LucideIcon,
 } from "lucide-react";
-import {useCallback, useEffect, useRef} from "react";
+import {useGSAP} from "@gsap/react";
+import gsap from "gsap";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
+import {useCallback, useRef} from "react";
 import {useTranslations} from "next-intl";
 import {Link} from "@/i18n/navigation";
 import "./homepage.css";
 
-const sectionIds = ["top", "ola", "tablet", "nest-15", "family", "join"] as const;
+type SectionId = "top" | "ola" | "tablet" | "nest-15" | "family" | "join";
+const videoAnchorFrames = [0, 97, 195, 293] as const;
 
-function usePearlScroller() {
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
+
+function mapJourneyToVideo(progress: number) {
+  const position = Math.min(1, Math.max(0, progress)) * 3;
+  const segment = Math.min(2, Math.floor(position));
+  const localProgress = position - segment;
+  const from = videoAnchorFrames[segment];
+  const to = videoAnchorFrames[segment + 1];
+
+  return (from + (to - from) * localProgress) / videoAnchorFrames[3];
+}
+
+function usePearlVideoScroller() {
   const rootRef = useRef<HTMLElement>(null);
-  const activeIndexRef = useRef(0);
-  const animationFrameRef = useRef(0);
-  const updateFrameRef = useRef(0);
-  const wheelAmountRef = useRef(0);
-  const wheelTimerRef = useRef(0);
-  const lockedRef = useRef(false);
-  const releaseAtRef = useRef(0);
+  const journeyRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
-  const goToScene = useCallback((nextIndex: number, instant = false) => {
-    const root = rootRef.current;
-    if (!root || lockedRef.current) return;
+  const goToId = useCallback((id: SectionId) => {
+    const section = document.getElementById(id);
+    if (!section) return;
 
-    const scenes = Array.from(
-      root.querySelectorAll<HTMLElement>("[data-pearl-scene]"),
-    );
-    if (!scenes.length) return;
-
-    const index = Math.max(0, Math.min(scenes.length - 1, nextIndex));
-    const target = scenes[index].offsetTop;
-    const start = window.scrollY;
-    activeIndexRef.current = index;
-
-    if (Math.abs(target - start) < 2) {
-      window.scrollTo(0, target);
-      return;
-    }
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const duration = reducedMotion || instant ? 1 : 940;
-    const startedAt = performance.now();
-
-    lockedRef.current = true;
-    document.documentElement.classList.add("pearl-is-gliding");
-
-    const animate = (now: number) => {
-      const progress = Math.min(1, (now - startedAt) / duration);
-      const eased =
-        progress < 0.5
-          ? 4 * progress * progress * progress
-          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-      window.scrollTo(0, start + (target - start) * eased);
-
-      if (progress < 1) {
-        animationFrameRef.current = requestAnimationFrame(animate);
-      } else {
-        window.scrollTo(0, target);
-        animationFrameRef.current = 0;
-        lockedRef.current = false;
-        releaseAtRef.current = performance.now() + 140;
-        document.documentElement.classList.remove("pearl-is-gliding");
-      }
-    };
-
-    animationFrameRef.current = requestAnimationFrame(animate);
+    section.scrollIntoView({
+      block: "start",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
   }, []);
 
-  const goToId = useCallback(
-    (id: (typeof sectionIds)[number]) => {
-      const index = sectionIds.indexOf(id);
-      if (index >= 0) goToScene(index);
-    },
-    [goToScene],
-  );
-
-  useEffect(() => {
+  useGSAP(() => {
     const root = rootRef.current;
-    if (!root) return;
+    const journey = journeyRef.current;
+    const stage = stageRef.current;
+    const video = videoRef.current;
+    if (!root || !journey || !stage || !video) return;
 
     const documentElement = document.documentElement;
-    const scenes = Array.from(
-      root.querySelectorAll<HTMLElement>("[data-pearl-scene]"),
-    );
-
     documentElement.classList.add("pearl-home-page");
     document.body.classList.add("pearl-home-page");
 
-    const currentScene = () =>
-      Math.max(
-        0,
-        Math.min(
-          scenes.length - 1,
-          Math.round(window.scrollY / Math.max(1, window.innerHeight)),
-        ),
-      );
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduceMotion) {
+      root.classList.add("pearl-reduced-motion");
+      return () => {
+        root.classList.remove("pearl-reduced-motion");
+        documentElement.classList.remove("pearl-home-page");
+        document.body.classList.remove("pearl-home-page");
+      };
+    }
 
-    const update = () => {
-      updateFrameRef.current = 0;
-      const viewport = Math.max(1, window.innerHeight);
-      const page = window.scrollY / viewport;
-      activeIndexRef.current = currentScene();
-      root.style.setProperty(
-        "--pearl-progress",
-        Math.min(1, page / Math.max(1, scenes.length - 1)).toFixed(4),
-      );
-    };
+    documentElement.classList.add("pearl-scroll-video-active");
 
-    const requestUpdate = () => {
-      if (!updateFrameRef.current) {
-        updateFrameRef.current = requestAnimationFrame(update);
-      }
-    };
+    const playhead = {progress: 0};
+    let targetProgress = 0;
+    let currentProgress = 0;
+    let maxVideoTime = videoAnchorFrames[3] / 24;
+    let animationFrame = 0;
+    let objectUrl = "";
+    let userReady = false;
+    const abortController = new AbortController();
+    const isMobile = window.matchMedia("(max-width: 900px)").matches;
 
-    const onWheel = (event: WheelEvent) => {
-      if (
-        event.ctrlKey ||
-        Math.abs(event.deltaY) <= Math.abs(event.deltaX) ||
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
-        !window.matchMedia("(pointer: fine)").matches
-      ) {
-        return;
-      }
+    gsap.to(playhead, {
+      progress: 1,
+      ease: "none",
+      onUpdate: () => {
+        targetProgress = mapJourneyToVideo(playhead.progress);
+      },
+      scrollTrigger: {
+        trigger: journey,
+        start: "top top",
+        end: "bottom bottom",
+        pin: stage,
+        pinSpacing: false,
+        scrub: 0.32,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+      },
+    });
 
-      const lastIndex = scenes.length - 1;
-      const lastTop = scenes[lastIndex]?.offsetTop ?? 0;
-      const index = currentScene();
+    gsap.to(root, {
+      "--pearl-progress": 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: root,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.2,
+        snap: {
+          snapTo: [0, 0.2, 0.4, 0.6, 0.8, 1],
+          inertia: false,
+          duration: {min: 0.18, max: 0.52},
+          delay: 0.12,
+          ease: "power2.inOut",
+        },
+      },
+    });
 
-      if (
-        (index === lastIndex && event.deltaY > 0) ||
-        window.scrollY > lastTop + 2
-      ) {
-        return;
-      }
-
-      event.preventDefault();
-      if (lockedRef.current || performance.now() < releaseAtRef.current) return;
-
-      wheelAmountRef.current += event.deltaY;
-      window.clearTimeout(wheelTimerRef.current);
-      wheelTimerRef.current = window.setTimeout(() => {
-        wheelAmountRef.current = 0;
-      }, 190);
-
-      if (Math.abs(wheelAmountRef.current) < 26) return;
-      const direction = wheelAmountRef.current > 0 ? 1 : -1;
-      wheelAmountRef.current = 0;
-      goToScene(index + direction);
-    };
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (
-        event.defaultPrevented ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.altKey ||
-        (event.target instanceof Element &&
-          event.target.closest("a, button, input, textarea, select"))
-      ) {
-        return;
-      }
-
-      const index = currentScene();
-      const lastIndex = scenes.length - 1;
-      const lastTop = scenes[lastIndex]?.offsetTop ?? 0;
-
-      if (["ArrowDown", "PageDown", " "].includes(event.key)) {
-        if (index === lastIndex || window.scrollY > lastTop + 2) {
-          event.preventDefault();
-          window.scrollTo({
-            top: lastTop + window.innerHeight,
-            behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-              ? "auto"
-              : "smooth",
-          });
-          return;
+    const renderVideoFrame = () => {
+      if (video.readyState >= 1 && !video.seeking) {
+        currentProgress += (targetProgress - currentProgress) * (isMobile ? 0.3 : 0.2);
+        if (Math.abs(targetProgress - currentProgress) < 0.00035) {
+          currentProgress = targetProgress;
         }
-        event.preventDefault();
-        goToScene(index + 1);
-      } else if (["ArrowUp", "PageUp"].includes(event.key)) {
-        if (window.scrollY > lastTop + 2) {
-          event.preventDefault();
-          goToScene(lastIndex);
-          return;
+
+        const nextTime = currentProgress * maxVideoTime;
+        const threshold = isMobile ? 1 / 24 : 0.01;
+        if (Math.abs(video.currentTime - nextTime) > threshold) {
+          video.currentTime = nextTime;
         }
-        event.preventDefault();
-        goToScene(index - 1);
-      } else if (event.key === "Home") {
-        event.preventDefault();
-        goToScene(0);
-      } else if (event.key === "End") {
-        event.preventDefault();
-        goToScene(lastIndex);
+      }
+      animationFrame = requestAnimationFrame(renderVideoFrame);
+    };
+
+    const playAndPause = () => {
+      const promise = video.play();
+      if (promise) {
+        promise.then(() => video.pause()).catch(() => undefined);
       }
     };
 
-    update();
-    window.addEventListener("scroll", requestUpdate, {passive: true});
-    window.addEventListener("resize", requestUpdate);
-    window.addEventListener("wheel", onWheel, {passive: false});
-    window.addEventListener("keydown", onKeyDown);
+    const primeVideo = () => {
+      if (userReady) return;
+      userReady = true;
+      playAndPause();
+    };
+
+    const onLoadedMetadata = () => {
+      maxVideoTime = Math.max(0, video.duration - 1 / 24);
+      currentProgress = targetProgress;
+      video.currentTime = currentProgress * maxVideoTime;
+      ScrollTrigger.refresh();
+    };
+
+    const onVideoReady = () => {
+      stage.classList.add("is-video-ready");
+      if (userReady) playAndPause();
+    };
+
+    video.addEventListener("loadedmetadata", onLoadedMetadata);
+    video.addEventListener("loadeddata", onVideoReady, {once: true});
+    window.addEventListener("pointerdown", primeVideo, {once: true, passive: true});
+    window.addEventListener("touchstart", primeVideo, {once: true, passive: true});
+
+    const source = isMobile
+      ? "/assets/home-pearl/lumiq-scroll-world-720.mp4"
+      : "/assets/home-pearl/lumiq-scroll-world-1080.mp4";
+
+    fetch(source, {signal: abortController.signal})
+      .then((response) => {
+        if (!response.ok) throw new Error(`Video request failed: ${response.status}`);
+        return response.blob();
+      })
+      .then((blob) => {
+        objectUrl = URL.createObjectURL(blob);
+        video.src = objectUrl;
+        video.load();
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        root.classList.add("pearl-video-failed");
+      });
+
+    animationFrame = requestAnimationFrame(renderVideoFrame);
 
     return () => {
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("keydown", onKeyDown);
-      documentElement.classList.remove("pearl-home-page", "pearl-is-gliding");
+      abortController.abort();
+      cancelAnimationFrame(animationFrame);
+      video.removeEventListener("loadedmetadata", onLoadedMetadata);
+      video.removeEventListener("loadeddata", onVideoReady);
+      window.removeEventListener("pointerdown", primeVideo);
+      window.removeEventListener("touchstart", primeVideo);
+      video.removeAttribute("src");
+      video.load();
+      if (objectUrl) URL.revokeObjectURL(objectUrl);
+      stage.classList.remove("is-video-ready");
+      root.classList.remove("pearl-video-failed");
+      documentElement.classList.remove(
+        "pearl-home-page",
+        "pearl-scroll-video-active",
+      );
       document.body.classList.remove("pearl-home-page");
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-      if (updateFrameRef.current) cancelAnimationFrame(updateFrameRef.current);
-      window.clearTimeout(wheelTimerRef.current);
     };
-  }, [goToScene]);
+  }, {scope: rootRef});
 
-  return {rootRef, goToId};
+  return {rootRef, journeyRef, stageRef, videoRef, goToId};
+}
+
+function PearlVideoFloor({
+  id,
+  className,
+  fallbackImage,
+  children,
+  priority = false,
+}: {
+  id: SectionId;
+  className: string;
+  fallbackImage: string;
+  children: React.ReactNode;
+  priority?: boolean;
+}) {
+  return (
+    <section
+      id={id}
+      data-pearl-scene
+      className={`pearl-panel pearl-video-floor ${className}`}
+      aria-labelledby={`${id}-title`}
+    >
+      <Image
+        className="pearl-panel-bg pearl-video-floor-fallback"
+        src={fallbackImage}
+        alt=""
+        fill
+        sizes="100vw"
+        unoptimized
+        priority={priority}
+      />
+      {children}
+    </section>
+  );
 }
 
 function PearlPanel({
@@ -245,7 +264,7 @@ function PearlPanel({
   children,
   priority = false,
 }: {
-  id: (typeof sectionIds)[number];
+  id: SectionId;
   className: string;
   image: string;
   children: React.ReactNode;
@@ -295,10 +314,11 @@ export default function Home() {
   const t = useTranslations("Home");
   const common = useTranslations("Common");
   const footer = useTranslations("Footer");
-  const {rootRef, goToId} = usePearlScroller();
+  const {rootRef, journeyRef, stageRef, videoRef, goToId} =
+    usePearlVideoScroller();
 
   const sceneLink =
-    (id: (typeof sectionIds)[number]) =>
+    (id: SectionId) =>
     (event: React.MouseEvent<HTMLAnchorElement>) => {
       event.preventDefault();
       goToId(id);
@@ -308,112 +328,136 @@ export default function Home() {
     <main ref={rootRef} className="pearl-home" aria-label="LumiQ Home">
       <div className="pearl-progress" aria-hidden="true" />
 
-      <PearlPanel
-        id="top"
-        className="pearl-panel-hero"
-        image="/assets/home-pearl/home-products-bg.webp"
-        priority
-      >
-        <div className="pearl-copy pearl-copy-hero">
-          <p className="pearl-overline">LumiQ Studio</p>
-          <h1 id="top-title">
-            {t("panoramaHero1")}
-            <br />
-            {t("panoramaHero2")}
-          </h1>
-          <span className="pearl-rule" aria-hidden="true" />
-          <p className="pearl-lead">{t("panoramaHeroBody")}</p>
-        </div>
-        <Link className="pearl-hero-discover" href="/story#brand-film">
-          <span aria-hidden="true">
-            <Play size={17} fill="currentColor" />
-          </span>
-          {t("discoverLumiq")}
-        </Link>
-      </PearlPanel>
-
-      <PearlPanel
-        id="ola"
-        className="pearl-panel-ola"
-        image="/assets/home-pearl/ola-bg.webp"
-      >
-        <div className="pearl-copy pearl-copy-left">
-          <p className="pearl-overline">{t("olaKicker")}</p>
-          <h2 id="ola-title">{t("panoramaOlaTitle")}</h2>
-          <p className="pearl-subtitle">{t("panoramaOlaSubtitle")}</p>
-          <FeatureList
-            items={[
-              {label: t("panoramaOlaFeature1"), icon: UserRound},
-              {label: t("panoramaOlaFeature2"), icon: Sparkles},
-              {label: t("panoramaOlaFeature3"), icon: MessageCircle},
-              {label: t("panoramaOlaFeature4"), icon: TabletSmartphone},
-            ]}
+      <div ref={journeyRef} className="pearl-video-journey">
+        <div ref={stageRef} className="pearl-video-stage" aria-hidden="true">
+          <Image
+            className="pearl-video-poster"
+            src="/assets/home-pearl/lumiq-scroll-world-poster.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            unoptimized
+            priority
           />
-          <div className="pearl-actions">
-            <Link className="pearl-primary" href="/products/ola">
-              {t("panoramaOlaCta")} <ArrowRight size={16} />
-            </Link>
-            <a className="pearl-next" href="#tablet" onClick={sceneLink("tablet")}>
-              {t("panoramaNextTablet")}
-            </a>
-          </div>
-        </div>
-      </PearlPanel>
-
-      <PearlPanel
-        id="tablet"
-        className="pearl-panel-tablet"
-        image="/assets/home-pearl/tablet-bg.webp"
-      >
-        <div className="pearl-copy pearl-copy-right">
-          <p className="pearl-overline">{t("tabletKicker")}</p>
-          <h2 id="tablet-title">{t("panoramaTabletTitle")}</h2>
-          <p className="pearl-subtitle">{t("panoramaTabletSubtitle")}</p>
-          <FeatureList
-            items={[
-              {label: t("panoramaTabletFeature1"), icon: BookOpen},
-              {label: t("panoramaTabletFeature2"), icon: WandSparkles},
-              {label: t("panoramaTabletFeature3"), icon: ShieldCheck},
-              {label: t("panoramaTabletFeature4"), icon: BellRing},
-            ]}
+          <video
+            ref={videoRef}
+            className="pearl-scroll-video"
+            muted
+            playsInline
+            preload="none"
+            tabIndex={-1}
           />
-          <div className="pearl-actions">
-            <Link className="pearl-primary" href="/products/tablet">
-              {t("panoramaTabletCta")} <ArrowRight size={16} />
-            </Link>
-            <a className="pearl-next" href="#nest-15" onClick={sceneLink("nest-15")}>
-              {t("panoramaNextNest")}
-            </a>
-          </div>
         </div>
-      </PearlPanel>
 
-      <PearlPanel
-        id="nest-15"
-        className="pearl-panel-nest"
-        image="/assets/home-pearl/nest-15-bg.webp"
-      >
-        <div className="pearl-copy pearl-copy-left">
-          <p className="pearl-overline">{t("nestKicker")}</p>
-          <h2 id="nest-15-title">{t("panoramaNestTitle")}</h2>
-          <p className="pearl-subtitle">{t("panoramaNestSubtitle")}</p>
-          <FeatureList
-            items={[
-              {label: t("panoramaNestFeature1"), icon: CalendarDays},
-              {label: t("panoramaNestFeature2"), icon: CloudSun},
-              {label: t("panoramaNestFeature3"), icon: HomeIcon},
-            ]}
-          />
-          <div className="pearl-actions">
-            <Link className="pearl-primary" href="/prelaunch">
-              {t("panoramaNestCta")} <ArrowRight size={16} />
+        <div className="pearl-video-scenes">
+          <PearlVideoFloor
+            id="top"
+            className="pearl-panel-hero"
+            fallbackImage="/assets/home-pearl/home-products-bg.webp"
+            priority
+          >
+            <div className="pearl-copy pearl-copy-hero">
+              <p className="pearl-overline">LumiQ Studio</p>
+              <h1 id="top-title">
+                {t("panoramaHero1")}
+                <br />
+                {t("panoramaHero2")}
+              </h1>
+              <span className="pearl-rule" aria-hidden="true" />
+              <p className="pearl-lead">{t("panoramaHeroBody")}</p>
+            </div>
+            <Link className="pearl-hero-discover" href="/story#brand-film">
+              <span aria-hidden="true">
+                <Play size={17} fill="currentColor" />
+              </span>
+              {t("discoverLumiq")}
             </Link>
-            <a className="pearl-next" href="#family" onClick={sceneLink("family")}>
-              {t("panoramaNextTogether")}
-            </a>
-          </div>
+          </PearlVideoFloor>
+
+          <PearlVideoFloor
+            id="ola"
+            className="pearl-panel-ola"
+            fallbackImage="/assets/home-pearl/ola-bg.webp"
+          >
+            <div className="pearl-copy pearl-copy-left">
+              <p className="pearl-overline">{t("olaKicker")}</p>
+              <h2 id="ola-title">{t("panoramaOlaTitle")}</h2>
+              <p className="pearl-subtitle">{t("panoramaOlaSubtitle")}</p>
+              <FeatureList
+                items={[
+                  {label: t("panoramaOlaFeature1"), icon: UserRound},
+                  {label: t("panoramaOlaFeature2"), icon: Sparkles},
+                  {label: t("panoramaOlaFeature3"), icon: MessageCircle},
+                  {label: t("panoramaOlaFeature4"), icon: TabletSmartphone},
+                ]}
+              />
+              <div className="pearl-actions">
+                <Link className="pearl-primary" href="/products/ola">
+                  {t("panoramaOlaCta")} <ArrowRight size={16} />
+                </Link>
+                <a className="pearl-next" href="#tablet" onClick={sceneLink("tablet")}>
+                  {t("panoramaNextTablet")}
+                </a>
+              </div>
+            </div>
+          </PearlVideoFloor>
+
+          <PearlVideoFloor
+            id="tablet"
+            className="pearl-panel-tablet"
+            fallbackImage="/assets/home-pearl/tablet-bg.webp"
+          >
+            <div className="pearl-copy pearl-copy-right">
+              <p className="pearl-overline">{t("tabletKicker")}</p>
+              <h2 id="tablet-title">{t("panoramaTabletTitle")}</h2>
+              <p className="pearl-subtitle">{t("panoramaTabletSubtitle")}</p>
+              <FeatureList
+                items={[
+                  {label: t("panoramaTabletFeature1"), icon: BookOpen},
+                  {label: t("panoramaTabletFeature2"), icon: WandSparkles},
+                  {label: t("panoramaTabletFeature3"), icon: ShieldCheck},
+                  {label: t("panoramaTabletFeature4"), icon: BellRing},
+                ]}
+              />
+              <div className="pearl-actions">
+                <Link className="pearl-primary" href="/products/tablet">
+                  {t("panoramaTabletCta")} <ArrowRight size={16} />
+                </Link>
+                <a className="pearl-next" href="#nest-15" onClick={sceneLink("nest-15")}>
+                  {t("panoramaNextNest")}
+                </a>
+              </div>
+            </div>
+          </PearlVideoFloor>
+
+          <PearlVideoFloor
+            id="nest-15"
+            className="pearl-panel-nest"
+            fallbackImage="/assets/home-pearl/nest-15-bg.webp"
+          >
+            <div className="pearl-copy pearl-copy-left">
+              <p className="pearl-overline">{t("nestKicker")}</p>
+              <h2 id="nest-15-title">{t("panoramaNestTitle")}</h2>
+              <p className="pearl-subtitle">{t("panoramaNestSubtitle")}</p>
+              <FeatureList
+                items={[
+                  {label: t("panoramaNestFeature1"), icon: CalendarDays},
+                  {label: t("panoramaNestFeature2"), icon: CloudSun},
+                  {label: t("panoramaNestFeature3"), icon: HomeIcon},
+                ]}
+              />
+              <div className="pearl-actions">
+                <Link className="pearl-primary" href="/prelaunch">
+                  {t("panoramaNestCta")} <ArrowRight size={16} />
+                </Link>
+                <a className="pearl-next" href="#family" onClick={sceneLink("family")}>
+                  {t("panoramaNextTogether")}
+                </a>
+              </div>
+            </div>
+          </PearlVideoFloor>
         </div>
-      </PearlPanel>
+      </div>
 
       <PearlPanel
         id="family"

@@ -24,6 +24,10 @@ html.pearl-home-page.pearl-is-gliding {
   scroll-snap-type: none;
 }
 
+html.pearl-home-page.pearl-scroll-video-active {
+  scroll-snap-type: none;
+}
+
 body.pearl-home-page {
   overflow-x: hidden;
   background: #f8f7fb;
@@ -775,5 +779,184 @@ body.pearl-home-page {
 
   .pearl-hero-motion {
     display: none;
+  }
+}
+
+/* ScrollWorld-style journey: four exact still frames joined by three scroll transitions. */
+.pearl-video-journey {
+  position: relative;
+  width: 100%;
+  background: #f8f7fb;
+}
+
+.pearl-video-stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+  background: #f8f7fb;
+  transform: translateZ(0);
+}
+
+.pearl-video-stage::after {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(248, 247, 251, 0.8) 0%,
+    rgba(248, 247, 251, 0) 10%,
+    rgba(248, 247, 251, 0) 90%,
+    rgba(248, 247, 251, 0.8) 100%
+  );
+  content: "";
+  pointer-events: none;
+}
+
+.pearl-video-poster,
+.pearl-scroll-video {
+  position: absolute !important;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.pearl-scroll-video {
+  z-index: 2;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.pearl-video-stage.is-video-ready .pearl-scroll-video {
+  opacity: 1;
+}
+
+.pearl-video-stage.is-video-ready .pearl-video-poster {
+  opacity: 0;
+}
+
+.pearl-video-scenes {
+  position: relative;
+  z-index: 2;
+  margin-top: -100svh;
+}
+
+.pearl-video-floor {
+  background: transparent;
+}
+
+.pearl-video-floor .pearl-video-floor-fallback {
+  opacity: 0;
+}
+
+.pearl-video-floor::before,
+.pearl-video-floor::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.pearl-video-floor.pearl-panel-hero::before {
+  display: none;
+}
+
+.pearl-video-floor.pearl-panel-hero::after,
+.pearl-video-floor.pearl-panel-ola::before,
+.pearl-video-floor.pearl-panel-nest::before {
+  background: linear-gradient(
+    90deg,
+    rgba(248, 247, 251, 0.98) 0%,
+    rgba(248, 247, 251, 0.9) 17%,
+    rgba(248, 247, 251, 0.58) 31%,
+    rgba(248, 247, 251, 0) 53%
+  );
+}
+
+.pearl-video-floor.pearl-panel-hero::after {
+  background: linear-gradient(
+    90deg,
+    rgba(248, 247, 251, 0.98) 0%,
+    rgba(248, 247, 251, 0.86) 19%,
+    rgba(248, 247, 251, 0.38) 34%,
+    rgba(248, 247, 251, 0) 50%,
+    rgba(248, 247, 251, 0) 87%,
+    rgba(248, 247, 251, 0.76) 100%
+  );
+}
+
+.pearl-video-floor.pearl-panel-tablet::before {
+  background: linear-gradient(
+    270deg,
+    rgba(248, 247, 251, 0.98) 0%,
+    rgba(248, 247, 251, 0.9) 17%,
+    rgba(248, 247, 251, 0.58) 31%,
+    rgba(248, 247, 251, 0) 53%
+  );
+}
+
+.pearl-video-failed .pearl-video-stage {
+  visibility: hidden;
+}
+
+.pearl-video-failed .pearl-video-floor .pearl-video-floor-fallback,
+.pearl-reduced-motion .pearl-video-floor .pearl-video-floor-fallback {
+  opacity: 1;
+}
+
+.pearl-reduced-motion .pearl-video-stage {
+  display: none;
+}
+
+.pearl-reduced-motion .pearl-video-scenes {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .pearl-video-stage {
+    min-height: 620px;
+  }
+
+  .pearl-video-poster,
+  .pearl-scroll-video {
+    object-fit: contain;
+    object-position: center 28%;
+  }
+
+  .pearl-video-stage::after {
+    background: linear-gradient(
+      180deg,
+      rgba(248, 247, 251, 0.72) 0%,
+      rgba(248, 247, 251, 0) 18%,
+      rgba(248, 247, 251, 0) 54%,
+      rgba(248, 247, 251, 0.94) 82%,
+      rgba(248, 247, 251, 1) 100%
+    );
+  }
+
+  .pearl-video-floor.pearl-panel-hero::after,
+  .pearl-video-floor.pearl-panel-ola::before,
+  .pearl-video-floor.pearl-panel-tablet::before,
+  .pearl-video-floor.pearl-panel-nest::before {
+    background: linear-gradient(
+      0deg,
+      rgba(248, 247, 251, 1) 0%,
+      rgba(248, 247, 251, 0.94) 26%,
+      rgba(248, 247, 251, 0.56) 48%,
+      rgba(248, 247, 251, 0) 68%
+    );
+  }
+
+  .pearl-video-floor .pearl-copy-hero .pearl-lead {
+    background: rgba(248, 247, 251, 0.72);
+    box-shadow: 0 0 20px 13px rgba(248, 247, 251, 0.72);
   }
 }
