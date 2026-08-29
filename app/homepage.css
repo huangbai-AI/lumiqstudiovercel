@@ -165,7 +165,7 @@ body:has(.home-experience) {
 }
 
 .hero-home-copy .home-lead {
-  margin-top: 28px;
+  margin: 28px 0 38px;
 }
 
 .lumiq-root .home-panel h2 {
@@ -226,14 +226,6 @@ body:has(.home-experience) {
 .home-outline-action:hover {
   color: #10264b !important;
   background: #fff;
-}
-
-.home-product-note {
-  margin: 18px 0 0;
-  color: rgba(16, 38, 75, 0.6);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
 }
 
 .home-panel-index {
@@ -429,8 +421,7 @@ body:has(.home-experience) {
   }
 
   .hero-home-copy,
-  .hero-home-copy .home-lead,
-  .hero-home-copy .home-product-note {
+  .hero-home-copy .home-lead {
     color: #fffaf2;
   }
 
@@ -440,6 +431,10 @@ body:has(.home-experience) {
 
   .hero-home-copy {
     width: auto;
+  }
+
+  .hero-home-copy .home-lead {
+    margin-bottom: 26px;
   }
 
   .home-snap-nav {
@@ -543,10 +538,6 @@ body:has(.home-experience) {
     margin-bottom: 16px;
     font-size: 12px;
     line-height: 1.45;
-  }
-
-  .home-product-note {
-    display: none;
   }
 
   .home-primary-action,

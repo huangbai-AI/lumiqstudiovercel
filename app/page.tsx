@@ -171,7 +171,6 @@ export default function HomePage() {
           <a className="home-primary-action" href="#ola">
             {t("heroAction")} <ArrowDown size={17} aria-hidden="true" />
           </a>
-          <p className="home-product-note">{t("heroNote")}</p>
         </div>
         <div className="home-product-jump" aria-label={t("productsAria")}>
           <a href="#ola"><span>01</span>LumiQ Ola</a>
