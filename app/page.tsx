@@ -51,7 +51,6 @@ function usePearlVideoScroller() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const activeIndexRef = useRef(0);
   const scrollFrameRef = useRef(0);
-  const wheelAmountRef = useRef(0);
   const wheelTimerRef = useRef(0);
   const scrollLockedRef = useRef(false);
 
@@ -77,7 +76,7 @@ function usePearlVideoScroller() {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const duration = reduceMotion || instant ? 1 : 980;
+    const duration = reduceMotion || instant ? 1 : 900;
     const startedAt = performance.now();
 
     scrollLockedRef.current = true;
@@ -85,10 +84,7 @@ function usePearlVideoScroller() {
 
     const animate = (now: number) => {
       const progress = Math.min(1, (now - startedAt) / duration);
-      const eased =
-        progress < 0.5
-          ? 4 * progress * progress * progress
-          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      const eased = 0.5 - Math.cos(Math.PI * progress) / 2;
       window.scrollTo(0, start + (target - start) * eased);
 
       if (progress < 1) {
@@ -102,8 +98,7 @@ function usePearlVideoScroller() {
       window.clearTimeout(wheelTimerRef.current);
       wheelTimerRef.current = window.setTimeout(() => {
         scrollLockedRef.current = false;
-        wheelAmountRef.current = 0;
-      }, 220);
+      }, 140);
     };
 
     scrollFrameRef.current = requestAnimationFrame(animate);
@@ -185,6 +180,7 @@ function usePearlVideoScroller() {
     const onWheel = (event: WheelEvent) => {
       if (
         event.ctrlKey ||
+        Math.abs(event.deltaY) < 0.5 ||
         Math.abs(event.deltaY) <= Math.abs(event.deltaX) ||
         !window.matchMedia("(pointer: fine)").matches
       ) {
@@ -197,15 +193,12 @@ function usePearlVideoScroller() {
       if (nextIndex === index) return;
 
       event.preventDefault();
-      wheelAmountRef.current += event.deltaY;
       window.clearTimeout(wheelTimerRef.current);
       wheelTimerRef.current = window.setTimeout(() => {
-        wheelAmountRef.current = 0;
         if (!scrollFrameRef.current) scrollLockedRef.current = false;
-      }, 220);
+      }, 140);
 
-      if (scrollLockedRef.current || Math.abs(wheelAmountRef.current) < 18) return;
-      wheelAmountRef.current = 0;
+      if (scrollLockedRef.current) return;
       goToScene(nextIndex);
     };
 
@@ -407,7 +400,6 @@ function usePearlVideoScroller() {
       window.clearTimeout(wheelTimerRef.current);
       scrollFrameRef.current = 0;
       scrollLockedRef.current = false;
-      wheelAmountRef.current = 0;
       video.removeAttribute("src");
       video.load();
       if (objectUrl) URL.revokeObjectURL(objectUrl);
