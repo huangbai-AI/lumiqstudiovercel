@@ -267,3 +267,17 @@ passed
 ## 最终状态
 
 passed
+
+## 2026-08-29 第十二轮首屏顶部留白修订
+
+- 视觉真值：`/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/codex-clipboard-de4c6d79-9186-4560-8bc4-bb4890a5ebcb.png`（3822 × 1844，按 2:1 归一化为 1911 × 922）。
+- 实现截图：`qa/pearl-home-iteration-11/hero-gap-reduced-wide.png`（1911 × 922）和 `qa/pearl-home-iteration-11/hero-gap-reduced-standard.png`（1440 × 800），设备像素比均为 1。
+- 同屏对照：`qa/pearl-home-iteration-11/compare-gap-reduced.png`；源图与实现使用相同宽高和静止首屏状态。
+- 用户指出导航与背景大字之间的视觉留白偏高，判定 P2。已把桌面首屏背景的起点由 68–88px 上移至 40–52px，并把底部保留从 16px 收窄至 4px，使主图约放大 5%，但不改变图片比例。
+- 为高度不超过 700px 的桌面保留 58px 安全起点，避免短屏因放大重新裁切大号 LUMIQ 或产品底座。
+- 复拍确认超宽屏顶部留白明显缩短，大号 L 与 Q、Ola 顶部、Tablet、底座和播放入口仍完整；普通桌面比例同样没有出现主体裁切。
+- 字体与文案、导航、色彩、图片清晰度和其他楼层均未改变；代码检查、类型检查、16 项测试和正式构建全部通过。
+
+## 最终状态
+
+passed

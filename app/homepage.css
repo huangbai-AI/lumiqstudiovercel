@@ -166,14 +166,19 @@ body.pearl-home-page {
   }
 
   .pearl-panel-hero .pearl-panel-bg {
-    top: clamp(68px, 8vh, 88px) !important;
-    height: calc(100% - clamp(68px, 8vh, 88px) - 16px);
+    top: clamp(40px, 4.8vh, 52px) !important;
+    height: calc(100% - clamp(40px, 4.8vh, 52px) - 4px);
     object-fit: contain;
     object-position: center top;
   }
 }
 
 @media (min-width: 901px) and (max-height: 700px) {
+  .pearl-panel-hero .pearl-panel-bg {
+    top: 58px !important;
+    height: calc(100% - 62px);
+  }
+
   .pearl-home .pearl-hero-discover {
     right: 18px;
     bottom: 8px;
