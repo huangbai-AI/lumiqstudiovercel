@@ -1,7 +1,7 @@
 "use client";
 
 import { Play } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type StoryHeroVideoProps = {
   eyebrow: string;
@@ -22,6 +22,21 @@ export default function StoryHeroVideo({
 }: StoryHeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    if (window.location.hash !== "#brand-film") return;
+
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.controls = true;
+    setHasStarted(true);
+    void video.play().catch(() => {
+      video.controls = false;
+      setHasStarted(false);
+    });
+  }, []);
 
   const playVideo = async () => {
     const video = videoRef.current;
@@ -50,6 +65,7 @@ export default function StoryHeroVideo({
 
   return (
     <figure
+      id="brand-film"
       className="story-hero-media reveal"
       data-playing={hasStarted ? "" : undefined}
     >
