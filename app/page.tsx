@@ -87,63 +87,86 @@ function usePearlVideoScroller() {
 
     documentElement.classList.add("pearl-scroll-video-active");
 
-    const playhead = {progress: 0};
     let targetProgress = 0;
     let currentProgress = 0;
-    let maxVideoTime = videoAnchorFrames[3] / 24;
+    let lastVideoFrame: number = videoAnchorFrames[3];
+    let requestedFrame = -1;
     let animationFrame = 0;
     let objectUrl = "";
     let userReady = false;
     const abortController = new AbortController();
     const isMobile = window.matchMedia("(max-width: 900px)").matches;
 
-    gsap.to(playhead, {
-      progress: 1,
-      ease: "none",
-      onUpdate: () => {
-        targetProgress = mapJourneyToVideo(playhead.progress);
-      },
-      scrollTrigger: {
-        trigger: journey,
-        start: "top top",
-        end: "bottom bottom",
-        pin: stage,
-        pinSpacing: false,
-        scrub: 0.32,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
+    const journeyTrigger = ScrollTrigger.create({
+      trigger: journey,
+      start: "top top",
+      end: "bottom bottom",
+      pin: stage,
+      pinSpacing: false,
+      anticipatePin: 1,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        targetProgress = mapJourneyToVideo(self.progress);
       },
     });
+    targetProgress = mapJourneyToVideo(journeyTrigger.progress);
 
-    gsap.to(root, {
-      "--pearl-progress": 1,
-      ease: "none",
-      scrollTrigger: {
-        trigger: root,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 0.2,
-        snap: {
-          snapTo: [0, 0.2, 0.4, 0.6, 0.8, 1],
-          inertia: false,
-          duration: {min: 0.18, max: 0.52},
-          delay: 0.12,
-          ease: "power2.inOut",
-        },
+    gsap.utils
+      .toArray<HTMLElement>(".pearl-video-floor", root)
+      .forEach((floor) => {
+        const fadeTargets = floor.querySelectorAll<HTMLElement>(
+          ".pearl-copy, .pearl-hero-discover",
+        );
+        if (!fadeTargets.length) return;
+
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: floor,
+              start: "top 80%",
+              end: "bottom 20%",
+              scrub: true,
+            },
+          })
+          .set(fadeTargets, {autoAlpha: 0})
+          .to(fadeTargets, {autoAlpha: 0, duration: 0.25, ease: "none"})
+          .fromTo(
+            fadeTargets,
+            {autoAlpha: 0},
+            {autoAlpha: 1, duration: 0.2, ease: "none"},
+          )
+          .to(fadeTargets, {autoAlpha: 1, duration: 0.1, ease: "none"})
+          .to(fadeTargets, {autoAlpha: 0, duration: 0.2, ease: "none"})
+          .to(fadeTargets, {autoAlpha: 0, duration: 0.25, ease: "none"});
+      });
+
+    ScrollTrigger.create({
+      trigger: root,
+      start: "top top",
+      end: "bottom bottom",
+      onUpdate: (self) => {
+        root.style.setProperty("--pearl-progress", self.progress.toFixed(4));
+      },
+      snap: {
+        snapTo: [0, 0.2, 0.4, 0.6, 0.8, 1],
+        inertia: false,
+        duration: {min: 0.18, max: 0.52},
+        delay: 0.12,
+        ease: "power2.inOut",
       },
     });
 
     const renderVideoFrame = () => {
-      if (video.readyState >= 1 && !video.seeking) {
-        currentProgress += (targetProgress - currentProgress) * (isMobile ? 0.3 : 0.2);
+      if (video.readyState >= 1) {
+        currentProgress += (targetProgress - currentProgress) * (isMobile ? 0.34 : 0.28);
         if (Math.abs(targetProgress - currentProgress) < 0.00035) {
           currentProgress = targetProgress;
         }
 
-        const nextTime = currentProgress * maxVideoTime;
-        const threshold = isMobile ? 1 / 24 : 0.01;
-        if (Math.abs(video.currentTime - nextTime) > threshold) {
-          video.currentTime = nextTime;
+        const nextFrame = Math.round(currentProgress * lastVideoFrame);
+        if (!video.seeking && nextFrame !== requestedFrame) {
+          requestedFrame = nextFrame;
+          video.currentTime = nextFrame / 24;
         }
       }
       animationFrame = requestAnimationFrame(renderVideoFrame);
@@ -163,9 +186,10 @@ function usePearlVideoScroller() {
     };
 
     const onLoadedMetadata = () => {
-      maxVideoTime = Math.max(0, video.duration - 1 / 24);
+      lastVideoFrame = Math.max(1, Math.round(video.duration * 24) - 1);
       currentProgress = targetProgress;
-      video.currentTime = currentProgress * maxVideoTime;
+      requestedFrame = Math.round(currentProgress * lastVideoFrame);
+      video.currentTime = requestedFrame / 24;
       ScrollTrigger.refresh();
     };
 

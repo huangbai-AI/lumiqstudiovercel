@@ -856,51 +856,27 @@ body.pearl-home-page {
   opacity: 0;
 }
 
-.pearl-video-floor::before,
-.pearl-video-floor::after {
+.pearl-video-floor.pearl-panel-hero::before,
+.pearl-video-floor.pearl-panel-hero::after {
+  display: none;
+  content: none;
+}
+
+.pearl-video-floor .pearl-copy::before {
   position: absolute;
-  z-index: 1;
-  inset: 0;
+  z-index: -1;
+  inset: -72px -118px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(248, 247, 251, 0.96) 0%,
+    rgba(248, 247, 251, 0.82) 38%,
+    rgba(248, 247, 251, 0.4) 58%,
+    rgba(248, 247, 251, 0.12) 70%,
+    rgba(248, 247, 251, 0) 82%
+  );
   content: "";
   pointer-events: none;
-}
-
-.pearl-video-floor.pearl-panel-hero::before {
-  display: none;
-}
-
-.pearl-video-floor.pearl-panel-hero::after,
-.pearl-video-floor.pearl-panel-ola::before,
-.pearl-video-floor.pearl-panel-nest::before {
-  background: linear-gradient(
-    90deg,
-    rgba(248, 247, 251, 0.98) 0%,
-    rgba(248, 247, 251, 0.9) 17%,
-    rgba(248, 247, 251, 0.58) 31%,
-    rgba(248, 247, 251, 0) 53%
-  );
-}
-
-.pearl-video-floor.pearl-panel-hero::after {
-  background: linear-gradient(
-    90deg,
-    rgba(248, 247, 251, 0.98) 0%,
-    rgba(248, 247, 251, 0.86) 19%,
-    rgba(248, 247, 251, 0.38) 34%,
-    rgba(248, 247, 251, 0) 50%,
-    rgba(248, 247, 251, 0) 87%,
-    rgba(248, 247, 251, 0.76) 100%
-  );
-}
-
-.pearl-video-floor.pearl-panel-tablet::before {
-  background: linear-gradient(
-    270deg,
-    rgba(248, 247, 251, 0.98) 0%,
-    rgba(248, 247, 251, 0.9) 17%,
-    rgba(248, 247, 251, 0.58) 31%,
-    rgba(248, 247, 251, 0) 53%
-  );
+  transform: translateZ(0);
 }
 
 .pearl-video-failed .pearl-video-stage {
@@ -942,16 +918,14 @@ body.pearl-home-page {
     );
   }
 
-  .pearl-video-floor.pearl-panel-hero::after,
-  .pearl-video-floor.pearl-panel-ola::before,
-  .pearl-video-floor.pearl-panel-tablet::before,
-  .pearl-video-floor.pearl-panel-nest::before {
-    background: linear-gradient(
-      0deg,
-      rgba(248, 247, 251, 1) 0%,
-      rgba(248, 247, 251, 0.94) 26%,
-      rgba(248, 247, 251, 0.56) 48%,
-      rgba(248, 247, 251, 0) 68%
+  .pearl-video-floor .pearl-copy::before {
+    inset: -42px -28px;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(248, 247, 251, 0.98) 0%,
+      rgba(248, 247, 251, 0.9) 44%,
+      rgba(248, 247, 251, 0.48) 66%,
+      rgba(248, 247, 251, 0) 84%
     );
   }
 
