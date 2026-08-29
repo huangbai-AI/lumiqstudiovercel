@@ -200,3 +200,17 @@
 ## 最终状态
 
 passed
+
+## 2026-08-29 第七轮首屏对齐修订
+
+- 视觉真值：`/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/codex-clipboard-c3bf98a6-03e7-46a9-ba97-08451e6b782d.png`（3796 × 1810）。
+- 宽屏实现截图：`qa/pearl-home-iteration-7/hero-wide-alignment.png`；最终窄屏复核：`qa/pearl-home-iteration-7/hero-narrow-final.png`。
+- 同屏对照：`qa/pearl-home-iteration-7/compare-alignment.png`。源图与实现等高归一化到 900px 后并排检查。
+- 用户指出首屏真实文字没有与背景主图的大号 L 左缘对齐，判定 P1。现已按主图的完整显示宽度动态计算文字左侧位置；宽屏随主图向内收，较窄屏回到安全边距。
+- 复核时发现用于宽屏补边的同图模糊层会形成第二套淡色 LumiQ，干扰对齐判断，判定 P2。已移除重复图片，只保留珍珠白补边和主图本身；最终窄屏截图确认没有第二套字样。
+- 字体、字号、文案、产品比例、导航和播放入口均未改变；构建、类型检查、代码检查和 16 项测试全部通过。
+- 最终结果：文字左缘与主图中的大号 L 使用同一视觉基准，不再与页面边缘独立定位；没有剩余 P0/P1/P2。
+
+## 最终状态
+
+passed

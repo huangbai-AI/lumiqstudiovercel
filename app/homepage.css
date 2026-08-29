@@ -111,7 +111,8 @@ body.pearl-home-page {
 
 .pearl-copy-hero {
   top: 54%;
-  left: clamp(58px, 4.5vw, 90px);
+  /* Follow the visible left edge of the oversized L in the contained hero art. */
+  left: max(48px, 7vw, calc(50vw - 70.9svh + 12px));
   width: min(37vw, 650px);
   padding: 0;
   border: 0;
@@ -143,11 +144,8 @@ body.pearl-home-page {
     position: absolute;
     z-index: -4;
     inset: -32px;
-    background: url("/assets/home-pearl/home-products-bg.webp") center / cover no-repeat;
+    background: #f8f7fb;
     content: "";
-    filter: blur(28px) saturate(108%);
-    opacity: 0.58;
-    transform: scale(1.04);
   }
 
   .pearl-panel-hero::after {
@@ -497,9 +495,12 @@ body.pearl-home-page {
 }
 
 @media (max-width: 1100px) {
-  .pearl-copy-left,
-  .pearl-copy-hero {
+  .pearl-copy-left {
     left: 48px;
+  }
+
+  .pearl-copy-hero {
+    left: max(48px, 7vw, calc(50vw - 70.9svh + 12px));
   }
 
   .pearl-copy-right {
