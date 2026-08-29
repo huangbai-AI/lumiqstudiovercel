@@ -311,7 +311,7 @@ export default function Home() {
       <PearlPanel
         id="top"
         className="pearl-panel-hero"
-        image="/assets/home-pearl/home-products-bg.png"
+        image="/assets/home-pearl/home-products-bg.webp"
         priority
       >
         <div className="pearl-copy pearl-copy-hero">
@@ -335,8 +335,7 @@ export default function Home() {
       <PearlPanel
         id="ola"
         className="pearl-panel-ola"
-        image="/assets/home-pearl/ola-bg.png"
-        priority
+        image="/assets/home-pearl/ola-bg.webp"
       >
         <div className="pearl-copy pearl-copy-left">
           <p className="pearl-overline">{t("olaKicker")}</p>
@@ -364,7 +363,7 @@ export default function Home() {
       <PearlPanel
         id="tablet"
         className="pearl-panel-tablet"
-        image="/assets/home-pearl/tablet-bg.png"
+        image="/assets/home-pearl/tablet-bg.webp"
       >
         <div className="pearl-copy pearl-copy-right">
           <p className="pearl-overline">{t("tabletKicker")}</p>
@@ -392,7 +391,7 @@ export default function Home() {
       <PearlPanel
         id="nest-15"
         className="pearl-panel-nest"
-        image="/assets/home-pearl/nest-15-bg.png"
+        image="/assets/home-pearl/nest-15-bg.webp"
       >
         <div className="pearl-copy pearl-copy-left">
           <p className="pearl-overline">{t("nestKicker")}</p>
@@ -419,7 +418,7 @@ export default function Home() {
       <PearlPanel
         id="family"
         className="pearl-panel-family"
-        image="/assets/home-pearl/family-bg.png"
+        image="/assets/home-pearl/family-bg.webp"
       >
         <div className="pearl-copy pearl-copy-left pearl-family-copy">
           <p className="pearl-overline">{t("panoramaFamilyKicker")}</p>
@@ -446,7 +445,7 @@ export default function Home() {
       <PearlPanel
         id="join"
         className="pearl-panel-join"
-        image="/assets/home-pearl/join-bg.png"
+        image="/assets/home-pearl/join-bg.webp"
       >
         <div className="pearl-join-copy">
           <p className="pearl-overline">{t("panoramaJoinKicker")}</p>
