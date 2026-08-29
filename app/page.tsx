@@ -291,20 +291,6 @@ export default function Home() {
         image="/assets/home-pearl/home-products-bg.png"
         priority
       >
-        <video
-          className="pearl-hero-motion"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-        >
-          <source
-            src="/assets/home-pearl/lumiq-pearl-hero-h3-2k.mp4"
-            type="video/mp4"
-          />
-        </video>
         <div className="pearl-copy pearl-copy-hero">
           <p className="pearl-overline">LumiQ Studio</p>
           <h1 id="top-title">

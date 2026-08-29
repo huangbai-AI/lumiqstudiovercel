@@ -85,18 +85,6 @@ body.pearl-home-page {
   user-select: none;
 }
 
-.pearl-hero-motion {
-  position: absolute;
-  z-index: -2;
-  inset: -4%;
-  width: 108%;
-  height: 108%;
-  object-fit: cover;
-  opacity: 0.09;
-  mix-blend-mode: soft-light;
-  pointer-events: none;
-}
-
 .pearl-copy {
   position: absolute;
   z-index: 3;
@@ -209,18 +197,18 @@ body.pearl-home-page {
   right: clamp(26px, 2.3vw, 44px);
   bottom: clamp(28px, 4.7vh, 42px);
   display: inline-flex;
-  width: min(22vw, 306px);
-  min-width: 286px;
+  width: auto;
+  min-width: 0;
   min-height: 64px;
   align-items: center;
   gap: 20px;
   padding: 3px 0;
   border: 0;
-  color: transparent !important;
+  color: #171746 !important;
   background: transparent;
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   transition: transform 180ms ease;
 }
@@ -231,12 +219,18 @@ body.pearl-home-page {
   height: 58px;
   flex: 0 0 auto;
   place-items: center;
+  border: 1px solid currentColor;
   border-radius: 50%;
-  opacity: 0;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .pearl-hero-discover:hover {
   transform: translateY(-3px);
+}
+
+.pearl-hero-discover:focus-visible {
+  outline: 2px solid #171746;
+  outline-offset: 6px;
 }
 
 .pearl-feature-list {
