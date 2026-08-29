@@ -90,13 +90,13 @@ body.pearl-home-page {
   z-index: 3;
   top: 50%;
   width: min(35vw, 570px);
-  padding: clamp(26px, 2.2vw, 36px);
+  padding: 0;
   border: 0;
-  border-radius: 20px;
+  border-radius: 0;
   color: #11163f;
-  background: rgba(255, 255, 255, 0.46);
-  box-shadow: 0 20px 54px rgba(54, 45, 85, 0.045);
-  backdrop-filter: blur(24px) saturate(122%);
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
   transform: translateY(-50%);
 }
 
@@ -128,7 +128,7 @@ body.pearl-home-page {
   object-position: center bottom;
 }
 
-.pearl-overline {
+.pearl-home .pearl-overline {
   margin: 0 0 16px;
   color: #595b88;
   font-family: "Lumiq Manrope", Arial, sans-serif;
@@ -175,7 +175,7 @@ body.pearl-home-page {
 .pearl-panel-nest .pearl-copy h2,
 .pearl-panel-family .pearl-copy h2 {
   font-size: clamp(46px, 3.5vw, 62px);
-  line-height: 1.08;
+  line-height: 1.12;
   letter-spacing: -0.035em;
 }
 
@@ -204,8 +204,8 @@ body.pearl-home-page {
   max-width: 350px;
 }
 
-.pearl-subtitle {
-  margin: 20px 0 28px;
+.pearl-home .pearl-subtitle {
+  margin: clamp(22px, 1.8vw, 26px) 0 clamp(32px, 2.5vw, 38px);
   font-size: clamp(15px, 1.25vw, 19px);
   line-height: 1.5;
 }
@@ -257,7 +257,7 @@ body.pearl-home-page {
   width: min(100%, 570px);
   margin: 0;
   padding: 0;
-  gap: 12px;
+  gap: 16px;
   list-style: none;
 }
 
@@ -294,7 +294,7 @@ body.pearl-home-page {
 
 .pearl-actions {
   display: flex;
-  margin-top: 28px;
+  margin-top: 36px;
   align-items: center;
   gap: 18px;
 }
@@ -341,8 +341,8 @@ body.pearl-home-page {
   font-size: clamp(46px, 3.5vw, 62px);
 }
 
-.pearl-family-copy .pearl-lead {
-  margin: 14px 0 26px;
+.pearl-home .pearl-family-copy .pearl-lead {
+  margin: 24px 0 34px;
 }
 
 .pearl-panel-join {
@@ -365,7 +365,7 @@ body.pearl-home-page {
   letter-spacing: -0.055em;
 }
 
-.pearl-join-copy > p {
+.pearl-home .pearl-join-copy > p {
   max-width: 620px;
   margin: 26px auto 30px;
   font-size: clamp(14px, 1.25vw, 18px);
@@ -492,13 +492,13 @@ body.pearl-home-page {
     left: 16px;
     width: auto;
     max-height: calc(100svh - 112px);
-    padding: 21px 20px;
+    padding: 0;
     overflow: hidden;
     border: 0;
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 18px 48px rgba(45, 39, 83, 0.1);
-    backdrop-filter: blur(22px) saturate(112%);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
     transform: none;
   }
 
@@ -507,7 +507,9 @@ body.pearl-home-page {
     right: 16px;
     bottom: auto;
     padding: 18px 19px;
+    border-radius: 22px;
     background: rgba(250, 249, 255, 0.78);
+    backdrop-filter: blur(18px) saturate(110%);
   }
 
   .pearl-copy h1 {
@@ -519,10 +521,10 @@ body.pearl-home-page {
   .pearl-copy h2,
   .pearl-family-copy h2 {
     font-size: clamp(38px, 10vw, 52px);
-    line-height: 1.04;
+    line-height: 1.1;
   }
 
-  .pearl-overline {
+  .pearl-home .pearl-overline {
     margin-bottom: 9px;
     font-size: 8px;
   }
@@ -533,13 +535,13 @@ body.pearl-home-page {
   }
 
   .pearl-lead,
-  .pearl-subtitle {
+  .pearl-home .pearl-subtitle {
     font-size: 12px;
     line-height: 1.48;
   }
 
   .pearl-subtitle {
-    margin: 12px 0 15px;
+    margin: 14px 0 20px;
   }
 
   .pearl-word-row span {
@@ -576,7 +578,7 @@ body.pearl-home-page {
   }
 
   .pearl-feature-list {
-    gap: 6px;
+    gap: 9px;
   }
 
   .pearl-feature-list li {
@@ -591,7 +593,7 @@ body.pearl-home-page {
   }
 
   .pearl-actions {
-    margin-top: 13px;
+    margin-top: 20px;
     gap: 13px;
   }
 
@@ -605,9 +607,9 @@ body.pearl-home-page {
     font-size: 8px;
   }
 
-  .pearl-family-copy .pearl-lead,
+  .pearl-home .pearl-family-copy .pearl-lead,
   .pearl-word-row {
-    margin-top: 13px;
+    margin-top: 18px;
   }
 
   .pearl-join-copy {
@@ -649,13 +651,15 @@ body.pearl-home-page {
   .pearl-family-copy {
     right: 12px;
     left: 12px;
-    padding: 17px 16px;
-    border-radius: 21px;
+    padding: 0;
+    border-radius: 0;
   }
 
   .pearl-copy-hero {
     right: 12px;
     left: 12px;
+    padding: 17px 16px;
+    border-radius: 21px;
   }
 
   .pearl-copy h1 {
