@@ -209,19 +209,21 @@ export default function SiteHeader() {
           border-bottom-color: var(--border, rgba(0,0,0,0.08));
           box-shadow: 0 4px 24px rgba(0,0,0,0.06);
         }
+        .navbar.homepage-nav {
+          border-bottom: 0;
+        }
         .navbar.homepage-nav:not(.scrolled) {
-          background: linear-gradient(180deg, rgba(2,5,12,0.9), rgba(2,5,12,0));
-          border-bottom-color: transparent;
+          background: rgba(255,255,255,0.92);
           box-shadow: none;
         }
-        .navbar.homepage-nav:not(.scrolled) .nav-logo-img { filter: brightness(0) invert(1); }
-        .navbar.homepage-nav:not(.scrolled) .site-desktop-nav a,
-        .navbar.homepage-nav:not(.scrolled) .lang-btn { color: rgba(238,244,255,0.8); }
+        .navbar.homepage-nav:not(.scrolled) .nav-logo-img { filter: none; }
+        .navbar.homepage-nav:not(.scrolled) .site-desktop-nav a { color: var(--ink-3); }
+        .navbar.homepage-nav:not(.scrolled) .lang-btn { color: var(--ink-2); }
         .navbar.homepage-nav:not(.scrolled) .site-desktop-nav a:hover,
-        .navbar.homepage-nav:not(.scrolled) .site-desktop-nav a.active { color: #fff; }
-        .navbar.homepage-nav:not(.scrolled) .login-btn { border-color: rgba(238,244,255,0.72); color: #fff; }
-        .navbar.homepage-nav:not(.scrolled) .login-btn:hover { background: #fff; color: #071020; }
-        .navbar.homepage-nav:not(.scrolled) .site-mobile-trigger { background: rgba(7,13,28,0.58); border-color: rgba(238,244,255,0.28); color: #fff; }
+        .navbar.homepage-nav:not(.scrolled) .site-desktop-nav a.active { color: var(--ink); }
+        .navbar.homepage-nav:not(.scrolled) .login-btn { border-color: var(--ink); color: var(--ink); }
+        .navbar.homepage-nav:not(.scrolled) .login-btn:hover { background: var(--ink); color: #fff; }
+        .navbar.homepage-nav:not(.scrolled) .site-mobile-trigger { background: rgba(255,255,255,0.72); border-color: var(--border, rgba(0,0,0,0.1)); color: var(--ink); }
         .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; gap: 1.5rem; }
         .nav-logo { display: inline-flex; align-items: center; justify-content: center; width: 112px; height: 42px; overflow: visible; flex: 0 0 auto; }
         .nav-logo-img { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
