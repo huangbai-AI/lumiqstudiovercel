@@ -49,18 +49,73 @@ function usePearlVideoScroller() {
   const journeyRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const activeIndexRef = useRef(0);
+  const scrollFrameRef = useRef(0);
+  const wheelAmountRef = useRef(0);
+  const wheelTimerRef = useRef(0);
+  const scrollLockedRef = useRef(false);
 
-  const goToId = useCallback((id: SectionId) => {
-    const section = document.getElementById(id);
-    if (!section) return;
+  const goToScene = useCallback((nextIndex: number, instant = false) => {
+    const root = rootRef.current;
+    if (!root || scrollLockedRef.current) return;
 
-    section.scrollIntoView({
-      block: "start",
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth",
-    });
+    const scenes = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-pearl-scene]"),
+    );
+    if (!scenes.length) return;
+
+    const index = Math.max(0, Math.min(scenes.length - 1, nextIndex));
+    const target = scenes[index].offsetTop;
+    const start = window.scrollY;
+    activeIndexRef.current = index;
+
+    if (Math.abs(target - start) < 2) {
+      window.scrollTo(0, target);
+      return;
+    }
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const duration = reduceMotion || instant ? 1 : 980;
+    const startedAt = performance.now();
+
+    scrollLockedRef.current = true;
+    document.documentElement.classList.add("pearl-is-gliding");
+
+    const animate = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / duration);
+      const eased =
+        progress < 0.5
+          ? 4 * progress * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      window.scrollTo(0, start + (target - start) * eased);
+
+      if (progress < 1) {
+        scrollFrameRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      window.scrollTo(0, target);
+      scrollFrameRef.current = 0;
+      document.documentElement.classList.remove("pearl-is-gliding");
+      window.clearTimeout(wheelTimerRef.current);
+      wheelTimerRef.current = window.setTimeout(() => {
+        scrollLockedRef.current = false;
+        wheelAmountRef.current = 0;
+      }, 220);
+    };
+
+    scrollFrameRef.current = requestAnimationFrame(animate);
   }, []);
+
+  const goToId = useCallback(
+    (id: SectionId) => {
+      const index = ["top", "ola", "tablet", "nest-15", "family", "join"].indexOf(id);
+      if (index >= 0) goToScene(index);
+    },
+    [goToScene],
+  );
 
   useGSAP(() => {
     const root = rootRef.current;
@@ -87,6 +142,9 @@ function usePearlVideoScroller() {
 
     documentElement.classList.add("pearl-scroll-video-active");
 
+    const scenes = Array.from(
+      root.querySelectorAll<HTMLElement>("[data-pearl-scene]"),
+    );
     let targetProgress = 0;
     let currentProgress = 0;
     let lastVideoFrame: number = videoAnchorFrames[3];
@@ -110,6 +168,87 @@ function usePearlVideoScroller() {
       },
     });
     targetProgress = mapJourneyToVideo(journeyTrigger.progress);
+
+    const currentScene = () =>
+      scenes.reduce(
+        (nearest, scene, index) => {
+          const distance = Math.abs(scene.offsetTop - window.scrollY);
+          return distance < nearest.distance ? {index, distance} : nearest;
+        },
+        {index: 0, distance: Number.POSITIVE_INFINITY},
+      ).index;
+
+    const updateActiveScene = () => {
+      activeIndexRef.current = currentScene();
+    };
+
+    const onWheel = (event: WheelEvent) => {
+      if (
+        event.ctrlKey ||
+        Math.abs(event.deltaY) <= Math.abs(event.deltaX) ||
+        !window.matchMedia("(pointer: fine)").matches
+      ) {
+        return;
+      }
+
+      const index = currentScene();
+      const direction = event.deltaY > 0 ? 1 : -1;
+      const nextIndex = Math.max(0, Math.min(scenes.length - 1, index + direction));
+      if (nextIndex === index) return;
+
+      event.preventDefault();
+      wheelAmountRef.current += event.deltaY;
+      window.clearTimeout(wheelTimerRef.current);
+      wheelTimerRef.current = window.setTimeout(() => {
+        wheelAmountRef.current = 0;
+        if (!scrollFrameRef.current) scrollLockedRef.current = false;
+      }, 220);
+
+      if (scrollLockedRef.current || Math.abs(wheelAmountRef.current) < 18) return;
+      wheelAmountRef.current = 0;
+      goToScene(nextIndex);
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.altKey ||
+        (event.target instanceof Element &&
+          event.target.closest("a, button, input, textarea, select"))
+      ) {
+        return;
+      }
+
+      const index = currentScene();
+      let nextIndex = index;
+      if (
+        ["ArrowDown", "PageDown"].includes(event.key) ||
+        (event.key === " " && !event.shiftKey)
+      ) {
+        nextIndex = Math.min(scenes.length - 1, index + 1);
+      } else if (
+        ["ArrowUp", "PageUp"].includes(event.key) ||
+        (event.key === " " && event.shiftKey)
+      ) {
+        nextIndex = Math.max(0, index - 1);
+      } else if (event.key === "Home") {
+        nextIndex = 0;
+      } else if (event.key === "End") {
+        nextIndex = scenes.length - 1;
+      } else {
+        return;
+      }
+
+      event.preventDefault();
+      goToScene(nextIndex);
+    };
+
+    window.addEventListener("scroll", updateActiveScene, {passive: true});
+    window.addEventListener("wheel", onWheel, {passive: false});
+    window.addEventListener("keydown", onKeyDown);
+    updateActiveScene();
 
     gsap.utils
       .toArray<HTMLElement>(".pearl-video-floor", root)
@@ -147,14 +286,41 @@ function usePearlVideoScroller() {
       onUpdate: (self) => {
         root.style.setProperty("--pearl-progress", self.progress.toFixed(4));
       },
-      snap: {
-        snapTo: [0, 0.2, 0.4, 0.6, 0.8, 1],
-        inertia: false,
-        duration: {min: 0.18, max: 0.52},
-        delay: 0.12,
-        ease: "power2.inOut",
-      },
     });
+
+    const updateEdgeMask = () => {
+      const stageRect = stage.getBoundingClientRect();
+      const ratio = video.videoWidth / video.videoHeight || 16 / 9;
+      const objectFit = window.getComputedStyle(video).objectFit;
+
+      if (
+        window.innerWidth < 901 ||
+        !Number.isFinite(ratio) ||
+        ratio <= 0 ||
+        objectFit !== "contain"
+      ) {
+        stage.classList.remove("pearl-has-edge-mask");
+        return;
+      }
+
+      const renderedWidth = Math.min(stageRect.width, stageRect.height * ratio);
+      const sideSpace = Math.max(0, (stageRect.width - renderedWidth) / 2);
+      if (sideSpace < 2) {
+        stage.classList.remove("pearl-has-edge-mask");
+        return;
+      }
+
+      const fadeWidth = Math.min(72, renderedWidth * 0.045);
+      stage.style.setProperty("--pearl-media-edge", `${sideSpace}px`);
+      stage.style.setProperty("--pearl-media-fade", `${fadeWidth}px`);
+      stage.classList.add("pearl-has-edge-mask");
+    };
+
+    const edgeObserver = new ResizeObserver(updateEdgeMask);
+    edgeObserver.observe(stage);
+    edgeObserver.observe(video);
+    window.addEventListener("resize", updateEdgeMask);
+    updateEdgeMask();
 
     const renderVideoFrame = () => {
       if (video.readyState >= 1) {
@@ -190,6 +356,7 @@ function usePearlVideoScroller() {
       currentProgress = targetProgress;
       requestedFrame = Math.round(currentProgress * lastVideoFrame);
       video.currentTime = requestedFrame / 24;
+      updateEdgeMask();
       ScrollTrigger.refresh();
     };
 
@@ -229,15 +396,27 @@ function usePearlVideoScroller() {
       cancelAnimationFrame(animationFrame);
       video.removeEventListener("loadedmetadata", onLoadedMetadata);
       video.removeEventListener("loadeddata", onVideoReady);
+      window.removeEventListener("scroll", updateActiveScene);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("resize", updateEdgeMask);
       window.removeEventListener("pointerdown", primeVideo);
       window.removeEventListener("touchstart", primeVideo);
+      edgeObserver.disconnect();
+      if (scrollFrameRef.current) cancelAnimationFrame(scrollFrameRef.current);
+      window.clearTimeout(wheelTimerRef.current);
+      scrollFrameRef.current = 0;
+      scrollLockedRef.current = false;
+      wheelAmountRef.current = 0;
       video.removeAttribute("src");
       video.load();
       if (objectUrl) URL.revokeObjectURL(objectUrl);
       stage.classList.remove("is-video-ready");
+      stage.classList.remove("pearl-has-edge-mask");
       root.classList.remove("pearl-video-failed");
       documentElement.classList.remove(
         "pearl-home-page",
+        "pearl-is-gliding",
         "pearl-scroll-video-active",
       );
       document.body.classList.remove("pearl-home-page");
