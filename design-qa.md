@@ -201,6 +201,19 @@
 
 passed
 
+## 2026-08-29 第九轮全楼层边缘过渡修订
+
+- 视觉基准沿用第八轮用户标注：所有珍珠白全屏背景在超宽显示时，左右边缘均应自然融入页面底色。
+- 浏览器实现截图：`qa/pearl-home-iteration-8/ola-gradient.png`、`tablet-gradient.png`、`nest-15-gradient.png`、`family-gradient.png`、`join-gradient.png`，视口均为 1920 × 925，设备像素比 1。
+- 全楼层同屏复核：`qa/pearl-home-iteration-8/all-floors-gradient.png`。
+- 用户要求后续楼层同步首屏边缘处理，判定为跨楼层一致性 P1。已把 18% 宽、外侧 100% 到中心 0% 的五段浅色蒙版从首屏扩展至 Ola、Tablet、Nest 15、家庭场景和“加入 LumiQ”。
+- 复拍确认五层左右边缘无明显竖向接缝；标题、功能项、按钮、产品、人物和页脚均位于透明中心区域，未出现褪色或遮挡。
+- 手机端维持原满屏裁切规则，不添加桌面侧边蒙版；字体、间距、文案、锚点与交互均未修改。
+
+## 最终状态
+
+passed
+
 ## 2026-08-29 第八轮首屏边缘过渡修订
 
 - 视觉真值：`/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/codex-clipboard-497429e6-870c-4e48-8bed-4dea933d434f.png`（3840 × 1850）。

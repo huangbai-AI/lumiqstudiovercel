@@ -148,7 +148,7 @@ body.pearl-home-page {
     content: "";
   }
 
-  .pearl-panel-hero::after {
+  .pearl-panel::after {
     position: absolute;
     z-index: -2;
     inset: 0;
