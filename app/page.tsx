@@ -1,7 +1,24 @@
 "use client";
 
 import Image from "next/image";
-import {ArrowRight, Play} from "lucide-react";
+import {
+  ArrowRight,
+  BellRing,
+  BookOpen,
+  CalendarDays,
+  CloudSun,
+  HeartHandshake,
+  Home as HomeIcon,
+  MessageCircle,
+  Play,
+  ShieldCheck,
+  Sparkles,
+  TabletSmartphone,
+  UserRound,
+  UsersRound,
+  WandSparkles,
+  type LucideIcon,
+} from "lucide-react";
 import {useCallback, useEffect, useRef} from "react";
 import {useTranslations} from "next-intl";
 import {Link} from "@/i18n/navigation";
@@ -255,13 +272,19 @@ function PearlPanel({
   );
 }
 
-function FeatureList({items}: {items: string[]}) {
+function FeatureList({
+  items,
+}: {
+  items: {label: string; icon: LucideIcon}[];
+}) {
   return (
     <ul className="pearl-feature-list">
-      {items.map((item, index) => (
-        <li key={item}>
-          <span aria-hidden="true">0{index + 1}</span>
-          <strong>{item}</strong>
+      {items.map(({label, icon: Icon}) => (
+        <li key={label}>
+          <span className="pearl-feature-icon" aria-hidden="true">
+            <Icon size={17} strokeWidth={1.8} />
+          </span>
+          <strong>{label}</strong>
         </li>
       ))}
     </ul>
@@ -321,10 +344,10 @@ export default function Home() {
           <p className="pearl-subtitle">{t("panoramaOlaSubtitle")}</p>
           <FeatureList
             items={[
-              t("panoramaOlaFeature1"),
-              t("panoramaOlaFeature2"),
-              t("panoramaOlaFeature3"),
-              t("panoramaOlaFeature4"),
+              {label: t("panoramaOlaFeature1"), icon: UserRound},
+              {label: t("panoramaOlaFeature2"), icon: Sparkles},
+              {label: t("panoramaOlaFeature3"), icon: MessageCircle},
+              {label: t("panoramaOlaFeature4"), icon: TabletSmartphone},
             ]}
           />
           <div className="pearl-actions">
@@ -349,10 +372,10 @@ export default function Home() {
           <p className="pearl-subtitle">{t("panoramaTabletSubtitle")}</p>
           <FeatureList
             items={[
-              t("panoramaTabletFeature1"),
-              t("panoramaTabletFeature2"),
-              t("panoramaTabletFeature3"),
-              t("panoramaTabletFeature4"),
+              {label: t("panoramaTabletFeature1"), icon: BookOpen},
+              {label: t("panoramaTabletFeature2"), icon: WandSparkles},
+              {label: t("panoramaTabletFeature3"), icon: ShieldCheck},
+              {label: t("panoramaTabletFeature4"), icon: BellRing},
             ]}
           />
           <div className="pearl-actions">
@@ -377,9 +400,9 @@ export default function Home() {
           <p className="pearl-subtitle">{t("panoramaNestSubtitle")}</p>
           <FeatureList
             items={[
-              t("panoramaNestFeature1"),
-              t("panoramaNestFeature2"),
-              t("panoramaNestFeature3"),
+              {label: t("panoramaNestFeature1"), icon: CalendarDays},
+              {label: t("panoramaNestFeature2"), icon: CloudSun},
+              {label: t("panoramaNestFeature3"), icon: HomeIcon},
             ]}
           />
           <div className="pearl-actions">
@@ -402,11 +425,13 @@ export default function Home() {
           <p className="pearl-overline">{t("panoramaFamilyKicker")}</p>
           <h2 id="family-title">{t("panoramaFamilyTitle")}</h2>
           <p className="pearl-lead">{t("storyBody")}</p>
-          <div className="pearl-word-row" aria-label={t("panoramaFamilyWordsAria")}>
-            <span>{t("panoramaFamilyWord1")}</span>
-            <span>{t("panoramaFamilyWord2")}</span>
-            <span>{t("panoramaFamilyWord3")}</span>
-          </div>
+          <FeatureList
+            items={[
+              {label: t("panoramaFamilyWord1"), icon: UsersRound},
+              {label: t("panoramaFamilyWord2"), icon: HeartHandshake},
+              {label: t("panoramaFamilyWord3"), icon: Sparkles},
+            ]}
+          />
           <div className="pearl-actions">
             <Link className="pearl-primary" href="/story">
               {t("panoramaFamilyCta")} <ArrowRight size={16} />

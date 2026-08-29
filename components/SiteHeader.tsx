@@ -213,7 +213,8 @@ export default function SiteHeader() {
           border-bottom: 0;
         }
         .navbar.homepage-nav:not(.scrolled) {
-          background: rgba(255,255,255,0.92);
+          background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.9) 58%, rgba(255,255,255,0.56) 82%, rgba(255,255,255,0.18) 100%);
+          backdrop-filter: blur(12px) saturate(112%);
           box-shadow: none;
         }
         .navbar.homepage-nav:not(.scrolled) .nav-logo-img { filter: none; }
@@ -260,6 +261,7 @@ export default function SiteHeader() {
           .nav-logo { width: 96px; height: 38px; }
           .site-login-btn { padding: 0.4rem 0.85rem; font-size: 0.8125rem; }
           .site-mobile-trigger { display: inline-flex !important; }
+          .navbar.homepage-nav .site-mobile-menu:not(.open) { display: none !important; }
           .site-mobile-menu.open { display: flex !important; }
         }
         @media (max-width: 420px) {
