@@ -201,6 +201,19 @@
 
 passed
 
+## 2026-08-29 第八轮首屏边缘过渡修订
+
+- 视觉真值：`/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/codex-clipboard-497429e6-870c-4e48-8bed-4dea933d434f.png`（3840 × 1850）。
+- 浏览器实现截图：`qa/pearl-home-iteration-7/hero-edge-gradient.png`（1920 × 925，设备像素比 1）。
+- 同屏对照：`qa/pearl-home-iteration-7/compare-edge-gradient.png`；源图和实现等高归一化到 900px。
+- 用户指出超宽屏下主图左右边缘与珍珠白补边之间存在明显竖向接缝，判定 P1。已将左右蒙版由窄幅两段过渡扩展为 18% 宽的五段透明度过渡：外侧 100% 遮盖，向中心依次降至 98%、72%、30% 和 0%。
+- 复拍确认左右接缝已融入背景，主体产品、背景大字、标题和播放入口没有被蒙版削弱或遮挡。
+- 字体、间距、产品比例、文案和交互均未修改；本轮聚焦检查不需要额外局部裁切。
+
+## 最终状态
+
+passed
+
 ## 2026-08-29 第七轮首屏对齐修订
 
 - 视觉真值：`/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/codex-clipboard-c3bf98a6-03e7-46a9-ba97-08451e6b782d.png`（3796 × 1810）。
