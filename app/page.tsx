@@ -154,9 +154,6 @@ function usePearlVideoScroller() {
       trigger: journey,
       start: "top top",
       end: "bottom bottom",
-      pin: stage,
-      pinSpacing: false,
-      anticipatePin: 1,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         targetProgress = mapJourneyToVideo(self.progress);
@@ -284,35 +281,42 @@ function usePearlVideoScroller() {
     const updateEdgeMask = () => {
       const stageRect = stage.getBoundingClientRect();
       const ratio = video.videoWidth / video.videoHeight || 16 / 9;
-      const objectFit = window.getComputedStyle(video).objectFit;
 
       if (
         window.innerWidth < 901 ||
         !Number.isFinite(ratio) ||
-        ratio <= 0 ||
-        objectFit !== "contain"
+        ratio <= 0
       ) {
         stage.classList.remove("pearl-has-edge-mask");
         return;
       }
 
-      const renderedWidth = Math.min(stageRect.width, stageRect.height * ratio);
-      const sideSpace = Math.max(0, (stageRect.width - renderedWidth) / 2);
-      if (sideSpace < 2) {
-        stage.classList.remove("pearl-has-edge-mask");
-        return;
-      }
-
-      const fadeWidth = Math.min(72, renderedWidth * 0.045);
-      stage.style.setProperty("--pearl-media-edge", `${sideSpace}px`);
-      stage.style.setProperty("--pearl-media-fade", `${fadeWidth}px`);
-      stage.classList.add("pearl-has-edge-mask");
+      stage.classList.toggle(
+        "pearl-has-edge-mask",
+        stageRect.width / stageRect.height > ratio + 0.01,
+      );
     };
 
     const edgeObserver = new ResizeObserver(updateEdgeMask);
     edgeObserver.observe(stage);
     edgeObserver.observe(video);
-    window.addEventListener("resize", updateEdgeMask);
+    let resizeFrame = 0;
+    let resizeSceneIndex = activeIndexRef.current;
+    const onResize = () => {
+      if (!resizeFrame) resizeSceneIndex = activeIndexRef.current;
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(() => {
+        resizeFrame = 0;
+        updateEdgeMask();
+        ScrollTrigger.refresh();
+        const scene = scenes[resizeSceneIndex];
+        if (scene && !scrollFrameRef.current) {
+          window.scrollTo(0, scene.offsetTop);
+          activeIndexRef.current = resizeSceneIndex;
+        }
+      });
+    };
+    window.addEventListener("resize", onResize);
     updateEdgeMask();
 
     const renderVideoFrame = () => {
@@ -392,10 +396,11 @@ function usePearlVideoScroller() {
       window.removeEventListener("scroll", updateActiveScene);
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("resize", updateEdgeMask);
+      window.removeEventListener("resize", onResize);
       window.removeEventListener("pointerdown", primeVideo);
       window.removeEventListener("touchstart", primeVideo);
       edgeObserver.disconnect();
+      cancelAnimationFrame(resizeFrame);
       if (scrollFrameRef.current) cancelAnimationFrame(scrollFrameRef.current);
       window.clearTimeout(wheelTimerRef.current);
       scrollFrameRef.current = 0;
@@ -438,16 +443,18 @@ function PearlVideoFloor({
       className={`pearl-panel pearl-video-floor ${className}`}
       aria-labelledby={`${id}-title`}
     >
-      <Image
-        className="pearl-panel-bg pearl-video-floor-fallback"
-        src={fallbackImage}
-        alt=""
-        fill
-        sizes="100vw"
-        unoptimized
-        priority={priority}
-      />
-      {children}
+      <div className="pearl-media-frame pearl-fallback-frame" aria-hidden="true">
+        <Image
+          className="pearl-panel-bg pearl-video-floor-fallback"
+          src={fallbackImage}
+          alt=""
+          fill
+          sizes="100vw"
+          unoptimized
+          priority={priority}
+        />
+      </div>
+      <div className="pearl-overlay-frame">{children}</div>
     </section>
   );
 }
@@ -472,16 +479,18 @@ function PearlPanel({
       className={`pearl-panel ${className}`}
       aria-labelledby={`${id}-title`}
     >
-      <Image
-        className="pearl-panel-bg"
-        src={image}
-        alt=""
-        fill
-        sizes="100vw"
-        unoptimized
-        priority={priority}
-      />
-      {children}
+      <div className="pearl-media-frame" aria-hidden="true">
+        <Image
+          className="pearl-panel-bg"
+          src={image}
+          alt=""
+          fill
+          sizes="100vw"
+          unoptimized
+          priority={priority}
+        />
+      </div>
+      <div className="pearl-overlay-frame">{children}</div>
     </section>
   );
 }
@@ -525,23 +534,25 @@ export default function Home() {
 
       <div ref={journeyRef} className="pearl-video-journey">
         <div ref={stageRef} className="pearl-video-stage" aria-hidden="true">
-          <Image
-            className="pearl-video-poster"
-            src="/assets/home-pearl/lumiq-scroll-world-poster.jpg"
-            alt=""
-            fill
-            sizes="100vw"
-            unoptimized
-            priority
-          />
-          <video
-            ref={videoRef}
-            className="pearl-scroll-video"
-            muted
-            playsInline
-            preload="none"
-            tabIndex={-1}
-          />
+          <div className="pearl-media-frame">
+            <Image
+              className="pearl-video-poster"
+              src="/assets/home-pearl/lumiq-scroll-world-poster.jpg"
+              alt=""
+              fill
+              sizes="100vw"
+              unoptimized
+              priority
+            />
+            <video
+              ref={videoRef}
+              className="pearl-scroll-video"
+              muted
+              playsInline
+              preload="none"
+              tabIndex={-1}
+            />
+          </div>
         </div>
 
         <div className="pearl-video-scenes">

@@ -254,7 +254,7 @@ export default function SiteHeader() {
         .site-mobile-languages button.active { background: var(--ink); color: white; border-color: var(--ink); }
         .site-login-btn { display: inline-flex !important; padding: 0.45rem 1rem; font-size: 0.8125rem; }
         .nav-logo:focus-visible, .site-desktop-nav a:focus-visible, .lang-btn:focus-visible, .site-mobile-trigger:focus-visible, .site-mobile-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 8px; }
-        @media (max-width: 767px) {
+        @media (max-width: 1120px) {
           .site-desktop-nav, .site-desktop-action { display: none !important; }
           .nav-actions { gap: 0.5rem; }
           .nav-inner { padding: 0.85rem 1.25rem; }
@@ -271,7 +271,7 @@ export default function SiteHeader() {
           .site-login-btn { padding: 0.4rem 0.7rem; font-size: 0.75rem; white-space: nowrap; }
           .site-mobile-trigger { width: 38px; height: 38px; }
         }
-        @media (min-width: 768px) {
+        @media (min-width: 1121px) {
           .site-desktop-nav { display: flex !important; }
           .site-desktop-action { display: block !important; }
           .site-mobile-trigger, .site-mobile-menu { display: none !important; }
