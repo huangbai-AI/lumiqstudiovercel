@@ -201,6 +201,20 @@
 
 passed
 
+## 2026-08-29 第十一轮动态边缘蒙版修订
+
+- 视觉真值：`/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/TemporaryItems/NSIRD_screencaptureui_hN9ZkS/截屏2026-08-29 19.28.21.png`（3802 × 1918）。
+- 普通桌面复拍：`qa/pearl-home-iteration-10/hero-standard-no-mask-final.png`（1440 × 800）；超宽桌面复拍：`qa/pearl-home-iteration-10/hero-wide-relative-mask-final.png`（1901 × 959）。
+- 同屏对照：`qa/pearl-home-iteration-10/compare-dynamic-mask.png`；源图按 2:1 归一化后与超宽实现并排检查。
+- 用户进一步明确：蒙版不能按窗口百分比固定存在，而应只在超宽屏、实际素材左右出现空余时启用，判定为 P1。现已改为读取素材的真实显示尺寸和边缘位置：窗口小于 1600px、素材铺满或侧边空余不足 24px 时完全关闭蒙版。
+- 超宽屏出现真实侧边空余时，左右渐变从空余区贴着素材边缘向内过渡，最大过渡宽度为 72px；素材缩放或窗口变化时同步更新，不再侵入大号 LUMIQ 主体。
+- 该规则由所有珍珠白楼层共用；只有真实产生横向空余的背景图或视频才显示蒙版，铺满画面的楼层不会增加多余遮罩。
+- 最终复拍确认：1440px 普通屏无蒙版，1901px 超宽屏仅在素材边缘出现短渐变，大号 L 与 Q、产品、标题及播放入口完整；代码检查、类型检查、16 项测试和正式构建全部通过。
+
+## 最终状态
+
+passed
+
 ## 2026-08-29 第十轮蒙版收窄修订
 
 - 视觉真值：`/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/TemporaryItems/NSIRD_screencaptureui_hN9ZkS/截屏2026-08-29 19.28.21.png`（3802 × 1918）。

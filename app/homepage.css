@@ -148,21 +148,17 @@ body.pearl-home-page {
     content: "";
   }
 
-  .pearl-panel::after {
+  .pearl-panel.pearl-has-edge-mask::after {
     position: absolute;
     z-index: -2;
     inset: 0;
     background: linear-gradient(
       90deg,
       rgba(248, 247, 251, 1) 0%,
-      rgba(248, 247, 251, 1) 7%,
-      rgba(248, 247, 251, 0.78) 9%,
-      rgba(248, 247, 251, 0.35) 11%,
-      rgba(248, 247, 251, 0) 13%,
-      rgba(248, 247, 251, 0) 87%,
-      rgba(248, 247, 251, 0.35) 89%,
-      rgba(248, 247, 251, 0.78) 91%,
-      rgba(248, 247, 251, 1) 93%,
+      rgba(248, 247, 251, 1) var(--pearl-media-edge),
+      rgba(248, 247, 251, 0) calc(var(--pearl-media-edge) + var(--pearl-media-fade)),
+      rgba(248, 247, 251, 0) calc(100% - var(--pearl-media-edge) - var(--pearl-media-fade)),
+      rgba(248, 247, 251, 1) calc(100% - var(--pearl-media-edge)),
       rgba(248, 247, 251, 1) 100%
     );
     content: "";

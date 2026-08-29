@@ -251,8 +251,63 @@ function PearlPanel({
   children: React.ReactNode;
   priority?: boolean;
 }) {
+  const panelRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const panel = panelRef.current;
+    const media = panel?.querySelector<HTMLImageElement>(".pearl-panel-bg");
+    if (!panel || !media) return;
+
+    const updateEdgeMask = () => {
+      const panelRect = panel.getBoundingClientRect();
+      const mediaRect = media.getBoundingClientRect();
+      const ratio = media.naturalWidth / media.naturalHeight;
+      const objectFit = window.getComputedStyle(media).objectFit;
+
+      if (
+        window.innerWidth < 1600 ||
+        !Number.isFinite(ratio) ||
+        ratio <= 0 ||
+        objectFit !== "contain"
+      ) {
+        panel.classList.remove("pearl-has-edge-mask");
+        return;
+      }
+
+      const renderedWidth = Math.min(mediaRect.width, mediaRect.height * ratio);
+      const sideSpace = Math.max(
+        0,
+        mediaRect.left - panelRect.left + (mediaRect.width - renderedWidth) / 2,
+      );
+
+      if (sideSpace < 24) {
+        panel.classList.remove("pearl-has-edge-mask");
+        return;
+      }
+
+      const fadeWidth = Math.min(72, renderedWidth * 0.045);
+      panel.style.setProperty("--pearl-media-edge", `${sideSpace}px`);
+      panel.style.setProperty("--pearl-media-fade", `${fadeWidth}px`);
+      panel.classList.add("pearl-has-edge-mask");
+    };
+
+    const observer = new ResizeObserver(updateEdgeMask);
+    observer.observe(panel);
+    observer.observe(media);
+    media.addEventListener("load", updateEdgeMask);
+    window.addEventListener("resize", updateEdgeMask);
+    updateEdgeMask();
+
+    return () => {
+      observer.disconnect();
+      media.removeEventListener("load", updateEdgeMask);
+      window.removeEventListener("resize", updateEdgeMask);
+    };
+  }, []);
+
   return (
     <section
+      ref={panelRef}
       id={id}
       data-pearl-scene
       className={`pearl-panel ${className}`}
