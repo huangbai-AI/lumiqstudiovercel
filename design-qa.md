@@ -1,61 +1,62 @@
-# LumiQ Home Design QA
+# Home 页视觉验收
 
-- source visual truth: `/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/codex-clipboard-3bf251d0-6b93-483a-951c-cca7e0776a84.png`
-- rendered implementation: `http://127.0.0.1:3021/en`
-- desktop implementation screenshot: `/Users/a1/.codex/worktrees/lumiq-home-warm-source/.design-qa/home-original-long.png`
-- clean user-facing long screenshot: `/Users/a1/.codex/worktrees/lumiq-home-warm-source/.design-qa/home-original-long-clean.png`
-- mobile evidence: `/Users/a1/.codex/worktrees/lumiq-home-warm-source/.design-qa/home-mobile-board.png`
-- final combined comparison: `/Users/a1/.codex/worktrees/lumiq-home-warm-source/.design-qa/home-source-vs-implementation-final.png`
-- focused final-panel evidence: `/Users/a1/.codex/worktrees/lumiq-home-warm-source/.design-qa/home-join-desktop.png`
-- state: English home, default/light appearance, all six snap panels; separate Traditional Chinese and Japanese mobile checks
+- source visual truth:
+  - `/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/TemporaryItems/NSIRD_screencaptureui_L8c1zD/截屏2026-08-29 15.16.04.png`
+  - `/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/TemporaryItems/NSIRD_screencaptureui_RPcKLQ/截屏2026-08-29 15.16.50.png`
+  - `/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/TemporaryItems/NSIRD_screencaptureui_52LHbu/截屏2026-08-29 15.17.14.png`
+  - `/var/folders/zn/896c9d3n7x1bv9tzsmkfvs880000gn/T/TemporaryItems/NSIRD_screencaptureui_ypzfpH/截屏2026-08-29 15.18.12.png`
+- implementation screenshots:
+  - `.design-qa/homepage-desktop-long-v2.png`
+  - `.design-qa/hero-desktop-v2.png`
+  - `.design-qa/tablet-desktop-v2.png`
+  - `.design-qa/join-desktop-v2.png`
+  - `.design-qa/hero-mobile-v2.png`
+  - `.design-qa/tablet-mobile-v2.png`
+  - `.design-qa/join-mobile-v2.png`
+- comparison boards:
+  - `.design-qa/hero-comparison-v2.jpg`
+  - `.design-qa/tablet-comparison-v2.jpg`
+  - `.design-qa/join-footer-comparison-v2.jpg`
+- state: `/en` Home，首屏、Tablet、Join；桌面与手机默认状态
+- viewport: 桌面 1904 × 835 CSS px；手机 390 × 844 CSS px
+- density normalization: 用户桌面截图为 2× 密度（3808 × 1670 等），对比板统一缩放到 1889 × 828 可视内容；浏览器截图为 1× 密度。手机截图为 1×。
 
-## Normalization
+## 对比历史
 
-- source pixels: 1905 × 6480
-- implementation panel captures: 1890 × 1071 each at a 1905 × 1080 browser viewport, device scale factor 1
-- combined implementation: 1890 × 6426, normalized to 1905 × 6480 for side-by-side comparison
-- mobile viewport: 390 × 844 CSS pixels; captured content is 375 × 812 because of browser chrome/scrollbar allocation
-- the repeated fixed header in the stitched implementation column is a capture artifact from six viewport screenshots. In the live page it is one persistent global header; the clean long screenshot removes the repeated strips.
+### 第一轮发现
 
-## Required fidelity surfaces
+- [P1] Tablet 场景的平板朝向和结构不可信：原图中产品角度容易被理解为背面朝向镜头，手部、边框与屏幕关系混乱。
+- [P2] 首屏英文标题在桌面断成四行，字距和行距偏紧，主视觉显得拥挤。
+- [P2] Join 场景内部重复放置了一条迷你页脚，造成一屏内出现“封底”，同时与网站正式页脚重复。
 
-- fonts and typography: Playfair Display and the existing CJK fallbacks match the original hierarchy, weight, scale, line-height, wrapping, and small uppercase labels. No clipping or truncation was found.
-- spacing and layout rhythm: all six panels are exactly one viewport high at desktop and mobile. Copy alignment, product crops, panel order, value strip, and CTA placement match the source composition.
-- colors and tokens: navy, warm cream, gold, dark-brown overlays, translucent masks, and CTA contrast match the source. Text remains legible on every image.
-- image quality and asset fidelity: the exact prior 4K scene assets are used, including dedicated 2160 × 3840 mobile hero and family images. No placeholder, CSS illustration, or substitute artwork is present.
-- copy and content: the original English copy is restored. Equivalent Traditional Chinese and Japanese copy is present, with valid language tags and no horizontal overflow.
-- interactions and accessibility: mouse wheel and keyboard input snap exactly to panel tops; anchor navigation, product links, waitlist link, reduced-motion behavior, semantic landmarks, labels, and alt text are present. Browser console error check returned no errors.
+### 修复
 
-## Comparison history
+- 使用 LibTV General Image Pro 原生 4K 生成新的 5504 × 3072 Tablet 场景；屏幕朝向人物，人物视线、双手、边框、摄像头与屏幕透视关系一致，右侧保留文字空间。
+- 首屏标题容器加宽到 760px，英文标题调整为最高 80px、1.03 行高、-0.03em 字距，并增加标题与正文间距。
+- 删除 Join 场景内部迷你页脚，将行动内容重新垂直居中；保留全站正式页脚。
 
-### Pass 1
+### 第二轮可见证据
 
-- [P2] The first migration omitted the compact footer inside the final action panel.
-  - evidence: the source included the compact LumiQ footer within the sixth screen; the initial implementation ended after the CTA.
-  - fix: restored the original compact footer inside the final panel while preserving the correct baseline global footer below the homepage.
+- 完整对比：长图中六个楼层均为完整一屏，视觉顺序和暖色家庭叙事保持不变。
+- 聚焦对比：Tablet 对比板显示屏幕明确朝向女孩，手部与产品几何正确，右侧文字对比度充足。
+- 聚焦对比：Hero 对比板显示英文标题稳定为三行，行距与字距更舒展，产品区仍完整可见。
+- 聚焦对比：Join 底部对比板显示内部封底已完全移除；真实全站页脚只在六屏内容之后出现。
 
-### Pass 2
+## 必检项
 
-- post-fix evidence: `home-source-vs-implementation-final.png` and `home-join-desktop.png`
-- no actionable P0, P1, or P2 differences remain.
-- the correct baseline global navigation is slightly larger than the standalone proposal header and remains fixed while scrolling. This is an intentional integration constraint, not a homepage redesign.
+- 字体与排版：通过。桌面标题三行；移动端无溢出或遮挡；正文层级清楚。
+- 间距与布局：通过。六个楼层在桌面均为 835px，与视口高度一致；锚点落点 top=0。
+- 色彩与对比：通过。暖色基调保持一致，Tablet 右侧深色留白与白字对比充分。
+- 图片质量：通过。新 Tablet 图为 5504 × 3072，无模糊、错手、反向屏幕或裁切主体问题。
+- 文案与内容：通过。原有多语言文案未修改。
+- 响应式：通过。390 × 844 下每层仍为 844px，无横向溢出，Tablet 主体和文字均完整。
+- 交互：通过。首屏按钮滚动到 `#ola` 后该楼层 top=0；Tablet 入口为 `/en/products/tablet`；最终按钮为 `/en/prelaunch`。
+- 可访问性：通过。图片保留本地化替代文字，键盘与减少动态效果逻辑未改动。
+- 控制台：无 error 或 warning。
 
-## Primary interactions tested
+## 残余差异
 
-- mouse wheel: Home → Ola stopped at exactly one viewport
-- keyboard: ArrowUp returned Ola → Home at exactly the section top
-- side anchors: all six panels reached exact panel tops
-- product CTA: `/en/products/ola`
-- waitlist CTA: `/en/prelaunch`
-- locales: `/en`, `/zh-hant`, `/ja`
-- mobile: six panels at 844 px each, zero horizontal overflow
-
-## Findings
-
-- No actionable P0/P1/P2 findings.
-
-## Follow-up polish
-
-- None required for fidelity.
+- 新 Tablet 场景不是旧图的像素级重制，而是按用户要求对产品方向与人物交互重新生成；这是有意修正，不是设计漂移。
+- 浏览器自身的悬浮圆形工具会出现在截图左下角，不属于网站内容。
 
 final result: passed

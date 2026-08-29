@@ -140,7 +140,6 @@ function useHomeSnap() {
 
 export default function HomePage() {
   const t = useTranslations("Home");
-  const common = useTranslations("Common");
   const { rootRef, activeSection } = useHomeSnap();
 
   return (
@@ -195,8 +194,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="tablet" data-snap-section className="home-panel home-product-panel panel-dark-right">
-        <img className="home-panel-image" src="/assets/home/tablet-reading.webp" alt={t("tabletSceneAlt")} />
+      <section id="tablet" data-snap-section className="home-panel home-product-panel home-tablet-panel panel-dark-right">
+        <img className="home-panel-image" src="/assets/home/tablet-reading-libtv-4k.webp" alt={t("tabletSceneAlt")} />
         <div className="home-panel-scrim" aria-hidden="true" />
         <div className="home-panel-copy home-copy-right home-copy-light">
           <span className="home-panel-index">03 / 06</span>
@@ -252,17 +251,6 @@ export default function HomePage() {
             {t("finalAction")} <ArrowRight size={17} aria-hidden="true" />
           </Link>
         </div>
-        <footer className="home-final-footer">
-          <img src="/lumiq-logo.png" alt="LumiQ Studio" />
-          <nav aria-label={common("primaryNavigation")}>
-            <Link href="/story">{common("brandStory")}</Link>
-            <Link href="/products">{common("products")}</Link>
-            <Link href="/plans">{common("plans")}</Link>
-            <Link href="/media">{common("mediaReviews")}</Link>
-            <Link href="/faq">{common("faq")}</Link>
-          </nav>
-          <small>© 2026 LumiQ Studio</small>
-        </footer>
       </section>
     </main>
   );
